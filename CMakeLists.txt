@@ -20,7 +20,7 @@ add_library(wble SHARED
 set_target_properties(wble PROPERTIES VERSION ${PROJECT_VERSION})
 set_target_properties(wble PROPERTIES SOVERSION 1)
 
-set_target_properties(wble PROPERTIES PUBLIC_HEADER src/DoubleSlider.h)
+set_property(TARGET wble PROPERTY PUBLIC_HEADER src/DoubleSlider.h src/wble_global.h)
 target_include_directories(wble PRIVATE src)
 include(GNUInstallDirs)
 
