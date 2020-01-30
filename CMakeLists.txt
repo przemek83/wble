@@ -21,7 +21,7 @@ set_target_properties(wble PROPERTIES VERSION ${PROJECT_VERSION})
 set_target_properties(wble PROPERTIES SOVERSION 1)
 
 set_property(TARGET wble PROPERTY PUBLIC_HEADER src/DoubleSlider.h src/wble_global.h)
-target_include_directories(wble PRIVATE src)
+target_include_directories(wble PUBLIC src)
 include(GNUInstallDirs)
 
 target_link_libraries(wble PRIVATE Qt5::Widgets)
@@ -31,3 +31,12 @@ target_compile_definitions(wble PRIVATE WBLE_LIBRARY)
 install(TARGETS wble
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+
+file(GLOB_RECURSE DLLS "${CMAKE_BINARY_DIR}/*.dll" )
+file(COPY ${DLLS} DESTINATION ${CMAKE_BINARY_DIR}/examples)
+file(COPY ${DLLS} DESTINATION ${CMAKE_BINARY_DIR}/tests)
+
+add_subdirectory(examples)
+
+enable_testing()
+add_subdirectory(tests)
