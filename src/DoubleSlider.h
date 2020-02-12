@@ -12,7 +12,7 @@ class WBLE_EXPORT DoubleSlider : public QSlider
 {
     Q_OBJECT
 public:
-    DoubleSlider(int min, int max, QWidget* parent = nullptr);
+    DoubleSlider(double min, double max, QWidget* parent = nullptr);
 
     ~DoubleSlider() override = default;
 
@@ -37,9 +37,9 @@ protected:
     void mouseMoveEvent(QMouseEvent* event) override;
 
 private:
-    int getCurrentMin();
+    double getCurrentMin();
 
-    int getCurrentMax();
+    double getCurrentMax();
 
     int getLeftHandlePosition() const;
 
@@ -53,6 +53,12 @@ private:
 
     void drawHandles(QPainter& painter) const;
 
+    int getMousePosX(QMouseEvent* event) const;
+
+    bool mouseIsOnHandle(int mousePosX, int handlePos) const;
+
+    int getHandleMiddlePosX(int handlePos, int handleWidth, int span) const;
+
     double currentMin_ {0.};
 
     double currentMax_ {0.};
@@ -63,11 +69,11 @@ private:
 
     static constexpr int cursorSize_{16};
 
-    double mousePositionX_{0};
+    double mousePositionX_{0.};
 
-    int lastEmittedMin_ {0};
+    double lastEmittedMin_ {0.};
 
-    int lastEmittedMax_ {0};
+    double lastEmittedMax_ {0.};
 
     ///Flag to remember handle is moving.
     int moving_{0};
@@ -80,10 +86,12 @@ private:
 
     static constexpr int MAX_PERCENT{100};
 
-Q_SIGNALS:
-    void minChanged(int);
+    static constexpr double BAR_HEIGHT_RATIO{1. / 3.};
 
-    void maxChanged(int);
+Q_SIGNALS:
+    void minChanged(double);
+
+    void maxChanged(double);
 };
 
 #endif // DOUBLESLIDER_H

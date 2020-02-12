@@ -2,6 +2,7 @@
 #include <QGroupBox>
 #include <QLabel>
 #include <QPushButton>
+#include <QStyleFactory>
 #include <QVBoxLayout>
 #include <QWindow>
 
@@ -11,19 +12,21 @@ int main(int argc, char* argv[])
 {
     QApplication a(argc, argv);
 
-    const int min {0};
-    const int max {100};
+    QApplication::setStyle(QStyleFactory::create("Fusion"));
+
+    const double min {-100.};
+    const double max {100.};
 
     QWidget widget;
 
-    QGroupBox groupBox(QStringLiteral("DoubleSlider"), &widget);
+    QGroupBox groupBox(QStringLiteral("DoubleSlider integers"), &widget);
     QVBoxLayout layout(&widget);
 
     DoubleSlider slider(min, max, &widget);
     layout.addWidget(&slider);
 
     QLabel fromLabel(QString::number(min), &widget);
-    const auto updateFromLabel = [&](int newMin) {fromLabel.setText(QString::number(newMin));};
+    const auto updateFromLabel = [&](double newMin) {fromLabel.setText(QString::number(newMin));};
     QObject::connect(&slider,
                      &DoubleSlider::minChanged,
                      &fromLabel,
@@ -31,7 +34,7 @@ int main(int argc, char* argv[])
     layout.addWidget(&fromLabel);
 
     QLabel toLabel(QString::number(max), &widget);
-    const auto updateToLabel = [&](int newMax) {toLabel.setText(QString::number(newMax));};
+    const auto updateToLabel = [&](double newMax) {toLabel.setText(QString::number(newMax));};
     QObject::connect(&slider,
                      &DoubleSlider::maxChanged,
                      &toLabel,

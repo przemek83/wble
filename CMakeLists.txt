@@ -10,7 +10,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-find_package(Qt5 COMPONENTS Widgets REQUIRED)
+find_package(Qt5 COMPONENTS Widgets Core REQUIRED)
 add_definitions( ${QT_DEFINITIONS} )
 
 add_library(wble SHARED
@@ -26,7 +26,7 @@ set_property(TARGET wble PROPERTY PUBLIC_HEADER src/DoubleSlider.h src/wble_glob
 target_include_directories(wble PUBLIC src)
 include(GNUInstallDirs)
 
-target_link_libraries(wble PRIVATE Qt5::Widgets)
+target_link_libraries(wble PRIVATE Qt5::Core Qt5::Widgets)
 
 target_compile_definitions(wble PRIVATE WBLE_LIBRARY)
 
