@@ -37,6 +37,13 @@ protected:
     void mouseMoveEvent(QMouseEvent* event) override;
 
 private:
+    enum class Handle : unsigned short int
+    {
+        NONE,
+        LEFT,
+        RIGHT
+    };
+
     double getCurrentMin();
 
     double getCurrentMax();
@@ -76,7 +83,7 @@ private:
     double lastEmittedMax_ {0.};
 
     ///Flag to remember handle is moving.
-    int moving_{0};
+    Handle moving_{Handle::NONE};
 
     ///Mouse on left handle.
     bool isOnMinHandle_{false};
