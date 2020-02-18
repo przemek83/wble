@@ -36,6 +36,8 @@ protected:
 
     void mouseMoveEvent(QMouseEvent* event) override;
 
+    void changeEvent(QEvent* event) override;
+
 private:
     enum class Handle : unsigned short int
     {
@@ -66,6 +68,8 @@ private:
 
     int getHandleMiddlePosX(int handlePos, int handleWidth, int span) const;
 
+    void setHandleRect();
+
     double currentMin_ {0.};
 
     double currentMax_ {0.};
@@ -94,6 +98,8 @@ private:
     static constexpr int MAX_PERCENT{100};
 
     static constexpr double BAR_HEIGHT_RATIO{1. / 3.};
+
+    QRect handleRect_;
 
 Q_SIGNALS:
     void minChanged(double);

@@ -33,6 +33,8 @@ DoubleSlider::DoubleSlider(double min, double max, QWidget* parent) :
 
     setMinimum(0);
     setMaximum(100);
+
+    setHandleRect();
 }
 
 double DoubleSlider::getCurrentMin()
@@ -111,6 +113,16 @@ void DoubleSlider::mouseReleaseEvent(QMouseEvent* event)
     update();
 }
 
+void DoubleSlider::changeEvent(QEvent* event)
+{
+    QSlider::changeEvent(event);
+
+    if (event->type() == QEvent::StyleChange)
+    {
+        setHandleRect();
+    }
+}
+
 bool DoubleSlider::mouseIsOnHandle(int mousePosX, int handlePos) const
 {
     QStyleOptionSlider defaultStyle;
@@ -118,18 +130,13 @@ bool DoubleSlider::mouseIsOnHandle(int mousePosX, int handlePos) const
     const QRect innerRect(defaultStyle.rect);
     int handlePosX = QStyle::sliderPositionFromValue(0, MAX_PERCENT, handlePos, innerRect.width() - innerRect.x());
 
-    const QRect handleRect = style()->subControlRect(QStyle::CC_Slider,
-                                                     &defaultStyle,
-                                                     QStyle::SC_SliderHandle,
-                                                     this);
-
     // Handle drawing rectangle is shifted according to position on handle bar:
     // - on left adge handle rectangle is placed between min and handle width.
     // - on right adge handle rectangle is placed between max - handle width and max.
     // - on center handle rectangle is placed between center - handle width / 2 and center + handle width / 2.
     const double shiftRatio {handlePos / static_cast<double>(MAX_PERCENT)};
-    return mousePosX <= handlePosX + handleRect.width() * (1 - shiftRatio) &&
-           mousePosX >= handlePosX - handleRect.width() * shiftRatio;
+    return mousePosX <= handlePosX + handleRect_.width() * (1 - shiftRatio) &&
+           mousePosX >= handlePosX - handleRect_.width() * shiftRatio;
 }
 
 void DoubleSlider::mouseMoveEvent(QMouseEvent* event)
@@ -218,15 +225,12 @@ void DoubleSlider::drawSliderBar(QPainter& painter) const
     QStyleOptionSlider barStyle;
     initStyleOption(&barStyle);
     const QRect innerRect(barStyle.rect);
-    const QRect handleRect = style()->subControlRect(QStyle::CC_Slider,
-                                                     &barStyle,
-                                                     QStyle::SC_SliderHandle,
-                                                     this);
+
     const int handleHight =
         static_cast<int>(innerRect.height() * BAR_HEIGHT_RATIO);
-    const QRect plain = QRect(innerRect.x() + handleRect.width() / 4,
+    const QRect plain = QRect(innerRect.x() + handleRect_.width() / 4,
                               innerRect.y() + handleHight,
-                              innerRect.width() - handleRect.width() / 2,
+                              innerRect.width() - handleRect_.width() / 2,
                               handleHight);
     qDrawPlainRect(&painter, plain, palette().color(QPalette::Dark));
 }
@@ -241,6 +245,16 @@ int DoubleSlider::getHandleMiddlePosX(int handlePos, int handleWidth, int span) 
     return handleMiddleX;
 }
 
+void DoubleSlider::setHandleRect()
+{
+    QStyleOptionSlider defaultStyle;
+    initStyleOption(&defaultStyle);
+    handleRect_ = style()->subControlRect(QStyle::CC_Slider,
+                                          &defaultStyle,
+                                          QStyle::SC_SliderHandle,
+                                          this);
+}
+
 void DoubleSlider::drawSliderBarBetweenHandles(QPainter& painter) const
 {
     QStyleOptionSlider defaultStyle;
@@ -249,22 +263,18 @@ void DoubleSlider::drawSliderBarBetweenHandles(QPainter& painter) const
 
     const int barHeight =
         static_cast<int>(std::round(innerRect.height() * BAR_HEIGHT_RATIO));
-    const QRect handleRect = style()->subControlRect(QStyle::CC_Slider,
-                                                     &defaultStyle,
-                                                     QStyle::SC_SliderHandle,
-                                                     this);
 
     const int leftHandlePosition = getLeftHandlePosition();
     const int rightHandlePosition = getRightHandlePosition();
 
     const int leftHandleMiddleX =
         getHandleMiddlePosX(leftHandlePosition,
-                            handleRect.width(),
+                            handleRect_.width(),
                             innerRect.width() - innerRect.x());
 
     const int rightHandleMiddleX =
         getHandleMiddlePosX(rightHandlePosition,
-                            handleRect.width(),
+                            handleRect_.width(),
                             innerRect.width() - innerRect.x());
 
     const QRect barRect = QRect(innerRect.x() + leftHandleMiddleX,
