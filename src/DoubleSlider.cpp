@@ -92,7 +92,17 @@ int DoubleSlider::getMousePosX(QMouseEvent* event) const
     QStyleOptionSlider defaultStyle;
     initStyleOption(&defaultStyle);
     const QRect innerRect(defaultStyle.rect);
-    int pos = QStyle::sliderValueFromPosition(0, MAX_PERCENT, event->x(), innerRect.width() - innerRect.x());
+    const int sliderBarWidth {innerRect.width() - innerRect.x()};
+
+    // Handle drawing rectangle is shifted according to position on handle bar.
+    const double shiftRatio =
+        static_cast<double>(event->x()) / sliderBarWidth - 0.5;
+    const int shiftInPixels =
+        static_cast<int>(std::round(handleRect_.width() * shiftRatio));
+    const int pos = QStyle::sliderValueFromPosition(0,
+                                                    MAX_PERCENT,
+                                                    event->x() + shiftInPixels,
+                                                    sliderBarWidth);
     return pos;
 }
 
