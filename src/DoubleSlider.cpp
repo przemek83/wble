@@ -26,8 +26,8 @@ DoubleSlider::DoubleSlider(double min, double max, QWidget* parent) :
     setCurrentMin(minValue_);
     setCurrentMax(maxValue_);
 
-    lastEmittedMin_ = getCurrentMin();
-    lastEmittedMax_ = getCurrentMax();
+    lastEmittedMin_ = currentMin_ + minValue_;
+    lastEmittedMax_ = currentMax_ + minValue_;
 
     setMouseTracking(true);
 
@@ -35,16 +35,6 @@ DoubleSlider::DoubleSlider(double min, double max, QWidget* parent) :
     setMaximum(100);
 
     setHandleRect();
-}
-
-double DoubleSlider::getCurrentMin()
-{
-    return currentMin_ + minValue_;
-}
-
-double DoubleSlider::getCurrentMax()
-{
-    return currentMax_ + minValue_;
 }
 
 void DoubleSlider::setCurrentMin(double currentMinToSet)
@@ -146,7 +136,13 @@ bool DoubleSlider::mouseIsOnHandle(int mousePosX, int handlePos) const
 
 void DoubleSlider::mouseMoveEvent(QMouseEvent* event)
 {
-    int newPosition = getMousePosition(event);
+    if ((event->buttons() & Qt::LeftButton) == 0U)
+    {
+        moving_ = Handle::NONE;
+        return;
+    }
+
+    const int newPosition = getMousePosition(event);
     const int minX = getLeftHandlePosition();
     const int maxX = getRightHandlePosition();
 
@@ -155,26 +151,16 @@ void DoubleSlider::mouseMoveEvent(QMouseEvent* event)
 
     //qDebug() << "On min" << onMinHandle << "on max" << onMaxHandle;
 
-    isOnMinHandle_ = onMinHandle && moving_ != Handle::RIGHT && !isOnMaxHandle_;
-    isOnMaxHandle_ = onMaxHandle && moving_ != Handle::LEFT && !isOnMinHandle_;
-
-    if ((event->buttons() & Qt::LeftButton) != 0U)
+    if (moving_ == Handle::LEFT || (moving_ == Handle::NONE && onMinHandle))
     {
-        if ((moving_ != Handle::RIGHT && isOnMinHandle_) || moving_ == Handle::LEFT)
-        {
-            setCurrentMin(static_cast<double>(newPosition) / MAX_PERCENT * (maxValue_ - minValue_) + minValue_);
-            moving_ = Handle::LEFT;
-        }
-
-        if ((moving_ != Handle::LEFT && isOnMaxHandle_) || moving_ == Handle::RIGHT)
-        {
-            setCurrentMax(static_cast<double>(newPosition) / MAX_PERCENT * (maxValue_ - minValue_) + minValue_);
-            moving_ = Handle::RIGHT;
-        }
+        setCurrentMin(static_cast<double>(newPosition) / MAX_PERCENT * (maxValue_ - minValue_) + minValue_);
+        moving_ = Handle::LEFT;
     }
-    else
+
+    if (moving_ == Handle::RIGHT || (moving_ == Handle::NONE && onMaxHandle))
     {
-        moving_ = Handle::NONE;
+        setCurrentMax(static_cast<double>(newPosition) / MAX_PERCENT * (maxValue_ - minValue_) + minValue_);
+        moving_ = Handle::RIGHT;
     }
 }
 

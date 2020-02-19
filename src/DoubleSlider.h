@@ -46,10 +46,6 @@ private:
         RIGHT
     };
 
-    double getCurrentMin();
-
-    double getCurrentMax();
-
     int getLeftHandlePosition() const;
 
     int getRightHandlePosition() const;
@@ -74,11 +70,9 @@ private:
 
     double currentMax_ {0.};
 
-    double minValue_;
+    const double minValue_;
 
-    double maxValue_;
-
-    static constexpr int cursorSize_{16};
+    const double maxValue_;
 
     double lastEmittedMin_ {0.};
 
@@ -86,12 +80,6 @@ private:
 
     ///Flag to remember handle is moving.
     Handle moving_{Handle::NONE};
-
-    ///Mouse on left handle.
-    bool isOnMinHandle_{false};
-
-    ///Mouse on right handle.
-    bool isOnMaxHandle_{false};
 
     static constexpr int MAX_PERCENT{100};
 
