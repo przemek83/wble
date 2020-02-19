@@ -62,7 +62,7 @@ private:
 
     void drawHandles(QPainter& painter) const;
 
-    int getMousePosX(QMouseEvent* event) const;
+    int getMousePosition(QMouseEvent* event) const;
 
     bool mouseIsOnHandle(int mousePosX, int handlePos) const;
 
@@ -79,8 +79,6 @@ private:
     double maxValue_;
 
     static constexpr int cursorSize_{16};
-
-    double mousePositionX_{0.};
 
     double lastEmittedMin_ {0.};
 

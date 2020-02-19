@@ -87,7 +87,7 @@ void DoubleSlider::setCurrentMax(double currentMaxToSet)
     update();
 }
 
-int DoubleSlider::getMousePosX(QMouseEvent* event) const
+int DoubleSlider::getMousePosition(QMouseEvent* event) const
 {
     QStyleOptionSlider defaultStyle;
     initStyleOption(&defaultStyle);
@@ -106,13 +106,8 @@ int DoubleSlider::getMousePosX(QMouseEvent* event) const
     return pos;
 }
 
-void DoubleSlider::mousePressEvent(QMouseEvent* event)
+void DoubleSlider::mousePressEvent([[maybe_unused]] QMouseEvent* event)
 {
-    if ((event->buttons() & Qt::LeftButton) != 0U)
-    {
-        mousePositionX_ = getMousePosX(event);
-    }
-
     moving_ = Handle::NONE;
 }
 
@@ -151,12 +146,12 @@ bool DoubleSlider::mouseIsOnHandle(int mousePosX, int handlePos) const
 
 void DoubleSlider::mouseMoveEvent(QMouseEvent* event)
 {
-    double mouseX = getMousePosX(event);
-    double minX = getLeftHandlePosition();
-    double maxX = getRightHandlePosition();
+    int newPosition = getMousePosition(event);
+    const int minX = getLeftHandlePosition();
+    const int maxX = getRightHandlePosition();
 
-    bool onMinHandle = mouseIsOnHandle(event->x(), minX);
-    bool onMaxHandle = mouseIsOnHandle(event->x(), maxX);
+    const bool onMinHandle = mouseIsOnHandle(event->x(), minX);
+    const bool onMaxHandle = mouseIsOnHandle(event->x(), maxX);
 
     //qDebug() << "On min" << onMinHandle << "on max" << onMaxHandle;
 
@@ -167,42 +162,13 @@ void DoubleSlider::mouseMoveEvent(QMouseEvent* event)
     {
         if ((moving_ != Handle::RIGHT && isOnMinHandle_) || moving_ == Handle::LEFT)
         {
-            minX += mouseX - mousePositionX_;
-            if (minX < 0)
-            {
-                minX = 0;
-            }
-            if (minX > MAX_PERCENT)
-            {
-                minX = MAX_PERCENT;
-            }
-            setCurrentMin(minX / MAX_PERCENT * (maxValue_ - minValue_) + minValue_);
-
-            if (currentMax_ < currentMin_)
-            {
-                setCurrentMax(minX);
-            }
-
+            setCurrentMin(static_cast<double>(newPosition) / MAX_PERCENT * (maxValue_ - minValue_) + minValue_);
             moving_ = Handle::LEFT;
         }
 
         if ((moving_ != Handle::LEFT && isOnMaxHandle_) || moving_ == Handle::RIGHT)
         {
-            maxX += mouseX - mousePositionX_;
-            if (maxX < 0)
-            {
-                maxX = 0;
-            }
-            if (maxX > MAX_PERCENT)
-            {
-                maxX = MAX_PERCENT;
-            }
-            setCurrentMax(maxX / MAX_PERCENT * (maxValue_ - minValue_) + minValue_);
-            if (currentMin_ > currentMax_)
-            {
-                setCurrentMin(maxX);
-            }
-
+            setCurrentMax(static_cast<double>(newPosition) / MAX_PERCENT * (maxValue_ - minValue_) + minValue_);
             moving_ = Handle::RIGHT;
         }
     }
@@ -210,8 +176,6 @@ void DoubleSlider::mouseMoveEvent(QMouseEvent* event)
     {
         moving_ = Handle::NONE;
     }
-
-    mousePositionX_ = mouseX;
 }
 
 int DoubleSlider::getLeftHandlePosition() const
