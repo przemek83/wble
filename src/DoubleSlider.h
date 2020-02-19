@@ -78,14 +78,14 @@ private:
 
     double lastEmittedMax_ {0.};
 
-    ///Flag to remember handle is moving.
-    Handle moving_{Handle::NONE};
-
     static constexpr int MAX_PERCENT{100};
 
     static constexpr double BAR_HEIGHT_RATIO{1. / 3.};
 
     QRect handleRect_;
+
+    ///Flag to remember handle is moving.
+    Handle moving_{Handle::NONE};
 
 Q_SIGNALS:
     void minChanged(double);
