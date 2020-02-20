@@ -13,6 +13,8 @@ private slots:
     void testSettingCurrentValues();
 
     void testEmittingCurrentMinChanged();
+
+    void testEmittingCurrentMaxChanged();
 };
 
 #endif // CONSTANTSTEST_H
