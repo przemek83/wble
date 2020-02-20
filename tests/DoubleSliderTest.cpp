@@ -121,6 +121,38 @@ void DoubleSliderTest::testMovingRightHandle()
     QCOMPARE(arguments.at(0).toDouble(), middleOfRange);
 }
 
+void DoubleSliderTest::testMovingBothHandlesTogether()
+{
+    DoubleSlider slider(MIN, MAX);
+    slider.resize(SLIDER_WIDTH, SLIDER_HEIGHT);
+
+    // Move left handle from MIN to middle of slider range.
+    const QPoint startPointMin(0, 0);
+    const QPoint endPoinMin(SLIDER_WIDTH / 2, 0);
+    moveHandle(slider, startPointMin, endPoinMin);
+
+    QSignalSpy spyMin(&slider, &DoubleSlider::currentMinChanged);
+    QSignalSpy spyMax(&slider, &DoubleSlider::currentMaxChanged);
+
+    // Move right handle from MAX to left side.
+    const QPoint startPointMax(SLIDER_WIDTH, 0);
+    const QPoint endPointMax(0, 0);
+    moveHandle(slider, startPointMax, endPointMax);
+
+    QCOMPARE(spyMin.count(), 1);
+    QCOMPARE(spyMax.count(), 1);
+    QCOMPARE(slider.getCurrentMin(), MIN);
+    QCOMPARE(slider.getCurrentMax(), MIN);
+
+    QList<QVariant> spyMaxArguments = spyMax.takeFirst();
+    QCOMPARE(spyMaxArguments.at(0).type(), QMetaType::Double);
+    QCOMPARE(spyMaxArguments.at(0).toDouble(), MIN);
+
+    QList<QVariant> spyMinArguments = spyMin.takeFirst();
+    QCOMPARE(spyMinArguments.at(0).type(), QMetaType::Double);
+    QCOMPARE(spyMinArguments.at(0).toDouble(), MIN);
+}
+
 void DoubleSliderTest::moveHandle(DoubleSlider& slider, QPoint from, QPoint to) const
 {
     QTest::mousePress(&slider, Qt::LeftButton, Qt::NoModifier, from);
