@@ -110,6 +110,8 @@ private:
 
     void setHandleRect();
 
+    double getNormalizedValue(double value);
+
     const double min_;
     const double max_;
 

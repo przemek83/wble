@@ -13,13 +13,13 @@ void DoubleSliderTest::testSettingCurrentValues()
     QCOMPARE(slider.getCurrentMin(), min_);
     QCOMPARE(slider.getCurrentMax(), max_);
 
-    slider.setCurrentMin(min_ * 2);
+    slider.setCurrentMin(min_ / 2);
     QCOMPARE(slider.getMin(), min_);
-    QCOMPARE(slider.getCurrentMin(), min_ * 2);
+    QCOMPARE(slider.getCurrentMin(), min_ / 2);
 
-    slider.setCurrentMin(max_ * 2);
+    slider.setCurrentMax(max_ / 2);
     QCOMPARE(slider.getMax(), max_);
-    QCOMPARE(slider.getCurrentMax(), max_ * 2);
+    QCOMPARE(slider.getCurrentMax(), max_ / 2);
 }
 
 void DoubleSliderTest::testEmittingCurrentMinChanged()
@@ -29,12 +29,12 @@ void DoubleSliderTest::testEmittingCurrentMinChanged()
     QSignalSpy spyMin(&slider, &DoubleSlider::currentMinChanged);
     QSignalSpy spyMax(&slider, &DoubleSlider::currentMaxChanged);
 
-    slider.setCurrentMin(min_ * 2);
+    slider.setCurrentMin(min_ / 2);
     QCOMPARE(spyMin.count(), 1);
     QCOMPARE(spyMax.count(), 0);
     QList<QVariant> arguments = spyMin.takeFirst();
     QCOMPARE(arguments.at(0).type(), QMetaType::Double);
-    QCOMPARE(arguments.at(0).toDouble(), min_ * 2);
+    QCOMPARE(arguments.at(0).toDouble(), min_ / 2);
 }
 
 void DoubleSliderTest::testEmittingCurrentMaxChanged()
@@ -44,12 +44,12 @@ void DoubleSliderTest::testEmittingCurrentMaxChanged()
     QSignalSpy spyMin(&slider, &DoubleSlider::currentMinChanged);
     QSignalSpy spyMax(&slider, &DoubleSlider::currentMaxChanged);
 
-    slider.setCurrentMax(max_ * 2);
+    slider.setCurrentMax(max_ / 2);
     QCOMPARE(spyMin.count(), 0);
     QCOMPARE(spyMax.count(), 1);
     QList<QVariant> arguments = spyMax.takeFirst();
     QCOMPARE(arguments.at(0).type(), QMetaType::Double);
-    QCOMPARE(arguments.at(0).toDouble(), max_ * 2);
+    QCOMPARE(arguments.at(0).toDouble(), max_ / 2);
 }
 
 void DoubleSliderTest::testSettingInvalidCurrentMin()

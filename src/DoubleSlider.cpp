@@ -58,15 +58,16 @@ void DoubleSlider::setCurrentMin(double currentMinToSet)
     if (doublesAreEqual(currentMin_, currentMinToSet))
         return;
 
-    currentMin_ = currentMinToSet;
-    if (!doublesAreEqual(lastEmittedMin_, currentMinToSet))
+    currentMin_ = getNormalizedValue(currentMinToSet);
+
+    if (!doublesAreEqual(lastEmittedMin_, currentMin_))
     {
-        lastEmittedMin_ = currentMinToSet;
-        Q_EMIT currentMinChanged(currentMinToSet);
+        lastEmittedMin_ = currentMin_;
+        Q_EMIT currentMinChanged(currentMin_);
     }
 
-    if (currentMinToSet > currentMax_)
-        setCurrentMax(currentMinToSet);
+    if (currentMin_ > currentMax_)
+        setCurrentMax(currentMin_);
 
     update();
 }
@@ -76,17 +77,26 @@ void DoubleSlider::setCurrentMax(double currentMaxToSet)
     if (doublesAreEqual(currentMax_, currentMaxToSet))
         return;
 
-    currentMax_ = currentMaxToSet;
-    if (!doublesAreEqual(lastEmittedMax_, currentMaxToSet))
+    currentMax_ = getNormalizedValue(currentMaxToSet);
+
+    if (!doublesAreEqual(lastEmittedMax_, currentMax_))
     {
-        lastEmittedMax_ = currentMaxToSet;
-        Q_EMIT currentMaxChanged(currentMaxToSet);
+        lastEmittedMax_ = currentMax_;
+        Q_EMIT currentMaxChanged(currentMax_);
     }
 
-    if (currentMaxToSet < currentMin_)
-        setCurrentMin(currentMaxToSet);
+    if (currentMax_ < currentMin_)
+        setCurrentMin(currentMax_);
 
     update();
+}
+
+double DoubleSlider::getNormalizedValue(double value)
+{
+    if (value <= max_ && value >= min_)
+        return value;
+
+    return value > max_ ? max_ : min_;
 }
 
 int DoubleSlider::getMousePosition(QMouseEvent* event) const
