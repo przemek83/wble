@@ -19,7 +19,7 @@ int main(int argc, char* argv[])
 
     QWidget widget;
 
-    QGroupBox groupBox(QStringLiteral("DoubleSlider integers"), &widget);
+    QGroupBox groupBox(QStringLiteral("DoubleSlider"), &widget);
     QVBoxLayout layout(&widget);
 
     DoubleSlider slider(min, max, &widget);
@@ -28,7 +28,7 @@ int main(int argc, char* argv[])
     QLabel fromLabel(QString::number(min), &widget);
     const auto updateFromLabel = [&](double newMin) {fromLabel.setText(QString::number(newMin));};
     QObject::connect(&slider,
-                     &DoubleSlider::minChanged,
+                     &DoubleSlider::currentMinChanged,
                      &fromLabel,
                      updateFromLabel);
     layout.addWidget(&fromLabel);
@@ -36,7 +36,7 @@ int main(int argc, char* argv[])
     QLabel toLabel(QString::number(max), &widget);
     const auto updateToLabel = [&](double newMax) {toLabel.setText(QString::number(newMax));};
     QObject::connect(&slider,
-                     &DoubleSlider::maxChanged,
+                     &DoubleSlider::currentMaxChanged,
                      &toLabel,
                      updateToLabel);
     layout.addWidget(&toLabel);
