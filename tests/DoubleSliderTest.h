@@ -15,6 +15,10 @@ private slots:
     void testEmittingCurrentMinChanged();
 
     void testEmittingCurrentMaxChanged();
+
+private:
+    static constexpr double min_ {-100};
+    static constexpr double max_ {100};
 };
 
 #endif // CONSTANTSTEST_H

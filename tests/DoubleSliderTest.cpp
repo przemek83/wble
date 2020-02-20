@@ -7,44 +7,47 @@
 
 void DoubleSliderTest::testSettingCurrentValues()
 {
-    const double min {-100};
-    const double max {100};
-    DoubleSlider slider(min, max);
-    QCOMPARE(slider.getMin(), min);
-    QCOMPARE(slider.getMax(), max);
-    QCOMPARE(slider.getCurrentMin(), min);
-    QCOMPARE(slider.getCurrentMax(), max);
+    DoubleSlider slider(min_, max_);
+    QCOMPARE(slider.getMin(), min_);
+    QCOMPARE(slider.getMax(), max_);
+    QCOMPARE(slider.getCurrentMin(), min_);
+    QCOMPARE(slider.getCurrentMax(), max_);
 
-    slider.setCurrentMin(min * 2);
-    QCOMPARE(slider.getMin(), min);
-    QCOMPARE(slider.getCurrentMin(), min * 2);
+    slider.setCurrentMin(min_ * 2);
+    QCOMPARE(slider.getMin(), min_);
+    QCOMPARE(slider.getCurrentMin(), min_ * 2);
 
-    slider.setCurrentMin(max * 2);
-    QCOMPARE(slider.getMax(), max);
-    QCOMPARE(slider.getCurrentMax(), max * 2);
+    slider.setCurrentMin(max_ * 2);
+    QCOMPARE(slider.getMax(), max_);
+    QCOMPARE(slider.getCurrentMax(), max_ * 2);
 }
 
 void DoubleSliderTest::testEmittingCurrentMinChanged()
 {
-    const double min {-100};
-    const double max {100};
-    DoubleSlider slider(min, max);
+    DoubleSlider slider(min_, max_);
 
     QSignalSpy spyMin(&slider, &DoubleSlider::currentMinChanged);
     QSignalSpy spyMax(&slider, &DoubleSlider::currentMaxChanged);
-    QCOMPARE(spyMin.count(), 0);
-    QCOMPARE(spyMax.count(), 0);
 
-    slider.setCurrentMin(min * 2);
-    QCOMPARE(slider.getCurrentMin(), min * 2);
+    slider.setCurrentMin(min_ * 2);
     QCOMPARE(spyMin.count(), 1);
     QCOMPARE(spyMax.count(), 0);
     QList<QVariant> arguments = spyMin.takeFirst();
     QCOMPARE(arguments.at(0).type(), QMetaType::Double);
-    QCOMPARE(arguments.at(0).toDouble(), min * 2);
+    QCOMPARE(arguments.at(0).toDouble(), min_ * 2);
 }
 
 void DoubleSliderTest::testEmittingCurrentMaxChanged()
 {
+    DoubleSlider slider(min_, max_);
 
+    QSignalSpy spyMin(&slider, &DoubleSlider::currentMinChanged);
+    QSignalSpy spyMax(&slider, &DoubleSlider::currentMaxChanged);
+
+    slider.setCurrentMax(max_ * 2);
+    QCOMPARE(spyMin.count(), 0);
+    QCOMPARE(spyMax.count(), 1);
+    QList<QVariant> arguments = spyMax.takeFirst();
+    QCOMPARE(arguments.at(0).type(), QMetaType::Double);
+    QCOMPARE(arguments.at(0).toDouble(), max_ * 2);
 }
