@@ -18,8 +18,8 @@ bool doublesAreEqual(double left, double right)
 }
 } // namespace
 
-DoubleSlider::DoubleSlider(double min, double max, QWidget* parent) :
-    QSlider(parent), minValue_(min), maxValue_(max)
+DoubleSlider::DoubleSlider(double minValue, double maxValue, QWidget* parent) :
+    QSlider(parent), minValue_(minValue), maxValue_(maxValue)
 {
     setOrientation(Qt::Horizontal);
 
@@ -35,6 +35,26 @@ DoubleSlider::DoubleSlider(double min, double max, QWidget* parent) :
     setMaximum(100);
 
     setHandleRect();
+}
+
+double DoubleSlider::getCurrentMin() const
+{
+    return currentMin_;
+}
+
+double DoubleSlider::getCurrentMax() const
+{
+    return currentMax_;
+}
+
+double DoubleSlider::getMinValue() const
+{
+    return minValue_;
+}
+
+double DoubleSlider::getMaxValue() const
+{
+    return maxValue_;
 }
 
 void DoubleSlider::setCurrentMin(double currentMinToSet)

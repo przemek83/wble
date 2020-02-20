@@ -6,13 +6,20 @@
 #include "wble_global.h"
 
 /**
- * @brief Slider with 2 handles.
+ * @class DoubleSlider
+ * @brief Slider with two moving independently handles.
  */
 class WBLE_EXPORT DoubleSlider : public QSlider
 {
     Q_OBJECT
 public:
-    DoubleSlider(double min, double max, QWidget* parent = nullptr);
+    /**
+     * Constructor of DoubleSlider class.
+     * @param minValue Minimum value of slider.
+     * @param maxValue Maximum value of slider.
+     * @param parent Parent widget.
+     */
+    DoubleSlider(double minValue, double maxValue, QWidget* parent = nullptr);
 
     ~DoubleSlider() override = default;
 
@@ -22,10 +29,53 @@ public:
     DoubleSlider& operator=(DoubleSlider&& other) = delete;
     DoubleSlider(DoubleSlider&& other) = delete;
 
+    /**
+     * Get current value of left handle (minimum).
+     * @return Current minimum value.
+     */
+    double getCurrentMin() const;
+
+    /**
+     * Get current value of right handle (maximum).
+     * @return Current maximum value.
+     */
+    double getCurrentMax() const;
+
+    /**
+     * Get slider minimum value.
+     * @return Slider minimum value.
+     */
+    double getMinValue() const;
+
+    /**
+     * Get slider maximum value.
+     * @return Slider maximum value.
+     */
+    double getMaxValue() const;
+
 public Q_SLOTS:
+    /**
+     * Set current minimum.
+     * @param currentMinToSet Minimum value to set.
+     */
     void setCurrentMin(double currentMinToSet);
 
+    /**
+     * Set current maximum.
+     * @param currentMaxToSet Maximum value to set.
+     */
     void setCurrentMax(double currentMaxToSet);
+
+Q_SIGNALS:
+    /**
+     * Signal emitted when minimum value has changed (left slider moved).
+     */
+    void minChanged(double);
+
+    /**
+     * Signal emitted when maximum value has changed (right slider moved).
+     */
+    void maxChanged(double);
 
 protected:
     void paintEvent(QPaintEvent* event) override;
@@ -82,13 +132,8 @@ private:
 
     QRect handleRect_;
 
-    ///Flag to remember handle is moving.
+    /// Flag to remember which handle is moving.
     Handle moving_{Handle::NONE};
-
-Q_SIGNALS:
-    void minChanged(double);
-
-    void maxChanged(double);
 };
 
 #endif // DOUBLESLIDER_H
