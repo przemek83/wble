@@ -60,6 +60,7 @@ void DoubleSliderTest::testSettingInvalidCurrentMin()
 
     slider.setCurrentMin(max_ + 1);
     QCOMPARE(slider.getCurrentMin(), max_);
+    QCOMPARE(slider.getCurrentMax(), max_);
 }
 
 void DoubleSliderTest::testSettingInvalidCurrentMax()
@@ -70,4 +71,5 @@ void DoubleSliderTest::testSettingInvalidCurrentMax()
 
     slider.setCurrentMax(min_ - 1);
     QCOMPARE(slider.getCurrentMax(), min_);
+    QCOMPARE(slider.getCurrentMin(), min_);
 }
