@@ -15,11 +15,11 @@ class WBLE_EXPORT DoubleSlider : public QSlider
 public:
     /**
      * Constructor of DoubleSlider class.
-     * @param minValue Minimum value of slider.
-     * @param maxValue Maximum value of slider.
+     * @param min Minimum value of slider.
+     * @param max Maximum value of slider.
      * @param parent Parent widget.
      */
-    DoubleSlider(double minValue, double maxValue, QWidget* parent = nullptr);
+    DoubleSlider(double min, double max, QWidget* parent = nullptr);
 
     ~DoubleSlider() override = default;
 
@@ -28,6 +28,18 @@ public:
 
     DoubleSlider& operator=(DoubleSlider&& other) = delete;
     DoubleSlider(DoubleSlider&& other) = delete;
+
+    /**
+     * Get slider minimum value.
+     * @return Slider minimum value.
+     */
+    double getMin() const;
+
+    /**
+     * Get slider maximum value.
+     * @return Slider maximum value.
+     */
+    double getMax() const;
 
     /**
      * Get current value of left handle (minimum).
@@ -40,18 +52,6 @@ public:
      * @return Current maximum value.
      */
     double getCurrentMax() const;
-
-    /**
-     * Get slider minimum value.
-     * @return Slider minimum value.
-     */
-    double getMinValue() const;
-
-    /**
-     * Get slider maximum value.
-     * @return Slider maximum value.
-     */
-    double getMaxValue() const;
 
 public Q_SLOTS:
     /**
@@ -70,22 +70,18 @@ Q_SIGNALS:
     /**
      * Signal emitted when minimum value has changed (left slider moved).
      */
-    void minChanged(double);
+    void currentMinChanged(double);
 
     /**
      * Signal emitted when maximum value has changed (right slider moved).
      */
-    void maxChanged(double);
+    void currentMaxChanged(double);
 
 protected:
     void paintEvent(QPaintEvent* event) override;
-
     void mousePressEvent(QMouseEvent* event) override;
-
     void mouseReleaseEvent(QMouseEvent* event) override;
-
     void mouseMoveEvent(QMouseEvent* event) override;
-
     void changeEvent(QEvent* event) override;
 
 private:
@@ -114,16 +110,13 @@ private:
 
     void setHandleRect();
 
-    double currentMin_ {0.};
+    const double min_;
+    const double max_;
 
+    double currentMin_ {0.};
     double currentMax_ {0.};
 
-    const double minValue_;
-
-    const double maxValue_;
-
     double lastEmittedMin_ {0.};
-
     double lastEmittedMax_ {0.};
 
     static constexpr int MAX_PERCENT{100};
