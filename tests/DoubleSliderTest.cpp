@@ -87,6 +87,9 @@ void DoubleSliderTest::testMovingLeftHandle()
     const QPoint endPoint(SLIDER_WIDTH / 2, 0);
     moveHandle(slider, startPoint, endPoint);
 
+    QCOMPARE(slider.getCurrentMin(), 0);
+    QCOMPARE(slider.getCurrentMax(), MAX);
+
     QCOMPARE(spyMin.count(), 1);
     QCOMPARE(spyMax.count(), 0);
     QList<QVariant> arguments = spyMin.takeFirst();
