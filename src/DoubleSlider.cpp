@@ -147,8 +147,8 @@ void DoubleSlider::mouseMoveEvent(QMouseEvent* event)
     }
 
     const int newPosition = getMousePosition(event);
-    const int minX = getLeftHandlePosition();
-    const int maxX = getRightHandlePosition();
+    const int minX = getHandlePosition(Handle::LEFT);
+    const int maxX = getHandlePosition(Handle::RIGHT);
 
     const bool onMinHandle = mouseIsOnHandle(event->x(), minX);
     const bool onMaxHandle = mouseIsOnHandle(event->x(), maxX);
@@ -170,20 +170,12 @@ void DoubleSlider::mouseMoveEvent(QMouseEvent* event)
     }
 }
 
-int DoubleSlider::getLeftHandlePosition() const
+int DoubleSlider::getHandlePosition(Handle handle) const
 {
     const double range {maxValue_ - minValue_};
-    const int minX =
-        static_cast<int>((std::round((currentMin_ - minValue_) / range * MAX_PERCENT)));
-    return minX;
-}
-
-int DoubleSlider::getRightHandlePosition() const
-{
-    const double range {maxValue_ - minValue_};
-    const int maxX =
-        static_cast<int>(std::round((currentMax_ - minValue_) / range * MAX_PERCENT));
-    return maxX;
+    const double currentValue =
+        (handle == Handle::LEFT ? currentMin_ : currentMax_) - minValue_;
+    return static_cast<int>((std::round(currentValue / range * MAX_PERCENT)));
 }
 
 void DoubleSlider::drawSliderBar(QPainter& painter) const
@@ -230,8 +222,8 @@ void DoubleSlider::drawSliderBarBetweenHandles(QPainter& painter) const
     const int barHeight =
         static_cast<int>(std::round(innerRect.height() * BAR_HEIGHT_RATIO));
 
-    const int leftHandlePosition = getLeftHandlePosition();
-    const int rightHandlePosition = getRightHandlePosition();
+    const int leftHandlePosition = getHandlePosition(Handle::LEFT);
+    const int rightHandlePosition = getHandlePosition(Handle::RIGHT);
 
     const int leftHandleMiddleX =
         getHandleMiddlePosX(leftHandlePosition,
@@ -268,11 +260,11 @@ QStyleOptionSlider DoubleSlider::getHandleStyle(bool moving, int position) const
 void DoubleSlider::drawHandles(QPainter& painter) const
 {
     const QStyleOptionSlider leftStyle =
-        getHandleStyle(moving_ == Handle::LEFT, getLeftHandlePosition());
+        getHandleStyle(moving_ == Handle::LEFT, getHandlePosition(Handle::LEFT));
     style()->drawComplexControl(QStyle::CC_Slider, &leftStyle, &painter, this);
 
     const QStyleOptionSlider rightStyle =
-        getHandleStyle(moving_ == Handle::RIGHT, getRightHandlePosition());
+        getHandleStyle(moving_ == Handle::RIGHT, getHandlePosition(Handle::RIGHT));
     style()->drawComplexControl(QStyle::CC_Slider, &rightStyle, &painter, this);
 }
 

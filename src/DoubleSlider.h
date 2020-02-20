@@ -46,9 +46,7 @@ private:
         RIGHT
     };
 
-    int getLeftHandlePosition() const;
-
-    int getRightHandlePosition() const;
+    int getHandlePosition(Handle handle) const;
 
     void drawSliderBar(QPainter& painter) const;
 
