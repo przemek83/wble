@@ -11,6 +11,8 @@ class DoubleSliderTest: public QObject
     Q_OBJECT
 private slots:
     void testSettingCurrentValues();
+
+    void testEmittingCurrentMinChanged();
 };
 
 #endif // CONSTANTSTEST_H
