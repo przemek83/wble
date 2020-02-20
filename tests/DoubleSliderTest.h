@@ -3,6 +3,8 @@
 
 #include <QObject>
 
+class DoubleSlider;
+
 /**
  * @brief Unit test for Constants class.
  */
@@ -20,9 +22,15 @@ private slots:
 
     void testSettingInvalidCurrentMax();
 
+    void testMovingLeftHandle();
+
 private:
-    static constexpr double min_ {-100};
-    static constexpr double max_ {100};
+    void moveHandle(DoubleSlider& slider, QPoint from, QPoint to) const;
+
+    static constexpr int MIN {-100};
+    static constexpr int MAX {100};
+    static constexpr int SLIDER_WIDTH {MAX - MIN};
+    static constexpr int SLIDER_HEIGHT {SLIDER_WIDTH / 5};
 };
 
 #endif // CONSTANTSTEST_H
