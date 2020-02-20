@@ -31,11 +31,11 @@ void DoubleSliderTest::testEmittingCurrentMinChanged()
     QSignalSpy spyMax(&slider, &DoubleSlider::currentMaxChanged);
 
     slider.setCurrentMin(MIN / 2);
-    QCOMPARE(spyMin.count(), 1);
-    QCOMPARE(spyMax.count(), 0);
-    QList<QVariant> arguments = spyMin.takeFirst();
-    QCOMPARE(arguments.at(0).type(), QMetaType::Double);
-    QCOMPARE(arguments.at(0).toDouble(), MIN / 2);
+    QCOMPARE(spyMin.count(), SIGNAL_RECEIVED);
+    QCOMPARE(spyMax.count(), NO_SIGNAL);
+
+    QCOMPARE(spyMin[0][0].type(), QMetaType::Double);
+    QCOMPARE(spyMin[0], {MIN / 2});
 }
 
 void DoubleSliderTest::testEmittingCurrentMaxChanged()
@@ -46,11 +46,11 @@ void DoubleSliderTest::testEmittingCurrentMaxChanged()
     QSignalSpy spyMax(&slider, &DoubleSlider::currentMaxChanged);
 
     slider.setCurrentMax(MAX / 2);
-    QCOMPARE(spyMin.count(), 0);
-    QCOMPARE(spyMax.count(), 1);
-    QList<QVariant> arguments = spyMax.takeFirst();
-    QCOMPARE(arguments.at(0).type(), QMetaType::Double);
-    QCOMPARE(arguments.at(0).toDouble(), MAX / 2);
+    QCOMPARE(spyMin.count(), NO_SIGNAL);
+    QCOMPARE(spyMax.count(), SIGNAL_RECEIVED);
+
+    QCOMPARE(spyMax[0][0].type(), QMetaType::Double);
+    QCOMPARE(spyMax[0], {MAX / 2});
 }
 
 void DoubleSliderTest::testSettingInvalidCurrentMin()
@@ -90,12 +90,11 @@ void DoubleSliderTest::testMovingLeftHandle()
     QCOMPARE(slider.getCurrentMin(), 0);
     QCOMPARE(slider.getCurrentMax(), MAX);
 
-    QCOMPARE(spyMin.count(), 1);
-    QCOMPARE(spyMax.count(), 0);
-    QList<QVariant> arguments = spyMin.takeFirst();
-    QCOMPARE(arguments.at(0).type(), QMetaType::Double);
+    QCOMPARE(spyMin.count(), SIGNAL_RECEIVED);
+    QCOMPARE(spyMax.count(), NO_SIGNAL);
+
     const int middleOfRange {(MAX + MIN) / 2};
-    QCOMPARE(arguments.at(0).toDouble(), middleOfRange);
+    QCOMPARE(spyMin[0], {middleOfRange});
 }
 
 void DoubleSliderTest::testMovingRightHandle()
@@ -113,12 +112,11 @@ void DoubleSliderTest::testMovingRightHandle()
     QCOMPARE(slider.getCurrentMin(), MIN);
     QCOMPARE(slider.getCurrentMax(), 0);
 
-    QCOMPARE(spyMin.count(), 0);
-    QCOMPARE(spyMax.count(), 1);
-    QList<QVariant> arguments = spyMax.takeFirst();
-    QCOMPARE(arguments.at(0).type(), QMetaType::Double);
+    QCOMPARE(spyMin.count(), NO_SIGNAL);
+    QCOMPARE(spyMax.count(), SIGNAL_RECEIVED);
+
     const int middleOfRange {(MAX + MIN) / 2};
-    QCOMPARE(arguments.at(0).toDouble(), middleOfRange);
+    QCOMPARE(spyMax[0], {middleOfRange});
 }
 
 void DoubleSliderTest::testMovingBothHandlesTogether()
@@ -139,18 +137,13 @@ void DoubleSliderTest::testMovingBothHandlesTogether()
     const QPoint endPointMax(0, 0);
     moveHandle(slider, startPointMax, endPointMax);
 
-    QCOMPARE(spyMin.count(), 1);
-    QCOMPARE(spyMax.count(), 1);
+    QCOMPARE(spyMin.count(), SIGNAL_RECEIVED);
+    QCOMPARE(spyMax.count(), SIGNAL_RECEIVED);
     QCOMPARE(slider.getCurrentMin(), MIN);
     QCOMPARE(slider.getCurrentMax(), MIN);
 
-    QList<QVariant> spyMaxArguments = spyMax.takeFirst();
-    QCOMPARE(spyMaxArguments.at(0).type(), QMetaType::Double);
-    QCOMPARE(spyMaxArguments.at(0).toDouble(), MIN);
-
-    QList<QVariant> spyMinArguments = spyMin.takeFirst();
-    QCOMPARE(spyMinArguments.at(0).type(), QMetaType::Double);
-    QCOMPARE(spyMinArguments.at(0).toDouble(), MIN);
+    QCOMPARE(spyMax[0], {MIN});
+    QCOMPARE(spyMin[0], {MIN});
 }
 
 void DoubleSliderTest::moveHandle(DoubleSlider& slider, QPoint from, QPoint to) const

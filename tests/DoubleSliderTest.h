@@ -35,6 +35,9 @@ private:
     static constexpr int MAX {100};
     static constexpr int SLIDER_WIDTH {MAX - MIN};
     static constexpr int SLIDER_HEIGHT {SLIDER_WIDTH / 5};
+
+    static constexpr int NO_SIGNAL {0};
+    static constexpr int SIGNAL_RECEIVED {1};
 };
 
 #endif // CONSTANTSTEST_H
