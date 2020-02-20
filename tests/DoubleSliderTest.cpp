@@ -6,6 +6,11 @@
 
 #include "DoubleSlider.h"
 
+void DoubleSliderTest::initTestCase()
+{
+    qApp->setStyleSheet("QSlider::handle:horizontal {width: 10px}");
+}
+
 void DoubleSliderTest::testSettingCurrentValues()
 {
     DoubleSlider slider(MIN, MAX);
