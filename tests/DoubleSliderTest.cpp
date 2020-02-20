@@ -51,3 +51,23 @@ void DoubleSliderTest::testEmittingCurrentMaxChanged()
     QCOMPARE(arguments.at(0).type(), QMetaType::Double);
     QCOMPARE(arguments.at(0).toDouble(), max_ * 2);
 }
+
+void DoubleSliderTest::testSettingInvalidCurrentMin()
+{
+    DoubleSlider slider(min_, max_);
+    slider.setCurrentMin(min_ - 1);
+    QCOMPARE(slider.getCurrentMin(), min_);
+
+    slider.setCurrentMin(max_ + 1);
+    QCOMPARE(slider.getCurrentMin(), max_);
+}
+
+void DoubleSliderTest::testSettingInvalidCurrentMax()
+{
+    DoubleSlider slider(min_, max_);
+    slider.setCurrentMax(max_ + 1);
+    QCOMPARE(slider.getCurrentMax(), max_);
+
+    slider.setCurrentMax(min_ - 1);
+    QCOMPARE(slider.getCurrentMax(), min_);
+}
