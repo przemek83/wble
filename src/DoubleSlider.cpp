@@ -19,9 +19,8 @@ bool doublesAreEqual(double left, double right)
 } // namespace
 
 DoubleSlider::DoubleSlider(double min, double max, QWidget* parent) :
-    QSlider(parent), min_(min), max_(max),
-    currentMin_(min), currentMax_(max),
-    lastEmittedMin_(min),  lastEmittedMax_(max)
+    QSlider(parent), min_(min), max_(max), currentMin_(min), currentMax_(max),
+    lastEmittedMin_(min), lastEmittedMax_(max)
 
 {
     setOrientation(Qt::Horizontal);
@@ -56,40 +55,36 @@ double DoubleSlider::getMax() const
 
 void DoubleSlider::setCurrentMin(double currentMinToSet)
 {
-    if (currentMinToSet >= min_ && !doublesAreEqual(currentMin_, currentMinToSet))
+    if (doublesAreEqual(currentMin_, currentMinToSet))
+        return;
+
+    currentMin_ = currentMinToSet;
+    if (!doublesAreEqual(lastEmittedMin_, currentMinToSet))
     {
-        currentMin_ = currentMinToSet;
-        if (!doublesAreEqual(lastEmittedMin_, currentMinToSet))
-        {
-            lastEmittedMin_ = currentMinToSet;
-            Q_EMIT currentMinChanged(currentMinToSet);
-        }
+        lastEmittedMin_ = currentMinToSet;
+        Q_EMIT currentMinChanged(currentMinToSet);
     }
 
     if (currentMinToSet > currentMax_)
-    {
         setCurrentMax(currentMinToSet);
-    }
 
     update();
 }
 
 void DoubleSlider::setCurrentMax(double currentMaxToSet)
 {
-    if (currentMaxToSet <= max_ && !doublesAreEqual(currentMax_, currentMaxToSet))
+    if (doublesAreEqual(currentMax_, currentMaxToSet))
+        return;
+
+    currentMax_ = currentMaxToSet;
+    if (!doublesAreEqual(lastEmittedMax_, currentMaxToSet))
     {
-        currentMax_ = currentMaxToSet;
-        if (!doublesAreEqual(lastEmittedMax_, currentMaxToSet))
-        {
-            lastEmittedMax_ = currentMaxToSet;
-            Q_EMIT currentMaxChanged(currentMaxToSet);
-        }
+        lastEmittedMax_ = currentMaxToSet;
+        Q_EMIT currentMaxChanged(currentMaxToSet);
     }
 
     if (currentMaxToSet < currentMin_)
-    {
         setCurrentMin(currentMaxToSet);
-    }
 
     update();
 }
@@ -130,9 +125,7 @@ void DoubleSlider::changeEvent(QEvent* event)
     QSlider::changeEvent(event);
 
     if (event->type() == QEvent::StyleChange)
-    {
         setHandleRect();
-    }
 }
 
 bool DoubleSlider::mouseIsOnHandle(int mousePosX, int handlePos) const
@@ -267,9 +260,7 @@ QStyleOptionSlider DoubleSlider::getHandleStyle(bool moving, int position) const
     initStyleOption(&handleStyle);
     handleStyle.sliderPosition = position;
     if (moving)
-    {
         handleStyle.state = QStyle::State_Raised;
-    }
     handleStyle.subControls = QStyle::SC_SliderHandle;
     return handleStyle;
 }
@@ -288,9 +279,7 @@ void DoubleSlider::drawHandles(QPainter& painter) const
 void DoubleSlider::paintEvent(QPaintEvent* event)
 {
     if (doublesAreEqual(min_, max_))
-    {
         return;
-    }
 
     QPainter painter(this);
     painter.setClipRegion(event->region());
