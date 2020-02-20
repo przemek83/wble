@@ -98,6 +98,29 @@ void DoubleSliderTest::testMovingLeftHandle()
     QCOMPARE(arguments.at(0).toDouble(), middleOfRange);
 }
 
+void DoubleSliderTest::testMovingRightHandle()
+{
+    DoubleSlider slider(MIN, MAX);
+    slider.resize(SLIDER_WIDTH, SLIDER_HEIGHT);
+
+    QSignalSpy spyMin(&slider, &DoubleSlider::currentMinChanged);
+    QSignalSpy spyMax(&slider, &DoubleSlider::currentMaxChanged);
+
+    const QPoint startPoint(SLIDER_WIDTH, 0);
+    const QPoint endPoint(SLIDER_WIDTH / 2, 0);
+    moveHandle(slider, startPoint, endPoint);
+
+    QCOMPARE(slider.getCurrentMin(), MIN);
+    QCOMPARE(slider.getCurrentMax(), 0);
+
+    QCOMPARE(spyMin.count(), 0);
+    QCOMPARE(spyMax.count(), 1);
+    QList<QVariant> arguments = spyMax.takeFirst();
+    QCOMPARE(arguments.at(0).type(), QMetaType::Double);
+    const int middleOfRange {(MAX + MIN) / 2};
+    QCOMPARE(arguments.at(0).toDouble(), middleOfRange);
+}
+
 void DoubleSliderTest::moveHandle(DoubleSlider& slider, QPoint from, QPoint to) const
 {
     QTest::mousePress(&slider, Qt::LeftButton, Qt::NoModifier, from);

@@ -24,6 +24,8 @@ private slots:
 
     void testMovingLeftHandle();
 
+    void testMovingRightHandle();
+
 private:
     void moveHandle(DoubleSlider& slider, QPoint from, QPoint to) const;
 
