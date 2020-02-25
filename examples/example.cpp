@@ -48,6 +48,8 @@ static FilterNumbers* createFilterNumbers(QLabel* infoLabel)
         infoLabel->setText("Numbers Filter: " + QString::number(min) + " | " +
                            QString::number(max));
     });
+
+    filterNumbers->setCheckable(true);
     return filterNumbers;
 }
 
@@ -67,6 +69,7 @@ static FilterDates* createFilterDates(QLabel* infoLabel)
                            (filterEmptyDates ? "yes" : "no"));
     });
 
+    filterDates->setCheckable(true);
     return filterDates;
 }
 
@@ -81,6 +84,8 @@ static FilterNames* createFilterNames(QLabel* infoLabel)
     {
         infoLabel->setText("Names Filter: " + bannedItems.toList().join(","));
     });
+
+    filterNames->setCheckable(true);
     return filterNames;
 }
 
