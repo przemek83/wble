@@ -21,10 +21,13 @@ add_library(wble SHARED
   src/Filter.h
   src/FilterNames.cpp
   src/FilterNames.h
+  src/FilterNames.ui
   src/FilterDates.cpp
   src/FilterDates.h
+  src/FilterDates.ui
   src/FilterNumbers.cpp
   src/FilterNumbers.h
+  src/FilterNumbers.ui
   src/Utilities.cpp
   src/Utilities.h
 )
