@@ -31,9 +31,7 @@ FilterNames::FilterNames(const QString& name,
     }
 
     if (minNameWidthForScrollMargin_ <= longestNameWidth)
-    {
         addMarginForScrollBar_ = true;
-    }
 
     connect(ui->listWidget, &QListWidget::itemClicked,
             this, &FilterNames::itemChecked);
@@ -53,9 +51,7 @@ FilterNames::~FilterNames()
 void FilterNames::itemChecked(QListWidgetItem* item)
 {
     if (item == nullptr)
-    {
         return;
-    }
 
     QSet<QString> currentList;
     currentList.reserve(ui->listWidget->count());
@@ -63,16 +59,12 @@ void FilterNames::itemChecked(QListWidgetItem* item)
     {
         QListWidgetItem* currentItem = ui->listWidget->item(i);
         if (Qt::Unchecked == currentItem->checkState())
-        {
             currentList << currentItem->text();
-        }
     }
 
     //If sizes are same it means nothing happen lately.
     if (currentList.count() == lastEmitted_.count())
-    {
         return;
-    }
 
     lastEmitted_ = currentList;
 
@@ -126,9 +118,7 @@ void FilterNames::setChecked(bool checked)
     widgets.removeOne(checkBox);
 
     for (QWidget* current : widgets)
-    {
         current->setVisible(checked);
-    }
 
     checkBox->setVisible(checked && initialList_.size() > 1);
 }
@@ -141,13 +131,9 @@ void FilterNames::selectAllToggled(bool checked)
     for (int i = 0; i < ui->listWidget->count(); ++i)
     {
         if (checked)
-        {
             ui->listWidget->item(i)->setCheckState(Qt::Checked);
-        }
         else
-        {
             ui->listWidget->item(i)->setCheckState(Qt::Unchecked);
-        }
     }
     ui->listWidget->blockSignals(false);
     itemChecked(ui->listWidget->item(0));

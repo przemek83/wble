@@ -14,7 +14,8 @@ class FilterNumbers;
 } // namespace Ui
 
 /**
- * @brief Numbers filter for value type columns in model.
+ * @class FilterNumbers
+ * @brief Numbers filter for numeric values.
  */
 class WBLE_EXPORT FilterNumbers : public Filter
 {

@@ -14,7 +14,8 @@ class FilterNames;
 } // namespace Ui
 
 /**
- * @brief Names filter for string type columns in model.
+ * @class FilterNames
+ * @brief Names filter for strings.
  */
 class WBLE_EXPORT FilterNames : public Filter
 {

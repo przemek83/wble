@@ -23,9 +23,7 @@ FilterNumbers::FilterNumbers(const QString& name,
     connect(this, &Filter::toggled, this, &FilterNumbers::setChecked);
 
     if (maxOnInit_ - minOnInit_ <= 1)
-    {
         doubleMode_ = true;
-    }
 
     if (!doubleMode_)
     {
@@ -57,15 +55,11 @@ FilterNumbers::FilterNumbers(const QString& name,
     DoubleSlider* slider {nullptr};
 
     if (doubleMode_)
-    {
         slider = new DoubleSlider(static_cast<int>(ui->fromValue->text().toDouble() * FACTOR),
                                   static_cast<int>(ui->toValue->text().toDouble() * FACTOR),
                                   this);
-    }
     else
-    {
         slider = new DoubleSlider(static_cast<int>(minOnInit_), static_cast<int>(maxOnInit_), this);
-    }
 
     if (doubleMode_)
     {
@@ -97,9 +91,7 @@ FilterNumbers::FilterNumbers(const QString& name,
     ui->verticalLayout->addWidget(slider);
 
     if (Utilities::doublesAreEqual(ui->fromValue->text().toDouble(), ui->toValue->text().toDouble()))
-    {
         setDisabled(true);
-    }
 }
 
 FilterNumbers::~FilterNumbers()
@@ -110,13 +102,9 @@ FilterNumbers::~FilterNumbers()
 void FilterNumbers::sliderMinChanged(int newValue)
 {
     if (doubleMode_)
-    {
         ui->fromValue->setText(QString::number(newValue / FACTOR, 'f', 2));
-    }
     else
-    {
         ui->fromValue->setText(QString::number(newValue));
-    }
 
     QApplication::processEvents();
 
@@ -128,13 +116,9 @@ void FilterNumbers::sliderMinChanged(int newValue)
 void FilterNumbers::sliderMaxChanged(int newValue)
 {
     if (doubleMode_)
-    {
         ui->toValue->setText(QString::number(newValue / FACTOR, 'f', 2));
-    }
     else
-    {
         ui->toValue->setText(QString::number(newValue));
-    }
 
     QApplication::processEvents();
 
@@ -147,9 +131,7 @@ void FilterNumbers::fromEditingFinished()
 {
     auto slider = findChild<DoubleSlider*>();
     if (slider == nullptr)
-    {
         return;
-    }
 
     QString newMinAsText = ui->fromValue->text();
     double minToSet {doubleMode_ ?
@@ -162,9 +144,7 @@ void FilterNumbers::toEditingFinished()
 {
     auto slider = findChild<DoubleSlider*>();
     if (slider == nullptr)
-    {
         return;
-    }
 
     QString newMaxAsText = ui->toValue->text();
     double maxToSet {doubleMode_ ?
@@ -179,7 +159,5 @@ void FilterNumbers::setChecked(bool checked)
     QList<QWidget*> widgets = findChildren<QWidget*>();
 
     for (QWidget* current : widgets)
-    {
         current->setVisible(checked);
-    }
 }

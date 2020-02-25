@@ -1,7 +1,6 @@
 #ifndef FILTERDATES_H
 #define FILTERDATES_H
 
-#include <QWidget>
 #include <QDate>
 #include <QCalendarWidget>
 
@@ -14,7 +13,8 @@ class FilterDates;
 } // namespace Ui
 
 /**
- * @brief filter for date type columns in model.
+ * @class FilterDates
+ * @brief Filter for date type.
  */
 class WBLE_EXPORT FilterDates : public Filter
 {
@@ -63,12 +63,6 @@ private Q_SLOTS:
      * @param newDate new value.
      */
     void higherDateChanged(QDate newDate);
-
-    /**
-     * Trigerred when empty dates checkbox state change.
-     * @param checked flag.
-     */
-    void emptyDatesToggled(bool checked);
 
 Q_SIGNALS:
     void newDateFilter(QDate from, QDate to, bool filterEmptyDates);
