@@ -70,12 +70,12 @@ Q_SIGNALS:
     /**
      * Signal emitted when minimum value has changed (left slider moved).
      */
-    void currentMinChanged(double);
+    void currentMinChanged(double currentMin);
 
     /**
      * Signal emitted when maximum value has changed (right slider moved).
      */
-    void currentMaxChanged(double);
+    void currentMaxChanged(double currentMax);
 
 protected:
     void paintEvent(QPaintEvent* event) override;
