@@ -7,52 +7,101 @@
 #include <QWindow>
 
 #include "DoubleSlider.h"
+#include "FilterNumbers.h"
+#include "FilterDates.h"
+#include "FilterNames.h"
+
+static const double MIN {-100.};
+static const double MAX {100.};
+
+static DoubleSlider* createDoubleSlider(QLabel* infoLabel)
+{
+    auto slider = new DoubleSlider(MIN, MAX);
+
+    QObject::connect(slider,
+                     &DoubleSlider::currentMinChanged,
+                     infoLabel,
+                     [ = ](double min)
+    {
+        infoLabel->setText("Double Slider: min = " + QString::number(min));
+    });
+
+    QObject::connect(slider,
+                     &DoubleSlider::currentMaxChanged,
+                     infoLabel,
+                     [ = ](double max)
+    {
+        infoLabel->setText("Double Slider: max = " + QString::number(max));
+    });
+
+    return slider;
+}
+
+static FilterNumbers* createFilterNumbers(QLabel* infoLabel)
+{
+    auto filterNumbers = new FilterNumbers("Numbers Filter", MIN, MAX);
+    QObject::connect(filterNumbers,
+                     &FilterNumbers::newNumericFilter,
+                     infoLabel,
+                     [ = ](double min, double max)
+    {
+        infoLabel->setText("Numbers Filter: " + QString::number(min) + " | " +
+                           QString::number(max));
+    });
+    return filterNumbers;
+}
+
+static FilterDates* createFilterDates(QLabel* infoLabel)
+{
+    auto filterDates = new FilterDates("Dates Filter",
+                                       QDate(2010, 9, 21),
+                                       QDate(2012, 2, 25),
+                                       true);
+    QObject::connect(filterDates,
+                     &FilterDates::newDateFilter,
+                     infoLabel,
+                     [ = ](QDate from, QDate to, bool filterEmptyDates)
+    {
+        infoLabel->setText("Dates Filter: " + from.toString() + " | " +
+                           to.toString() + " | " +
+                           (filterEmptyDates ? "yes" : "no"));
+    });
+
+    return filterDates;
+}
+
+static FilterNames* createFilterNames(QLabel* infoLabel)
+{
+    auto filterNames =
+        new FilterNames("Names Filter", QStringList{"a", "b", "c", "d"});
+    QObject::connect(filterNames,
+                     &FilterNames::newStringFilter,
+                     infoLabel,
+                     [ = ](QSet<QString> bannedItems)
+    {
+        infoLabel->setText("Names Filter: " + bannedItems.toList().join(","));
+    });
+    return filterNames;
+}
 
 int main(int argc, char* argv[])
 {
     QApplication a(argc, argv);
 
-    QApplication::setStyle(QStyleFactory::create("Fusion"));
-
-    const double min {-100.};
-    const double max {100.};
-
     QWidget widget;
 
-    QGroupBox groupBox(QStringLiteral("DoubleSlider"), &widget);
-    QVBoxLayout layout(&widget);
-
-    DoubleSlider slider(min, max, &widget);
-    layout.addWidget(&slider);
-
-    QLabel fromLabel(QString::number(min), &widget);
-    const auto updateFromLabel = [&](double newMin) {fromLabel.setText(QString::number(newMin));};
-    QObject::connect(&slider,
-                     &DoubleSlider::currentMinChanged,
-                     &fromLabel,
-                     updateFromLabel);
-    layout.addWidget(&fromLabel);
-
-    QLabel toLabel(QString::number(max), &widget);
-    const auto updateToLabel = [&](double newMax) {toLabel.setText(QString::number(newMax));};
-    QObject::connect(&slider,
-                     &DoubleSlider::currentMaxChanged,
-                     &toLabel,
-                     updateToLabel);
-    layout.addWidget(&toLabel);
-
-    QPushButton resetButton(QStringLiteral("Reset"), &widget);
-    const auto resetDoubleSlider = [&]() {slider.setCurrentMin(min); slider.setCurrentMax(max);};
-    QObject::connect(&resetButton,
-                     &QPushButton::clicked,
-                     &slider,
-                     resetDoubleSlider);
-    layout.addWidget(&resetButton);
-
-    groupBox.setLayout(&layout);
-
+    auto infoLabel = new QLabel("Status");
     QVBoxLayout widgetLayout(&widget);
+    widgetLayout.setSpacing(10);
+    QGroupBox groupBox(QStringLiteral("Double Slider"));
+    QVBoxLayout layout(&groupBox);
+    layout.addWidget(createDoubleSlider(infoLabel));
+    groupBox.setLayout(&layout);
     widgetLayout.addWidget(&groupBox);
+    widgetLayout.addWidget(createFilterNumbers(infoLabel));
+    widgetLayout.addWidget(createFilterDates(infoLabel));
+    widgetLayout.addWidget(createFilterNames(infoLabel));
+    widgetLayout.addWidget(infoLabel);
     widgetLayout.addStretch();
     widget.setLayout(&widgetLayout);
     widget.show();
