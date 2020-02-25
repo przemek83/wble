@@ -20,10 +20,8 @@ class WBLE_EXPORT FilterDates : public Filter
 {
     Q_OBJECT
 public:
-    FilterDates(const QString& name,
-                QDate min, QDate max,
-                bool emptyDates,
-                QWidget* parent = nullptr);
+    FilterDates(const QString& name, QDate fromDate, QDate toDate,
+                bool emptyDates, QWidget* parent = nullptr);
 
     ~FilterDates() override;
 
@@ -34,38 +32,48 @@ public:
     FilterDates(FilterDates&& other) = delete;
 
 private:
-    ///Initial filter minimum date.
-    const QDate minOnInit_;
+    void initFromDateCalendar();
 
-    ///Initial filter maximum date.
-    const QDate maxOnInit_;
+    void initToDateCalendar();
+
+    /// Initial filter from date.
+    const QDate fromDate_;
+
+    /// Initial filter to date.
+    const QDate toDate_;
 
     Ui::FilterDates* ui;
 
-    QCalendarWidget calendarLeft_;
+    QCalendarWidget calendarFrom_;
 
-    QCalendarWidget calendarRight_;
+    QCalendarWidget calendarTo_;
 
-    ///Flag indicating there were wmpty dates in column.
+    /// Flag indicating there are empty dates in data.
     const bool emptyDates_;
 
 private Q_SLOTS:
-    void setChecked(bool checked);
+    void checkedStateChanged(bool checked);
 
     /**
-     * Trigerred on change of date in left date edit.
-     * @param newDate new value.
+     * Trigerred on change of date in from date edit.
+     * @param newDate New value.
      */
-    void lowerDateChanged(QDate newDate);
+    void fromDateChanged(QDate newDate);
 
     /**
-     * Trigerred on change of date in right date edit.
-     * @param newDate new value.
+     * Trigerred on change of date in to date edit.
+     * @param newDate New value.
      */
-    void higherDateChanged(QDate newDate);
+    void toDateChanged(QDate newDate);
 
 Q_SIGNALS:
-    void newDateFilter(QDate from, QDate to, bool filterEmptyDates);
+    /**
+     * Emitted when filter state was changed.
+     * @param fromDate Current from date.
+     * @param toDate Current to date.
+     * @param filterEmptyDates Flag indicating that data with empty date should be ignored.
+     */
+    void newDateFilter(QDate fromDate, QDate toDate, bool filterEmptyDates);
 };
 
 #endif // FILTERDATES_H

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>176</width>
-    <height>42</height>
+    <height>47</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -32,7 +32,7 @@
    <item>
     <widget class="QCheckBox" name="emptyDates">
      <property name="text">
-      <string>Hide rows with empty date.</string>
+      <string>Ignore data with empty date</string>
      </property>
     </widget>
    </item>
@@ -42,7 +42,7 @@
       <number>0</number>
      </property>
      <item>
-      <widget class="QDateEdit" name="lowerDateEdit">
+      <widget class="QDateEdit" name="fromDateEdit">
        <property name="displayFormat">
         <string notr="true">dd-MM-yyyy</string>
        </property>
@@ -52,7 +52,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QDateEdit" name="higherDateEdit">
+      <widget class="QDateEdit" name="toDateEdit">
        <property name="displayFormat">
         <string notr="true">dd-MM-yyyy</string>
        </property>

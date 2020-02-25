@@ -1,47 +1,34 @@
 #include "FilterDates.h"
 
-#include <QDebug>
-
 #include "ui_FilterDates.h"
 
 FilterDates::FilterDates(const QString& name,
-                         QDate min,
-                         QDate max,
+                         QDate fromDate,
+                         QDate toDate,
                          bool emptyDates,
                          QWidget* parent) :
     Filter(name, parent),
-    minOnInit_(min),
-    maxOnInit_(max),
+    fromDate_(fromDate),
+    toDate_(toDate),
     ui(new Ui::FilterDates),
     emptyDates_(emptyDates)
 {
     ui->setupUi(this);
 
-    connect(this, &Filter::toggled, this, &FilterDates::setChecked);
+    connect(this, &Filter::toggled, this, &FilterDates::checkedStateChanged);
     connect(ui->emptyDates, &QCheckBox::toggled,
             this, [ = ](bool checked)
     {
-        Q_EMIT newDateFilter(ui->lowerDateEdit->date(),
-                             ui->higherDateEdit->date(),
+        Q_EMIT newDateFilter(ui->fromDateEdit->date(),
+                             ui->toDateEdit->date(),
                              checked);
     });
 
-    if (minOnInit_ == maxOnInit_)
+    if (fromDate_ == toDate_)
         setDisabled(true);
 
-    calendarLeft_.setFirstDayOfWeek(Qt::Monday);
-    calendarLeft_.setVerticalHeaderFormat(QCalendarWidget::NoVerticalHeader);
-    ui->lowerDateEdit->setDate(minOnInit_);
-    ui->lowerDateEdit->setCalendarWidget(&calendarLeft_);
-    connect(ui->lowerDateEdit, &QDateEdit::dateChanged,
-            this, &FilterDates::lowerDateChanged);
-
-    calendarRight_.setFirstDayOfWeek(Qt::Monday);
-    calendarRight_.setVerticalHeaderFormat(QCalendarWidget::NoVerticalHeader);
-    ui->higherDateEdit->setDate(maxOnInit_);
-    ui->higherDateEdit->setCalendarWidget(&calendarRight_);
-    connect(ui->higherDateEdit, &QDateEdit::dateChanged,
-            this, &FilterDates::higherDateChanged);
+    initFromDateCalendar();
+    initToDateCalendar();
 
     if (!emptyDates_)
         ui->emptyDates->hide();
@@ -54,27 +41,47 @@ FilterDates::~FilterDates()
     delete ui;
 }
 
-void FilterDates::lowerDateChanged(QDate newDate)
+void FilterDates::initFromDateCalendar()
 {
-    if (newDate > ui->higherDateEdit->date())
-        ui->higherDateEdit->setDate(newDate);
+    calendarFrom_.setFirstDayOfWeek(Qt::Monday);
+    calendarFrom_.setVerticalHeaderFormat(QCalendarWidget::NoVerticalHeader);
+    ui->fromDateEdit->setDate(fromDate_);
+    ui->fromDateEdit->setCalendarWidget(&calendarFrom_);
+    connect(ui->fromDateEdit, &QDateEdit::dateChanged,
+            this, &FilterDates::fromDateChanged);
+}
 
-    Q_EMIT newDateFilter(ui->lowerDateEdit->date(),
-                         ui->higherDateEdit->date(),
+void FilterDates::initToDateCalendar()
+{
+    calendarTo_.setFirstDayOfWeek(Qt::Monday);
+    calendarTo_.setVerticalHeaderFormat(QCalendarWidget::NoVerticalHeader);
+    ui->toDateEdit->setDate(toDate_);
+    ui->toDateEdit->setCalendarWidget(&calendarTo_);
+    connect(ui->toDateEdit, &QDateEdit::dateChanged,
+            this, &FilterDates::toDateChanged);
+}
+
+void FilterDates::fromDateChanged(QDate newDate)
+{
+    if (newDate > ui->toDateEdit->date())
+        ui->toDateEdit->setDate(newDate);
+
+    Q_EMIT newDateFilter(ui->fromDateEdit->date(),
+                         ui->toDateEdit->date(),
                          ui->emptyDates->isChecked());
 }
 
-void FilterDates::higherDateChanged(QDate newDate)
+void FilterDates::toDateChanged(QDate newDate)
 {
-    if (newDate < ui->lowerDateEdit->date())
-        ui->lowerDateEdit->setDate(newDate);
+    if (newDate < ui->fromDateEdit->date())
+        ui->fromDateEdit->setDate(newDate);
 
-    Q_EMIT newDateFilter(ui->lowerDateEdit->date(),
-                         ui->higherDateEdit->date(),
+    Q_EMIT newDateFilter(ui->fromDateEdit->date(),
+                         ui->toDateEdit->date(),
                          ui->emptyDates->isChecked());
 }
 
-void FilterDates::setChecked(bool checked)
+void FilterDates::checkedStateChanged(bool checked)
 {
     QGroupBox::setChecked(checked);
 
