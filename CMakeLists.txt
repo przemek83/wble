@@ -17,12 +17,28 @@ add_library(wble SHARED
   src/wble_global.h
   src/DoubleSlider.cpp
   src/DoubleSlider.h
+  src/Filter.cpp
+  src/Filter.h
+  src/FilterNames.cpp
+  src/FilterNames.h
+  src/FilterDates.cpp
+  src/FilterDates.h
+  src/FilterNumbers.cpp
+  src/FilterNumbers.h
+  src/Utilities.cpp
+  src/Utilities.h
 )
 
 set_target_properties(wble PROPERTIES VERSION ${PROJECT_VERSION})
 set_target_properties(wble PROPERTIES SOVERSION 1)
 
-set_property(TARGET wble PROPERTY PUBLIC_HEADER src/DoubleSlider.h src/wble_global.h)
+set_property(TARGET wble PROPERTY PUBLIC_HEADER
+    src/DoubleSlider.h
+    src/Filter.h
+    src/FilterNames.h
+    src/FilterDates.h
+    src/FilterNumbers.h
+    src/wble_global.h)
 target_include_directories(wble PUBLIC src)
 include(GNUInstallDirs)
 

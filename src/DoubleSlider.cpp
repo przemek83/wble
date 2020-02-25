@@ -8,15 +8,7 @@
 #include <QStyleOptionSlider>
 #include <qdrawutil.h>
 
-namespace
-{
-bool doublesAreEqual(double left, double right)
-{
-    static const double qtDoublePrecision {1e-12};
-    return std::abs(left - right) <=
-           qtDoublePrecision * std::max({ 1.0, std::abs(left), std::abs(right) });
-}
-} // namespace
+#include "Utilities.h"
 
 DoubleSlider::DoubleSlider(double min, double max, QWidget* parent) :
     QSlider(parent), min_(min), max_(max), currentMin_(min), currentMax_(max),
@@ -55,12 +47,12 @@ double DoubleSlider::getMax() const
 
 void DoubleSlider::setCurrentMin(double currentMinToSet)
 {
-    if (doublesAreEqual(currentMin_, currentMinToSet))
+    if (Utilities::doublesAreEqual(currentMin_, currentMinToSet))
         return;
 
     currentMin_ = getNormalizedValue(currentMinToSet);
 
-    if (!doublesAreEqual(lastEmittedMin_, currentMin_))
+    if (!Utilities::doublesAreEqual(lastEmittedMin_, currentMin_))
     {
         lastEmittedMin_ = currentMin_;
         Q_EMIT currentMinChanged(currentMin_);
@@ -74,12 +66,12 @@ void DoubleSlider::setCurrentMin(double currentMinToSet)
 
 void DoubleSlider::setCurrentMax(double currentMaxToSet)
 {
-    if (doublesAreEqual(currentMax_, currentMaxToSet))
+    if (Utilities::doublesAreEqual(currentMax_, currentMaxToSet))
         return;
 
     currentMax_ = getNormalizedValue(currentMaxToSet);
 
-    if (!doublesAreEqual(lastEmittedMax_, currentMax_))
+    if (!Utilities::doublesAreEqual(lastEmittedMax_, currentMax_))
     {
         lastEmittedMax_ = currentMax_;
         Q_EMIT currentMaxChanged(currentMax_);
@@ -288,7 +280,7 @@ void DoubleSlider::drawHandles(QPainter& painter) const
 
 void DoubleSlider::paintEvent(QPaintEvent* event)
 {
-    if (doublesAreEqual(min_, max_))
+    if (Utilities::doublesAreEqual(min_, max_))
         return;
 
     QPainter painter(this);
