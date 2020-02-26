@@ -31,6 +31,15 @@ public:
     FilterDates& operator=(FilterDates&& other) = delete;
     FilterDates(FilterDates&& other) = delete;
 
+Q_SIGNALS:
+    /**
+     * Emitted when filter state was changed.
+     * @param fromDate Current from date.
+     * @param toDate Current to date.
+     * @param filterEmptyDates Flag indicating that data with empty date should be ignored.
+     */
+    void newDateFilter(QDate fromDate, QDate toDate, bool filterEmptyDates);
+
 protected:
     void checkedStateChanged(bool checked) override;
 
@@ -66,15 +75,6 @@ private Q_SLOTS:
      * @param newDate New value.
      */
     void toDateChanged(QDate newDate);
-
-Q_SIGNALS:
-    /**
-     * Emitted when filter state was changed.
-     * @param fromDate Current from date.
-     * @param toDate Current to date.
-     * @param filterEmptyDates Flag indicating that data with empty date should be ignored.
-     */
-    void newDateFilter(QDate fromDate, QDate toDate, bool filterEmptyDates);
 };
 
 #endif // FILTERDATES_H
