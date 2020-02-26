@@ -22,8 +22,8 @@ class WBLE_EXPORT FilterNumbers : public Filter
     Q_OBJECT
 public:
     FilterNumbers(const QString& name,
-                  double min,
-                  double max,
+                  double from,
+                  double to,
                   QWidget* parent = nullptr);
 
     ~FilterNumbers() override;
@@ -34,19 +34,33 @@ public:
     FilterNumbers& operator=(FilterNumbers&& other) = delete;
     FilterNumbers(FilterNumbers&& other) = delete;
 
+    /**
+     * Emitted when filter state was changed.
+     * @param from Current value of from number.
+     * @param to Current value of to number.
+     */
+Q_SIGNALS:
+    void newNumericFilter(double from, double to);
+
 protected:
     void checkedStateChanged(bool checked) override;
 
 private:
+    void initValidators();
+
+    void initDoubleSlider();
+
+    void initLineEdits();
+
+    void emitChangeSignal();
+
     Ui::FilterNumbers* ui;
 
-    ///Minimum set on filter creation.
-    double minOnInit_;
+    /// Minimum set on filter creation.
+    double initialFromValue_;
 
-    ///Maximum set on filter creation.
-    double maxOnInit_;
-
-    static constexpr double FACTOR {100.};
+    /// Maximum set on filter creation.
+    double initialToValue_;
 
     ///Numbers are doubles.
     bool doubleMode_ {false};
@@ -56,13 +70,13 @@ private Q_SLOTS:
      * Trigerred on change of left handle on slider.
      * @param newValue new value.
      */
-    void sliderMinChanged(int newValue);
+    void sliderFromChanged(double newValue);
 
     /**
      * Trigerred on change of right handle on slider.
      * @param newValue new value.
      */
-    void sliderMaxChanged(int newValue);
+    void sliderToChanged(double newValue);
 
     /**
      * Trigerred on change of left LineEdit (from).
@@ -73,9 +87,6 @@ private Q_SLOTS:
      * Trigerred on change of right LineEdit (to).
      */
     void toEditingFinished();
-
-Q_SIGNALS:
-    void newNumericFilter(double from, double to);
 };
 
 #endif // FILTERNUMBERS_H
