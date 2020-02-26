@@ -35,36 +35,48 @@ public:
 
     QSize sizeHint() const override;
 
+Q_SIGNALS:
+    /**
+     * Emitted when filter state was changed.
+     * @param bannedList List of unchecked items.
+     */
+    void newStringFilter(QStringList bannedList);
+
 protected:
     void checkedStateChanged(bool checked) override;
 
 private:
+    QStringList getListOfSelectedItems() const;
+
+    void updateSelectAllCheckbox();
+
     const QStringList initialList_;
 
-    QSet<QString> lastEmitted_;
+    QStringList lastEmittedList_;
 
     Ui::FilterNames* ui;
 
-    ///Min number of chars to include scrioll margin.
+    /// Min number of chars to include scrioll margin.
     static constexpr int minNameWidthForScrollMargin_ {25};
 
-    ///Maximum widget heigh.
+    /// Maximum widget heigh.
     static constexpr int maximumHeigh_ {180};
 
-    ///Flag indocating if additionall place for scroll should be added.
+    /// Flag indocating if additionall place for scroll should be added.
     bool addMarginForScrollBar_;
 
 private Q_SLOTS:
     /**
      * Triggered when user click on item.
-     * @param item item clicked.
+     * @param item Item clicked.
      */
     void itemChecked(QListWidgetItem* item);
 
+    /**
+     * Triggered when user click on select all checkbox.
+     * @param checked Checked state.
+     */
     void selectAllToggled(bool checked);
-
-Q_SIGNALS:
-    void newStringFilter(QSet<QString> bannedList);
 };
 
 #endif // FILTERNAMES_H

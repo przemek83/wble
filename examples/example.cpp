@@ -80,9 +80,9 @@ static FilterNames* createFilterNames(QLabel* infoLabel)
     QObject::connect(filterNames,
                      &FilterNames::newStringFilter,
                      infoLabel,
-                     [ = ](QSet<QString> bannedItems)
+                     [ = ](QStringList bannedItems)
     {
-        infoLabel->setText("Names Filter: " + bannedItems.toList().join(","));
+        infoLabel->setText("Names Filter: " + bannedItems.join(","));
     });
 
     filterNames->setCheckable(true);

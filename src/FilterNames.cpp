@@ -20,7 +20,7 @@ FilterNames::FilterNames(const QString& name,
 
     connect(ui->selectAll, &QCheckBox::toggled, this, &FilterNames::selectAllToggled);
 
-    int longestNameWidth = 0;
+    int longestNameWidth {0};
     for (const QString& itemName : initialList_)
     {
         auto item = new QListWidgetItem(itemName, ui->listWidget);
@@ -36,9 +36,7 @@ FilterNames::FilterNames(const QString& name,
             this, &FilterNames::itemChecked);
 
     if (initialList_.size() <= 1)
-    {
         ui->selectAll->hide();
-    }
 }
 
 FilterNames::~FilterNames()
@@ -51,37 +49,16 @@ void FilterNames::itemChecked(QListWidgetItem* item)
     if (item == nullptr)
         return;
 
-    QSet<QString> currentList;
-    currentList.reserve(ui->listWidget->count());
-    for (int i = 0; i < ui->listWidget->count(); ++i)
-    {
-        QListWidgetItem* currentItem = ui->listWidget->item(i);
-        if (Qt::Unchecked == currentItem->checkState())
-            currentList << currentItem->text();
-    }
+    const QStringList currentList {getListOfSelectedItems()};
 
-    //If sizes are same it means nothing happen lately.
-    if (currentList.count() == lastEmitted_.count())
+    // If sizes are same it means nothing happen lately.
+    if (currentList.count() == lastEmittedList_.count())
         return;
 
-    lastEmitted_ = currentList;
+    updateSelectAllCheckbox();
 
-    bool allChecked = true;
-    for (int i = 0; i < ui->listWidget->count(); ++i)
-    {
-        if (Qt::Unchecked == ui->listWidget->item(i)->checkState())
-        {
-            allChecked = false;
-            break;
-        }
-    }
-    ui->selectAll->blockSignals(true);
-    ui->selectAll->setCheckState((allChecked ? Qt::Checked : Qt::Unchecked));
-    ui->selectAll->blockSignals(false);
-
-    QApplication::processEvents();
-
-    Q_EMIT newStringFilter(lastEmitted_);
+    lastEmittedList_ = currentList;
+    Q_EMIT newStringFilter(lastEmittedList_);
 }
 
 QSize FilterNames::sizeHint() const
@@ -117,6 +94,36 @@ void FilterNames::checkedStateChanged(bool checked)
         current->setVisible(checked);
 
     checkBox->setVisible(checked && initialList_.size() > 1);
+}
+
+QStringList FilterNames::getListOfSelectedItems() const
+{
+    QStringList currentList;
+    currentList.reserve(ui->listWidget->count());
+    for (int i = 0; i < ui->listWidget->count(); ++i)
+    {
+        QListWidgetItem* currentItem = ui->listWidget->item(i);
+        if (Qt::Unchecked == currentItem->checkState())
+            currentList << currentItem->text();
+    }
+
+    return currentList;
+}
+
+void FilterNames::updateSelectAllCheckbox()
+{
+    bool allChecked {true};
+    for (int i = 0; i < ui->listWidget->count(); ++i)
+    {
+        if (Qt::Unchecked == ui->listWidget->item(i)->checkState())
+        {
+            allChecked = false;
+            break;
+        }
+    }
+    ui->selectAll->blockSignals(true);
+    ui->selectAll->setCheckState((allChecked ? Qt::Checked : Qt::Unchecked));
+    ui->selectAll->blockSignals(false);
 }
 
 void FilterNames::selectAllToggled(bool checked)
