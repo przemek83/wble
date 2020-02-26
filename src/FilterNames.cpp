@@ -18,7 +18,6 @@ FilterNames::FilterNames(const QString& name,
 {
     ui->setupUi(this);
 
-    connect(this, &Filter::toggled, this, &FilterNames::setChecked);
     connect(ui->selectAll, &QCheckBox::toggled, this, &FilterNames::selectAllToggled);
 
     int longestNameWidth = 0;
@@ -39,7 +38,6 @@ FilterNames::FilterNames(const QString& name,
     if (initialList_.size() <= 1)
     {
         ui->selectAll->hide();
-        setChecked(false);
     }
 }
 
@@ -108,10 +106,8 @@ QSize FilterNames::sizeHint() const
     return QGroupBox::sizeHint();
 }
 
-void FilterNames::setChecked(bool checked)
+void FilterNames::checkedStateChanged(bool checked)
 {
-    QGroupBox::setChecked(checked);
-
     auto checkBox = findChild<QCheckBox*>();
 
     QList<QWidget*> widgets = findChildren<QWidget*>();

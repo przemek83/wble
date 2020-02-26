@@ -31,6 +31,9 @@ public:
     FilterDates& operator=(FilterDates&& other) = delete;
     FilterDates(FilterDates&& other) = delete;
 
+protected:
+    void checkedStateChanged(bool checked) override;
+
 private:
     void initFromDateCalendar();
 
@@ -52,8 +55,6 @@ private:
     const bool emptyDates_;
 
 private Q_SLOTS:
-    void checkedStateChanged(bool checked);
-
     /**
      * Trigerred on change of date in from date edit.
      * @param newDate New value.

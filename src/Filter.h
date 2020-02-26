@@ -22,6 +22,12 @@ public:
 
     Filter& operator=(Filter&& other) = delete;
     Filter(Filter&& other) = delete;
+
+public Q_SLOTS:
+    void setChecked(bool checked);
+
+protected:
+    virtual void checkedStateChanged(bool checked) = 0;
 };
 
 #endif // FILTER_H

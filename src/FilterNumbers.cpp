@@ -20,8 +20,6 @@ FilterNumbers::FilterNumbers(const QString& name,
 {
     ui->setupUi(this);
 
-    connect(this, &Filter::toggled, this, &FilterNumbers::setChecked);
-
     if (maxOnInit_ - minOnInit_ <= 1)
         doubleMode_ = true;
 
@@ -153,9 +151,8 @@ void FilterNumbers::toEditingFinished()
     slider->setCurrentMax(maxToSet);
 }
 
-void FilterNumbers::setChecked(bool checked)
+void FilterNumbers::checkedStateChanged(bool checked)
 {
-    QGroupBox::setChecked(checked);
     QList<QWidget*> widgets = findChildren<QWidget*>();
 
     for (QWidget* current : widgets)

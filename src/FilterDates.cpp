@@ -15,7 +15,6 @@ FilterDates::FilterDates(const QString& name,
 {
     ui->setupUi(this);
 
-    connect(this, &Filter::toggled, this, &FilterDates::checkedStateChanged);
     connect(ui->emptyDates, &QCheckBox::toggled,
             this, [ = ](bool checked)
     {
@@ -83,8 +82,6 @@ void FilterDates::toDateChanged(QDate newDate)
 
 void FilterDates::checkedStateChanged(bool checked)
 {
-    QGroupBox::setChecked(checked);
-
     QList<QDateEdit*> dateWidgets = findChildren<QDateEdit*>();
 
     for (QWidget* current : dateWidgets)

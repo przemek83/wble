@@ -35,6 +35,9 @@ public:
 
     QSize sizeHint() const override;
 
+protected:
+    void checkedStateChanged(bool checked) override;
+
 private:
     const QStringList initialList_;
 
@@ -52,8 +55,6 @@ private:
     bool addMarginForScrollBar_;
 
 private Q_SLOTS:
-    void setChecked(bool checked);
-
     /**
      * Triggered when user click on item.
      * @param item item clicked.

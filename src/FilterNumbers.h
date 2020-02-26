@@ -34,6 +34,9 @@ public:
     FilterNumbers& operator=(FilterNumbers&& other) = delete;
     FilterNumbers(FilterNumbers&& other) = delete;
 
+protected:
+    void checkedStateChanged(bool checked) override;
+
 private:
     Ui::FilterNumbers* ui;
 
@@ -70,8 +73,6 @@ private Q_SLOTS:
      * Trigerred on change of right LineEdit (to).
      */
     void toEditingFinished();
-
-    void setChecked(bool checked);
 
 Q_SIGNALS:
     void newNumericFilter(double from, double to);
