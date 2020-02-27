@@ -36,7 +36,10 @@ FilterNames::FilterNames(const QString& name,
             this, &FilterNames::itemChecked);
 
     if (initialList_.size() <= 1)
+    {
         ui->selectAll->hide();
+        ui->selectAll->setEnabled(false);
+    }
 }
 
 FilterNames::~FilterNames()
@@ -91,9 +94,13 @@ void FilterNames::checkedStateChanged(bool checked)
     widgets.removeOne(checkBox);
 
     for (QWidget* current : widgets)
+    {
         current->setVisible(checked);
+        current->setEnabled(checked);
+    }
 
-    checkBox->setVisible(checked && initialList_.size() > 1);
+    ui->selectAll->setVisible(checked && initialList_.size() > 1);
+    ui->selectAll->setEnabled(checked);
 }
 
 QStringList FilterNames::getListOfSelectedItems() const

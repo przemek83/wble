@@ -7,9 +7,7 @@ class FilterNamesTest : public QObject
 {
     Q_OBJECT
 private slots:
-
-signals:
-
+    void testToggling();
 };
 
 #endif // FILTERNAMESTEST_H
