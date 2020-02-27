@@ -1,13 +1,10 @@
-#ifndef CONSTANTSTEST_H
-#define CONSTANTSTEST_H
+#ifndef DOUBLESLIDERTEST
+#define DOUBLESLIDERTEST
 
 #include <QObject>
 
 class DoubleSlider;
 
-/**
- * @brief Unit test for Constants class.
- */
 class DoubleSliderTest: public QObject
 {
     Q_OBJECT
@@ -42,4 +39,4 @@ private:
     static constexpr int SIGNAL_RECEIVED {1};
 };
 
-#endif // CONSTANTSTEST_H
+#endif // DOUBLESLIDERTEST
