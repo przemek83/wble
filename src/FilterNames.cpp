@@ -33,7 +33,6 @@ FilterNames::FilterNames(const QString& name,
     if (minNameWidthForScrollMargin_ <= longestNameWidth)
         addMarginForScrollBar_ = true;
 
-    qDebug() << "Eater 2!";
     ui->listWidget->viewport()->installEventFilter(new DoubleClickEater(ui->listWidget));
 
     auto setAlternativeState =
