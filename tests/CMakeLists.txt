@@ -4,6 +4,8 @@ set(${PROJECT_NAME}_SOURCES
     Tests.cpp
     DoubleSliderTest.cpp
     DoubleSliderTest.h
+    FilterDatesTest.cpp
+    FilterDatesTest.h
     )
 
 add_executable(tests ${${PROJECT_NAME}_SOURCES})
