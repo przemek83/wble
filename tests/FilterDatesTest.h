@@ -12,6 +12,8 @@ private slots:
 
     void testFilterEmptyDatesToggle();
 
+    void testToggling();
+
 private:
     QDate fromDate_;
     QDate toDate_;

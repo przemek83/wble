@@ -85,7 +85,11 @@ void FilterDates::checkedStateChanged(bool checked)
     QList<QDateEdit*> dateWidgets = findChildren<QDateEdit*>();
 
     for (QWidget* current : dateWidgets)
+    {
         current->setVisible(checked);
+        current->setEnabled(checked);
+    }
 
     ui->ignoreEmptyDates->setVisible(checked && emptyDates_);
+    ui->ignoreEmptyDates->setEnabled(checked);
 }
