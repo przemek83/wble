@@ -7,6 +7,7 @@
 #include <QScrollBar>
 
 #include "ui_FilterNames.h"
+#include "DoubleClickEater.h"
 
 FilterNames::FilterNames(const QString& name,
                          QStringList initialList,
@@ -24,7 +25,7 @@ FilterNames::FilterNames(const QString& name,
     for (const QString& itemName : initialList_)
     {
         auto item = new QListWidgetItem(itemName, ui->listWidget);
-        item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
+        item->setFlags(item->flags() & ~Qt::ItemIsUserCheckable);
         item->setCheckState(Qt::Checked);
         longestNameWidth = qMax(longestNameWidth, itemName.length());
     }
@@ -32,8 +33,20 @@ FilterNames::FilterNames(const QString& name,
     if (minNameWidthForScrollMargin_ <= longestNameWidth)
         addMarginForScrollBar_ = true;
 
+    qDebug() << "Eater 2!";
+    ui->listWidget->viewport()->installEventFilter(new DoubleClickEater(ui->listWidget));
+
+    auto setAlternativeState =
+        [ = ](QListWidgetItem * item)
+    {
+        item->setCheckState((item->checkState() == Qt::Checked ?
+                             Qt::Unchecked : Qt::Checked));
+        itemChecked(item);
+    };
     connect(ui->listWidget, &QListWidget::itemClicked,
-            this, &FilterNames::itemChecked);
+            this, setAlternativeState);
+    connect(ui->listWidget, &QListWidget::itemActivated,
+            this, setAlternativeState);
 
     if (initialList_.size() <= 1)
     {

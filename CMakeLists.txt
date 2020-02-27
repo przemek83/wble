@@ -34,6 +34,8 @@ add_library(wble SHARED
   src/FilterDoubles.h
   src/Utilities.cpp
   src/Utilities.h
+  src/DoubleClickEater.cpp
+  src/DoubleClickEater.h
 )
 
 set_target_properties(wble PROPERTIES VERSION ${PROJECT_VERSION})
