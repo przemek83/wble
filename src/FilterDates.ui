@@ -30,7 +30,7 @@
     <number>0</number>
    </property>
    <item>
-    <widget class="QCheckBox" name="emptyDates">
+    <widget class="QCheckBox" name="ignoreEmptyDates">
      <property name="text">
       <string>Ignore data with empty date</string>
      </property>
