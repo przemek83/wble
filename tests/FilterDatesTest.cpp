@@ -47,3 +47,14 @@ void FilterDatesTest::testToggling()
     for (const auto widget : checkBoxes)
         QCOMPARE(widget->isEnabled(), false);
 }
+
+void FilterDatesTest::testProperInitOfEmptyDatesCheckbox()
+{
+    FilterDates filterWithEmptyDates(" ", fromDate_, toDate_, true);
+    auto ignoreEmptyDates = filterWithEmptyDates.findChild<QCheckBox*>();
+    QCOMPARE(ignoreEmptyDates->isEnabled(), true);
+
+    FilterDates filterWithoutEmptyDates(" ", fromDate_, toDate_, false);
+    ignoreEmptyDates = filterWithoutEmptyDates.findChild<QCheckBox*>();
+    QCOMPARE(ignoreEmptyDates->isEnabled(), false);
+}

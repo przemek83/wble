@@ -29,10 +29,8 @@ FilterDates::FilterDates(const QString& name,
     initFromDateCalendar();
     initToDateCalendar();
 
-    if (!emptyDates_)
-        ui->ignoreEmptyDates->hide();
-    else
-        ui->ignoreEmptyDates->show();
+    ui->ignoreEmptyDates->setVisible(emptyDates_);
+    ui->ignoreEmptyDates->setEnabled(emptyDates_);
 }
 
 FilterDates::~FilterDates()

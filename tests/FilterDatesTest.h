@@ -14,6 +14,8 @@ private slots:
 
     void testToggling();
 
+    void testProperInitOfEmptyDatesCheckbox();
+
 private:
     QDate fromDate_;
     QDate toDate_;
