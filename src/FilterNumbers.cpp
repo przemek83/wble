@@ -24,6 +24,8 @@ FilterNumbers::FilterNumbers(const QString& name,
 
     initDoubleSlider();
 
+    initColorForLineEdits();
+
     if (Utilities::doublesAreEqual(initialFromValue_, initialToValue_))
         setDisabled(true);
 }
@@ -51,6 +53,14 @@ QLineEdit* FilterNumbers::getToLineEdit() const
     return ui->toValue;
 }
 
+void FilterNumbers::changeEvent(QEvent* event)
+{
+    Filter::changeEvent(event);
+
+    if (event->type() == QEvent::StyleChange)
+        initColorForLineEdits();
+}
+
 void FilterNumbers::initDoubleSlider()
 {
     DoubleSlider* slider {new DoubleSlider(initialFromValue_, initialToValue_, this)};
@@ -68,6 +78,18 @@ void FilterNumbers::initLineEdits()
             this, &FilterNumbers::fromEditingFinished);
     connect(ui->toValue, &QLineEdit::editingFinished,
             this, &FilterNumbers::toEditingFinished);
+
+    connect(ui->fromValue, &QLineEdit::textChanged,
+            this, &FilterNumbers::lineEditContentModified);
+    connect(ui->toValue, &QLineEdit::textChanged,
+            this, &FilterNumbers::lineEditContentModified);
+}
+
+void FilterNumbers::initColorForLineEdits()
+{
+    QPalette defaultPalette {QApplication::palette(ui->fromValue)};
+    defaultBackgroundColor_ = defaultPalette.color(ui->fromValue->backgroundRole());
+    altBackgroundColor_ = defaultPalette.color(QPalette::Highlight);
 }
 
 void FilterNumbers::sliderFromChanged(double newValue)
@@ -118,4 +140,25 @@ void FilterNumbers::toEditingFinished()
 
     slider->setCurrentMax(toToSet);
     emitChangeSignal();
+}
+
+void FilterNumbers::lineEditContentModified(const QString& currentContent)
+{
+    auto lineEdit = dynamic_cast<QLineEdit*>(sender());
+    const double currentValue = QLocale::system().toDouble(currentContent);
+    QPalette palette = lineEdit->palette();
+    const bool currentValueValid =
+        currentValue >= initialFromValue_ && currentValue <= initialToValue_;
+    const QColor currentBackgroundColor {palette.color(lineEdit->backgroundRole())};
+    if (currentValueValid && currentBackgroundColor == altBackgroundColor_)
+    {
+        palette.setColor(lineEdit->backgroundRole(), defaultBackgroundColor_);
+        lineEdit->setPalette(palette);
+    }
+
+    if (!currentValueValid && currentBackgroundColor == defaultBackgroundColor_)
+    {
+        palette.setColor(lineEdit->backgroundRole(), altBackgroundColor_);
+        lineEdit->setPalette(palette);
+    }
 }

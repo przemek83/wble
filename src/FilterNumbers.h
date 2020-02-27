@@ -47,18 +47,26 @@ protected:
 
     QLineEdit* getToLineEdit() const;
 
-    Ui::FilterNumbers* ui;
+    void changeEvent(QEvent* event) override;
 
 private:
     void initDoubleSlider();
 
     void initLineEdits();
 
+    void initColorForLineEdits();
+
+    Ui::FilterNumbers* ui;
+
     /// Minimum set on filter creation.
     double initialFromValue_;
 
     /// Maximum set on filter creation.
     double initialToValue_;
+
+    QColor defaultBackgroundColor_;
+
+    QColor altBackgroundColor_;
 
 private Q_SLOTS:
     /**
@@ -82,6 +90,8 @@ private Q_SLOTS:
      * Trigerred on change of right LineEdit (to).
      */
     void toEditingFinished();
+
+    void lineEditContentModified(const QString& currentContent);
 };
 
 #endif // FILTERNUMBERS_H
