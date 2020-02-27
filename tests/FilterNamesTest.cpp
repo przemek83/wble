@@ -40,3 +40,22 @@ void FilterNamesTest::testSelectAllToggling()
     QCOMPARE(spy.count(), SIGNAL_RECEIVED);
     QCOMPARE(spy.takeFirst(), {QVariant(QStringList{})});
 }
+
+void FilterNamesTest::testListItemChecking()
+{
+    FilterNames filter(" ", testEntriesList_);
+    QSignalSpy spy(&filter, &FilterNames::newStringFilter);
+    const auto listWidget = filter.findChild<QListWidget*>();
+    const auto item = listWidget->item(testEntriesList_.indexOf("b"));
+    const QRect itemRect = listWidget->visualItemRect(item);
+    QTest::mouseClick(listWidget->viewport(), Qt::LeftButton, Qt::NoModifier, itemRect.center());
+
+    QCOMPARE(spy.count(), SIGNAL_RECEIVED);
+    QCOMPARE(spy.takeFirst(), {"b"});
+    QCOMPARE(spy.count(), NO_SIGNAL);
+
+    QApplication::processEvents();
+    QTest::mouseClick(listWidget->viewport(), Qt::LeftButton, Qt::NoModifier, itemRect.center());
+    QCOMPARE(spy.count(), SIGNAL_RECEIVED);
+    QCOMPARE(spy.takeFirst(), {QVariant(QStringList{})});
+}

@@ -14,6 +14,8 @@ private slots:
 
     void testSelectAllToggling();
 
+    void testListItemChecking();
+
 private:
     QStringList testEntriesList_;
 
