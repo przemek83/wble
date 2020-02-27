@@ -58,3 +58,23 @@ void FilterDatesTest::testProperInitOfEmptyDatesCheckbox()
     ignoreEmptyDates = filterWithoutEmptyDates.findChild<QCheckBox*>();
     QCOMPARE(ignoreEmptyDates->isEnabled(), false);
 }
+
+void FilterDatesTest::testChangingDates()
+{
+    FilterDates filter(" ", fromDate_, toDate_, true);
+    auto lineEdits = filter.findChildren<QDateEdit*>();
+    Q_ASSERT(lineEdits.count() == 2);
+    QDateEdit* fromEdit = (lineEdits.first()->date() == fromDate_ ? lineEdits.first() : lineEdits.last());
+    QDateEdit* toEdit = (lineEdits.first()->date() == toDate_ ? lineEdits.first() : lineEdits.last());
+
+    QSignalSpy spy(&filter, &FilterDates::newDateFilter);
+    fromEdit->setDate(fromDate_.addDays(1));
+    QCOMPARE(spy.count(), SIGNAL_RECEIVED);
+    QList<QVariant> expectedSignalParams {fromDate_.addDays(1), toDate_, false};
+    QCOMPARE(spy.takeFirst(), expectedSignalParams);
+
+    toEdit->setDate(toDate_.addMonths(-1));
+    QCOMPARE(spy.count(), SIGNAL_RECEIVED);
+    expectedSignalParams = {fromDate_.addDays(1), toDate_.addMonths(-1), false};
+    QCOMPARE(spy.takeFirst(), expectedSignalParams);
+}

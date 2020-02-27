@@ -16,6 +16,8 @@ private slots:
 
     void testProperInitOfEmptyDatesCheckbox();
 
+    void testChangingDates();
+
 private:
     QDate fromDate_;
     QDate toDate_;
