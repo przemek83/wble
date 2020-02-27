@@ -2,6 +2,7 @@
 
 #include "DoubleSliderTest.h"
 #include "FilterDatesTest.h"
+#include "FilterNamesTest.h"
 
 int main(int argc, char* argv[])
 {
@@ -12,6 +13,9 @@ int main(int argc, char* argv[])
 
     FilterDatesTest filterDatesTest;
     QTest::qExec(&filterDatesTest);
+
+    FilterNamesTest filterNamesTest;
+    QTest::qExec(&filterNamesTest);
 
     return 0;
 }
