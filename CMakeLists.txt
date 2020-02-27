@@ -28,6 +28,10 @@ add_library(wble SHARED
   src/FilterNumbers.cpp
   src/FilterNumbers.h
   src/FilterNumbers.ui
+  src/FilterIntegers.cpp
+  src/FilterIntegers.h
+  src/FilterDoubles.cpp
+  src/FilterDoubles.h
   src/Utilities.cpp
   src/Utilities.h
 )
@@ -41,6 +45,8 @@ set_property(TARGET wble PROPERTY PUBLIC_HEADER
     src/FilterNames.h
     src/FilterDates.h
     src/FilterNumbers.h
+    src/FilterIntegers.h
+    src/FilterDoubles.h
     src/wble_global.h)
 target_include_directories(wble PUBLIC src)
 include(GNUInstallDirs)

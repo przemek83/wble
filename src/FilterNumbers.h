@@ -13,9 +13,11 @@ namespace Ui
 class FilterNumbers;
 } // namespace Ui
 
+class QLineEdit;
+
 /**
  * @class FilterNumbers
- * @brief Numbers filter for numeric values.
+ * @brief Base class for numeric filters.
  */
 class WBLE_EXPORT FilterNumbers : public Filter
 {
@@ -34,36 +36,29 @@ public:
     FilterNumbers& operator=(FilterNumbers&& other) = delete;
     FilterNumbers(FilterNumbers&& other) = delete;
 
-    /**
-     * Emitted when filter state was changed.
-     * @param from Current value of from number.
-     * @param to Current value of to number.
-     */
-Q_SIGNALS:
-    void newNumericFilter(double from, double to);
-
 protected:
     void checkedStateChanged(bool checked) override;
 
-private:
-    void initValidators();
+    virtual bool isDoubleMode() const = 0;
 
+    virtual void emitChangeSignal() = 0;
+
+    QLineEdit* getFromLineEdit() const;
+
+    QLineEdit* getToLineEdit() const;
+
+    Ui::FilterNumbers* ui;
+
+private:
     void initDoubleSlider();
 
     void initLineEdits();
-
-    void emitChangeSignal();
-
-    Ui::FilterNumbers* ui;
 
     /// Minimum set on filter creation.
     double initialFromValue_;
 
     /// Maximum set on filter creation.
     double initialToValue_;
-
-    ///Numbers are doubles.
-    bool doubleMode_ {false};
 
 private Q_SLOTS:
     /**

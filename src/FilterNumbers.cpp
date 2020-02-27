@@ -20,11 +20,6 @@ FilterNumbers::FilterNumbers(const QString& name,
 {
     ui->setupUi(this);
 
-    if (fmod(from, 1) != 0 || fmod(to, 1) != 0)
-        doubleMode_ = true;
-
-    initValidators();
-
     initLineEdits();
 
     initDoubleSlider();
@@ -46,26 +41,14 @@ void FilterNumbers::checkedStateChanged(bool checked)
         current->setVisible(checked);
 }
 
-void FilterNumbers::initValidators()
+QLineEdit* FilterNumbers::getFromLineEdit() const
 {
-    QValidator* fromValidator {nullptr};
-    QValidator* toValidator {nullptr};
-    if (doubleMode_)
-    {
-        fromValidator = new QDoubleValidator(initialFromValue_, initialToValue_,
-                                             2, ui->fromValue);
-        toValidator = new QDoubleValidator(initialFromValue_, initialToValue_,
-                                           2, ui->toValue);
-    }
-    else
-    {
-        const int from {static_cast<int>(initialFromValue_)};
-        const int to {static_cast<int>(initialToValue_)};
-        fromValidator = new QIntValidator(from, to, ui->fromValue);
-        toValidator = new QIntValidator(from, to, ui->toValue);
-    }
-    ui->fromValue->setValidator(fromValidator);
-    ui->toValue->setValidator(toValidator);
+    return ui->fromValue;
+}
+
+QLineEdit* FilterNumbers::getToLineEdit() const
+{
+    return ui->toValue;
 }
 
 void FilterNumbers::initDoubleSlider()
@@ -81,45 +64,28 @@ void FilterNumbers::initDoubleSlider()
 
 void FilterNumbers::initLineEdits()
 {
-    if (doubleMode_)
-    {
-        ui->fromValue->setText(QLocale::system().toString(initialFromValue_, 'f', 2));
-        ui->toValue->setText(QLocale::system().toString(initialToValue_, 'f', 2));
-    }
-    else
-    {
-        ui->fromValue->setText(QLocale::system().toString(static_cast<int>(initialFromValue_)));
-        ui->toValue->setText(QLocale::system().toString(static_cast<int>(initialToValue_)));
-    }
-
     connect(ui->fromValue, &QLineEdit::editingFinished,
             this, &FilterNumbers::fromEditingFinished);
     connect(ui->toValue, &QLineEdit::editingFinished,
             this, &FilterNumbers::toEditingFinished);
 }
 
-void FilterNumbers::emitChangeSignal()
-{
-    Q_EMIT newNumericFilter(QLocale::system().toDouble(ui->fromValue->text()),
-                            QLocale::system().toDouble(ui->toValue->text()));
-}
-
 void FilterNumbers::sliderFromChanged(double newValue)
 {
-    if (doubleMode_)
+    if (isDoubleMode())
         ui->fromValue->setText(QLocale::system().toString(newValue, 'f', 2));
     else
-        ui->fromValue->setText(QLocale::system().toString(newValue));
+        ui->fromValue->setText(QLocale::system().toString(static_cast<int>(newValue)));
 
     emitChangeSignal();
 }
 
 void FilterNumbers::sliderToChanged(double newValue)
 {
-    if (doubleMode_)
+    if (isDoubleMode())
         ui->toValue->setText(QLocale::system().toString(newValue, 'f', 2));
     else
-        ui->toValue->setText(QLocale::system().toString(newValue));
+        ui->toValue->setText(QLocale::system().toString(static_cast<int>(newValue)));
 
     emitChangeSignal();
 }
@@ -131,7 +97,7 @@ void FilterNumbers::fromEditingFinished()
         return;
 
     QString newFromAsText {ui->fromValue->text()};
-    double fromToSet {doubleMode_ ?
+    double fromToSet {isDoubleMode() ?
                       QLocale::system().toDouble(newFromAsText) :
                       QLocale::system().toInt(newFromAsText)};
 
@@ -146,7 +112,7 @@ void FilterNumbers::toEditingFinished()
         return;
 
     QString newToAsText = ui->toValue->text();
-    double toToSet {doubleMode_ ?
+    double toToSet {isDoubleMode() ?
                     QLocale::system().toDouble(newToAsText) :
                     QLocale::system().toInt(newToAsText)};
 

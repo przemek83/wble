@@ -7,12 +7,13 @@
 #include <QWindow>
 
 #include "DoubleSlider.h"
-#include "FilterNumbers.h"
+#include "FilterIntegers.h"
+#include "FilterDoubles.h"
 #include "FilterDates.h"
 #include "FilterNames.h"
 
-static const double MIN {-100.};
-static const double MAX {100.};
+static const double MIN {3};
+static const double MAX {56};
 
 static DoubleSlider* createDoubleSlider(QLabel* infoLabel)
 {
@@ -37,15 +38,31 @@ static DoubleSlider* createDoubleSlider(QLabel* infoLabel)
     return slider;
 }
 
-static FilterNumbers* createFilterNumbers(QLabel* infoLabel)
+static FilterNumbers* createFilterIntegers(QLabel* infoLabel)
 {
-    auto filterNumbers = new FilterNumbers("Numbers Filter", MIN, MAX);
+    auto filterNumbers = new FilterIntegers("Integers Filter", MIN, MAX);
     QObject::connect(filterNumbers,
-                     &FilterNumbers::newNumericFilter,
+                     &FilterIntegers::newNumericFilter,
+                     infoLabel,
+                     [ = ](int min, int max)
+    {
+        infoLabel->setText("Integers Filter: " + QString::number(min) + " | " +
+                           QString::number(max));
+    });
+
+    filterNumbers->setCheckable(true);
+    return filterNumbers;
+}
+
+static FilterNumbers* createFilterDoubles(QLabel* infoLabel)
+{
+    auto filterNumbers = new FilterDoubles("Doubles Filter", MIN, MAX);
+    QObject::connect(filterNumbers,
+                     &FilterDoubles::newNumericFilter,
                      infoLabel,
                      [ = ](double min, double max)
     {
-        infoLabel->setText("Numbers Filter: " + QString::number(min) + " | " +
+        infoLabel->setText("Doubles Filter: " + QString::number(min) + " | " +
                            QString::number(max));
     });
 
@@ -103,7 +120,8 @@ int main(int argc, char* argv[])
     layout.addWidget(createDoubleSlider(infoLabel));
     groupBox.setLayout(&layout);
     widgetLayout.addWidget(&groupBox);
-    widgetLayout.addWidget(createFilterNumbers(infoLabel));
+    widgetLayout.addWidget(createFilterIntegers(infoLabel));
+    widgetLayout.addWidget(createFilterDoubles(infoLabel));
     widgetLayout.addWidget(createFilterDates(infoLabel));
     widgetLayout.addWidget(createFilterNames(infoLabel));
     widgetLayout.addWidget(infoLabel);
