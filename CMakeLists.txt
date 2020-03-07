@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.8)
 
-project(wble LANGUAGES CXX VERSION 0.0.1 DESCRIPTION "Library of usefull Qt widgets")
+project(wble LANGUAGES CXX VERSION 0.0.1 DESCRIPTION "Library of useful Qt widgets")
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOUIC ON)
