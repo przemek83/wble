@@ -39,8 +39,11 @@ void FilterNumbers::checkedStateChanged(bool checked)
 {
     const QList<QWidget*> widgets {findChildren<QWidget*>()};
 
-    for (QWidget* current : widgets)
-        current->setVisible(checked);
+    for (QWidget* widget : widgets)
+    {
+        widget->setEnabled(checked);
+        widget->setVisible(checked);
+    }
 }
 
 QLineEdit* FilterNumbers::getFromLineEdit() const

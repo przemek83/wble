@@ -8,6 +8,8 @@ set(${PROJECT_NAME}_SOURCES
     FilterDatesTest.h
     FilterStringsTest.cpp
     FilterStringsTest.h
+    FilterIntegersTest.cpp
+    FilterIntegersTest.h
     )
 
 add_executable(tests ${${PROJECT_NAME}_SOURCES})
