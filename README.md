@@ -18,5 +18,9 @@ As a result of compilation dynamic lib should be created along with headers dir.
 
 To use it as external project via Cmake you may check how it is done in my other project called Volbx.
 
+# Usage
+Easiest way is to check examples subproject where you can find how to create and interact with each widget included in this library.  
+Alternatively tests subroject can be checked or my other project called Volbx where widgets from this library are used.
+
 # Widgets
 
