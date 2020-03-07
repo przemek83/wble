@@ -2,6 +2,7 @@
 
 #include "DoubleSliderTest.h"
 #include "FilterDatesTest.h"
+#include "FilterDoublesTest.h"
 #include "FilterIntegersTest.h"
 #include "FilterStringsTest.h"
 
@@ -20,6 +21,9 @@ int main(int argc, char* argv[])
 
     FilterIntegersTest filterIntegersTest;
     QTest::qExec(&filterIntegersTest);
+
+    FilterDoublesTest filterDoublesTest;
+    QTest::qExec(&filterDoublesTest);
 
     return 0;
 }

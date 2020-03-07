@@ -10,6 +10,10 @@ set(${PROJECT_NAME}_SOURCES
     FilterStringsTest.h
     FilterIntegersTest.cpp
     FilterIntegersTest.h
+    FilterDoublesTest.cpp
+    FilterDoublesTest.h
+    FilterNumbersCommon.cpp
+    FilterNumbersCommon.h
     )
 
 add_executable(tests ${${PROJECT_NAME}_SOURCES})
