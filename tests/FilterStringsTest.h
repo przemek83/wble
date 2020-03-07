@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QStringList>
 
-class FilterNamesTest : public QObject
+class FilterStringsTest : public QObject
 {
     Q_OBJECT
 private slots:

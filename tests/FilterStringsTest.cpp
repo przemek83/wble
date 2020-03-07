@@ -1,4 +1,4 @@
-#include "FilterNamesTest.h"
+#include "FilterStringsTest.h"
 
 #include <QCheckBox>
 #include <QListWidget>
@@ -8,12 +8,12 @@
 
 #include "FilterStrings.h"
 
-void FilterNamesTest::initTestCase()
+void FilterStringsTest::initTestCase()
 {
     testEntriesList_ = QStringList{"a", "b", "c", "d"};
 }
 
-void FilterNamesTest::testToggling()
+void FilterStringsTest::testToggling()
 {
     FilterStrings filter(" ", testEntriesList_);
     auto listWidget = filter.findChild<QListWidget*>();
@@ -26,7 +26,7 @@ void FilterNamesTest::testToggling()
     QCOMPARE(selectAll->isEnabled(), false);
 }
 
-void FilterNamesTest::testSelectAllToggling()
+void FilterStringsTest::testSelectAllToggling()
 {
     FilterStrings filter(" ", testEntriesList_);
     QSignalSpy spy(&filter, &FilterStrings::newStringFilter);
@@ -41,7 +41,7 @@ void FilterNamesTest::testSelectAllToggling()
     QCOMPARE(spy.takeFirst(), {QVariant(QStringList{})});
 }
 
-void FilterNamesTest::testListItemChecking()
+void FilterStringsTest::testListItemChecking()
 {
     FilterStrings filter(" ", testEntriesList_);
     QSignalSpy spy(&filter, &FilterStrings::newStringFilter);
