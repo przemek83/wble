@@ -1,4 +1,4 @@
-#include "FilterNames.h"
+#include "FilterStrings.h"
 
 #include <algorithm>
 
@@ -6,20 +6,20 @@
 #include <QListWidgetItem>
 #include <QScrollBar>
 
-#include "ui_FilterNames.h"
+#include "ui_FilterStrings.h"
 #include "DoubleClickEater.h"
 
-FilterNames::FilterNames(const QString& name,
-                         QStringList initialList,
-                         QWidget* parent) :
+FilterStrings::FilterStrings(const QString& name,
+                             QStringList initialList,
+                             QWidget* parent) :
     Filter(name, parent),
     initialList_(std::move(initialList)),
-    ui(new Ui::FilterNames),
+    ui(new Ui::FilterStrings),
     addMarginForScrollBar_(false)
 {
     ui->setupUi(this);
 
-    connect(ui->selectAll, &QCheckBox::toggled, this, &FilterNames::selectAllToggled);
+    connect(ui->selectAll, &QCheckBox::toggled, this, &FilterStrings::selectAllToggled);
 
     int longestNameWidth {0};
     for (const QString& itemName : initialList_)
@@ -54,12 +54,12 @@ FilterNames::FilterNames(const QString& name,
     }
 }
 
-FilterNames::~FilterNames()
+FilterStrings::~FilterStrings()
 {
     delete ui;
 }
 
-void FilterNames::itemChecked(QListWidgetItem* item)
+void FilterStrings::itemChecked(QListWidgetItem* item)
 {
     if (item == nullptr)
         return;
@@ -76,7 +76,7 @@ void FilterNames::itemChecked(QListWidgetItem* item)
     Q_EMIT newStringFilter(lastEmittedList_);
 }
 
-QSize FilterNames::sizeHint() const
+QSize FilterStrings::sizeHint() const
 {
     if (isChecked())
     {
@@ -98,7 +98,7 @@ QSize FilterNames::sizeHint() const
     return QGroupBox::sizeHint();
 }
 
-void FilterNames::checkedStateChanged(bool checked)
+void FilterStrings::checkedStateChanged(bool checked)
 {
     auto checkBox = findChild<QCheckBox*>();
 
@@ -115,7 +115,7 @@ void FilterNames::checkedStateChanged(bool checked)
     ui->selectAll->setEnabled(checked);
 }
 
-QStringList FilterNames::getListOfSelectedItems() const
+QStringList FilterStrings::getListOfSelectedItems() const
 {
     QStringList currentList;
     currentList.reserve(ui->listWidget->count());
@@ -129,7 +129,7 @@ QStringList FilterNames::getListOfSelectedItems() const
     return currentList;
 }
 
-void FilterNames::updateSelectAllCheckbox()
+void FilterStrings::updateSelectAllCheckbox()
 {
     bool allChecked {true};
     for (int i = 0; i < ui->listWidget->count(); ++i)
@@ -145,7 +145,7 @@ void FilterNames::updateSelectAllCheckbox()
     ui->selectAll->blockSignals(false);
 }
 
-void FilterNames::selectAllToggled(bool checked)
+void FilterStrings::selectAllToggled(bool checked)
 {
     Q_ASSERT(ui->listWidget->count() > 0);
 

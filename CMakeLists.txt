@@ -19,9 +19,9 @@ add_library(wble SHARED
   src/DoubleSlider.h
   src/Filter.cpp
   src/Filter.h
-  src/FilterNames.cpp
-  src/FilterNames.h
-  src/FilterNames.ui
+  src/FilterStrings.cpp
+  src/FilterStrings.h
+  src/FilterStrings.ui
   src/FilterDates.cpp
   src/FilterDates.h
   src/FilterDates.ui

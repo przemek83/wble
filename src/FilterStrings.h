@@ -10,28 +10,28 @@ class QListWidgetItem;
 
 namespace Ui
 {
-class FilterNames;
+class FilterStrings;
 } // namespace Ui
 
 /**
  * @class FilterNames
  * @brief Names filter for strings.
  */
-class WBLE_EXPORT FilterNames : public Filter
+class WBLE_EXPORT FilterStrings : public Filter
 {
     Q_OBJECT
 public:
-    FilterNames(const QString& name,
-                QStringList initialList,
-                QWidget* parent = nullptr);
+    FilterStrings(const QString& name,
+                  QStringList initialList,
+                  QWidget* parent = nullptr);
 
-    ~FilterNames() override;
+    ~FilterStrings() override;
 
-    FilterNames& operator=(const FilterNames& other) = delete;
-    FilterNames(const FilterNames& other) = delete;
+    FilterStrings& operator=(const FilterStrings& other) = delete;
+    FilterStrings(const FilterStrings& other) = delete;
 
-    FilterNames& operator=(FilterNames&& other) = delete;
-    FilterNames(FilterNames&& other) = delete;
+    FilterStrings& operator=(FilterStrings&& other) = delete;
+    FilterStrings(FilterStrings&& other) = delete;
 
     QSize sizeHint() const override;
 
@@ -54,7 +54,7 @@ private:
 
     QStringList lastEmittedList_;
 
-    Ui::FilterNames* ui;
+    Ui::FilterStrings* ui;
 
     /// Min number of chars to include scrioll margin.
     static constexpr int minNameWidthForScrollMargin_ {25};

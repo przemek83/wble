@@ -10,7 +10,7 @@
 #include "FilterIntegers.h"
 #include "FilterDoubles.h"
 #include "FilterDates.h"
-#include "FilterNames.h"
+#include "FilterStrings.h"
 
 static const double MIN {3};
 static const double MAX {56};
@@ -90,12 +90,12 @@ static FilterDates* createFilterDates(QLabel* infoLabel)
     return filterDates;
 }
 
-static FilterNames* createFilterNames(QLabel* infoLabel)
+static FilterStrings* createFilterStrings(QLabel* infoLabel)
 {
     auto filterNames =
-        new FilterNames("Names Filter", QStringList{"a", "b", "c", "d"});
+        new FilterStrings("Names Filter", QStringList{"a", "b", "c", "d"});
     QObject::connect(filterNames,
-                     &FilterNames::newStringFilter,
+                     &FilterStrings::newStringFilter,
                      infoLabel,
                      [ = ](QStringList bannedItems)
     {
@@ -110,6 +110,8 @@ int main(int argc, char* argv[])
 {
     QApplication a(argc, argv);
 
+    QApplication::setStyle(QStyleFactory::create("Fusion"));
+
     QWidget widget;
 
     auto infoLabel = new QLabel("Status");
@@ -123,7 +125,7 @@ int main(int argc, char* argv[])
     widgetLayout.addWidget(createFilterIntegers(infoLabel));
     widgetLayout.addWidget(createFilterDoubles(infoLabel));
     widgetLayout.addWidget(createFilterDates(infoLabel));
-    widgetLayout.addWidget(createFilterNames(infoLabel));
+    widgetLayout.addWidget(createFilterStrings(infoLabel));
     widgetLayout.addWidget(infoLabel);
     widgetLayout.addStretch();
     widget.setLayout(&widgetLayout);

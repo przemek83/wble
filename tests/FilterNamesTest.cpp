@@ -6,7 +6,7 @@
 #include <QtTest/QtTest>
 #include <QTest>
 
-#include "FilterNames.h"
+#include "FilterStrings.h"
 
 void FilterNamesTest::initTestCase()
 {
@@ -15,7 +15,7 @@ void FilterNamesTest::initTestCase()
 
 void FilterNamesTest::testToggling()
 {
-    FilterNames filter(" ", testEntriesList_);
+    FilterStrings filter(" ", testEntriesList_);
     auto listWidget = filter.findChild<QListWidget*>();
     auto selectAll = filter.findChild<QCheckBox*>();
     QCOMPARE(listWidget->isEnabled(), true);
@@ -28,8 +28,8 @@ void FilterNamesTest::testToggling()
 
 void FilterNamesTest::testSelectAllToggling()
 {
-    FilterNames filter(" ", testEntriesList_);
-    QSignalSpy spy(&filter, &FilterNames::newStringFilter);
+    FilterStrings filter(" ", testEntriesList_);
+    QSignalSpy spy(&filter, &FilterStrings::newStringFilter);
 
     auto selectAll = filter.findChild<QCheckBox*>();
     selectAll->toggle();
@@ -43,8 +43,8 @@ void FilterNamesTest::testSelectAllToggling()
 
 void FilterNamesTest::testListItemChecking()
 {
-    FilterNames filter(" ", testEntriesList_);
-    QSignalSpy spy(&filter, &FilterNames::newStringFilter);
+    FilterStrings filter(" ", testEntriesList_);
+    QSignalSpy spy(&filter, &FilterStrings::newStringFilter);
     const auto listWidget = filter.findChild<QListWidget*>();
     const auto item = listWidget->item(testEntriesList_.indexOf("b"));
     const QRect itemRect = listWidget->visualItemRect(item);
