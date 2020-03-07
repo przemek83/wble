@@ -44,7 +44,7 @@
       <enum>Qt::LeftToRight</enum>
      </property>
      <property name="text">
-      <string>select/deselect all</string>
+      <string>Select/Unselect all</string>
      </property>
      <property name="checked">
       <bool>true</bool>
