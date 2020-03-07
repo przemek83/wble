@@ -44,7 +44,7 @@ set_target_properties(wble PROPERTIES SOVERSION 1)
 set_property(TARGET wble PROPERTY PUBLIC_HEADER
     src/DoubleSlider.h
     src/Filter.h
-    src/FilterNames.h
+    src/FilterStrings.h
     src/FilterDates.h
     src/FilterNumbers.h
     src/FilterIntegers.h
