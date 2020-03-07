@@ -14,6 +14,8 @@ private slots:
 
     void testChangingEditLinesValues();
 
+    void testReactionForMovingDoubleSlider();
+
 private:
     std::tuple<QLineEdit*, QLineEdit*> getLineEdits(QList<QLineEdit*> lineEdits) const;
 

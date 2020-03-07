@@ -6,7 +6,7 @@
 #include <QtTest/QtTest>
 #include <QTest>
 
-#include "Utilities.h"
+#include "DoubleSlider.h"
 
 #include "FilterIntegers.h"
 
@@ -42,17 +42,42 @@ void FilterIntegersTest::testChangingEditLinesValues()
     auto [fromLineEdit, toLineEdit] = getLineEdits(lineEdits);
 
     QSignalSpy spy(&filter, &FilterIntegers::newNumericFilter);
-    fromLineEdit->setText("20");
+    const double newMin {20.};
+    fromLineEdit->setText(QLocale::system().toString(newMin));
     QTest::keyClick(fromLineEdit, Qt::Key_Enter);
-    QApplication::processEvents();
     QCOMPARE(spy.count(), SIGNAL_RECEIVED);
-    QList<QVariant> expectedValues {20, 100};
+    QList<QVariant> expectedValues {newMin, toValue_};
     QCOMPARE(spy.takeFirst(), expectedValues);
 
-    toLineEdit->setText("50");
-    QTest::keyClick(fromLineEdit, Qt::Key_Enter);
-    QApplication::processEvents();
+    const double newMax {50.};
+    toLineEdit->setText(QLocale::system().toString(newMax));
+    QTest::keyClick(toLineEdit, Qt::Key_Enter);
     QCOMPARE(spy.count(), SIGNAL_RECEIVED);
-    expectedValues = {20, 50};
+    expectedValues = {newMin, newMax};
+    QCOMPARE(spy.takeFirst(), expectedValues);
+
+    QApplication::processEvents();
+    auto doubleSlider = filter.findChild<DoubleSlider*>();
+    QCOMPARE(doubleSlider->getCurrentMin(), newMin);
+    QCOMPARE(doubleSlider->getCurrentMax(), newMax);
+}
+
+void FilterIntegersTest::testReactionForMovingDoubleSlider()
+{
+    FilterIntegers filter("", fromValue_, toValue_);
+    auto doubleSlider = filter.findChild<DoubleSlider*>();
+    QSignalSpy spy(&filter, &FilterIntegers::newNumericFilter);
+    const double newMin {20.};
+    doubleSlider->setCurrentMin(newMin);
+    Q_EMIT doubleSlider->currentMinChanged(newMin);
+    QCOMPARE(spy.count(), SIGNAL_RECEIVED);
+    QList<QVariant> expectedValues {newMin, toValue_};
+    QCOMPARE(spy.takeFirst(), expectedValues);
+
+    const double newMax {50.};
+    doubleSlider->setCurrentMin(newMax);
+    Q_EMIT doubleSlider->currentMaxChanged(newMax);
+    QCOMPARE(spy.count(), SIGNAL_RECEIVED);
+    expectedValues = {newMin, newMax};
     QCOMPARE(spy.takeFirst(), expectedValues);
 }
