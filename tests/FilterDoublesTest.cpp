@@ -19,8 +19,7 @@ void FilterDoublesTest::testToggling()
 
 void FilterDoublesTest::testChangingEditLinesValues()
 {
-    checkChangingEditLinesValues<FilterDoubles, double>(fromValue_,
-                                                        toValue_);
+    checkChangingEditLinesValues<FilterDoubles, double>(fromValue_, toValue_);
 }
 
 void FilterDoublesTest::testReactionForMovingDoubleSlider()
