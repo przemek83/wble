@@ -68,14 +68,12 @@ void FilterIntegersTest::testReactionForMovingDoubleSlider()
     auto doubleSlider = filter.findChild<DoubleSlider*>();
     QSignalSpy spy(&filter, &FilterIntegers::newNumericFilter);
     const double newMin {20.};
-    doubleSlider->setCurrentMin(newMin);
     Q_EMIT doubleSlider->currentMinChanged(newMin);
     QCOMPARE(spy.count(), SIGNAL_RECEIVED);
     QList<QVariant> expectedValues {newMin, toValue_};
     QCOMPARE(spy.takeFirst(), expectedValues);
 
     const double newMax {50.};
-    doubleSlider->setCurrentMin(newMax);
     Q_EMIT doubleSlider->currentMaxChanged(newMax);
     QCOMPARE(spy.count(), SIGNAL_RECEIVED);
     expectedValues = {newMin, newMax};
