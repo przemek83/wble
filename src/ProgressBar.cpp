@@ -8,16 +8,14 @@
 #include <QTime>
 #include <QTimer>
 
-ProgressBar::ProgressBar(ProgressBar::ProgressTitle title,
+ProgressBar::ProgressBar(QString title,
                          int max,
                          QWidget* parent)
     : QWidget(parent),
-      maxValue_(max)
+      maxValue_(max),
+      title_(title)
 {
     static const char newLine('\n');
-    static const QVector<QString> progressTitles = initNames(newLine);
-
-    title_ = progressTitles[title];
     setWindowTitle(QString(title_).replace(newLine, ' '));
 
     if (nullptr == parent)
@@ -69,27 +67,7 @@ ProgressBar::ProgressBar(ProgressBar::ProgressTitle title,
         move(QApplication::activeWindow()->geometry().center() -
              geometry().center());
     }
-    show();
-}
-
-QVector<QString> ProgressBar::initNames(char newLine)
-{
-    QVector<QString> progressTitles(static_cast<int>(PROGRESS_TITLE_END));
-
-    progressTitles[PROGRESS_TITLE_LOADING] =
-        QObject::tr("Loading") + newLine + QObject::tr("data");
-    progressTitles[PROGRESS_TITLE_SAVING] =
-        QObject::tr("Saving") + newLine + QObject::tr("data");
-    progressTitles[PROGRESS_TITLE_RECOMPUTING] =
-        QObject::tr("Calculating") + newLine + QObject::tr("data");
-    progressTitles[PROGRESS_TITLE_RECOMPUTING_TREND] =
-        QObject::tr("Calculating") + newLine + QObject::tr("trend");
-    progressTitles[PROGRESS_TITLE_VIEW_CREATION] =
-        QObject::tr("Creating") + newLine + QObject::tr("view");
-    progressTitles[PROGRESS_TITLE_DETECTING_COLUMN_TYPES] =
-        QObject::tr("File") + newLine + QObject::tr("analysis");
-
-    return progressTitles;
+    setMinimumSize(defaultWidth, defaultHeight);
 }
 
 void ProgressBar::paintEvent([[maybe_unused]] QPaintEvent* event)
@@ -135,6 +113,17 @@ void ProgressBar::paintEvent([[maybe_unused]] QPaintEvent* event)
         setWindowTitle(QString::number(currentPercent_) + "% " +
                        QString(title_).replace('\n', ' ') + "...");
 
+    }
+}
+
+void ProgressBar::updateProgress(int newValue)
+{
+    int newPercent = lround(newValue * 1.0 / maxValue_ * 100);
+    if (newPercent > currentPercent_)
+    {
+        currentPercent_ = newPercent;
+        update();
+        QApplication::processEvents();
     }
 }
 

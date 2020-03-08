@@ -6,25 +6,16 @@
 #include <QApplication>
 #include <cmath>
 
+#include "wble_global.h"
+
 /**
  * @brief Round progress bar to show progress. If max != 0 '%' are used.
  */
-class ProgressBar : public QWidget
+class WBLE_EXPORT ProgressBar : public QWidget
 {
     Q_OBJECT
 public:
-    enum ProgressTitle
-    {
-        PROGRESS_TITLE_LOADING = 0,
-        PROGRESS_TITLE_SAVING,
-        PROGRESS_TITLE_RECOMPUTING,
-        PROGRESS_TITLE_RECOMPUTING_TREND,
-        PROGRESS_TITLE_VIEW_CREATION,
-        PROGRESS_TITLE_DETECTING_COLUMN_TYPES,
-        PROGRESS_TITLE_END
-    };
-
-    ProgressBar(ProgressBar::ProgressTitle title, int max, QWidget* parent = nullptr);
+    ProgressBar(QString title, int max, QWidget* parent = nullptr);
 
     ~ProgressBar() override = default;
 
@@ -34,16 +25,8 @@ public:
     ProgressBar& operator=(ProgressBar&& other) = delete;
     ProgressBar(ProgressBar&& other) = delete;
 
-    inline void updateProgress(int newValue)
-    {
-        int newPercent = lround(newValue * 1.0 / maxValue_ * 100);
-        if (newPercent > currentPercent_)
-        {
-            currentPercent_ = newPercent;
-            update();
-            QApplication::processEvents();
-        }
-    }
+public Q_SLOTS:
+    void updateProgress(int newValue);
 
 protected:
     void paintEvent(QPaintEvent* event) override;
@@ -53,9 +36,9 @@ protected:
 private:
     int currentPercent_ {0};
 
-    int maxValue_;
+    const int maxValue_;
 
-    QString title_;
+    const QString title_;
 
     ///Font used to display %.
     QFont counterFont_;
@@ -72,8 +55,6 @@ private:
     QPen pen_;
 
     QBrush brush_;
-
-    QVector<QString> initNames(char newLine);
 
     static constexpr int LINE_WIDTH {10};
 
