@@ -36,6 +36,8 @@ add_library(wble SHARED
   src/Utilities.h
   src/DoubleClickEater.cpp
   src/DoubleClickEater.h
+  src/ProgressBar.cpp
+  src/ProgressBar.h
 )
 
 set_target_properties(wble PROPERTIES VERSION ${PROJECT_VERSION})
@@ -49,6 +51,7 @@ set_property(TARGET wble PROPERTY PUBLIC_HEADER
     src/FilterNumbers.h
     src/FilterIntegers.h
     src/FilterDoubles.h
+    src/ProgressBar.h
     src/wble_global.h)
 target_include_directories(wble PUBLIC src)
 include(GNUInstallDirs)
