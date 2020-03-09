@@ -11,6 +11,7 @@
 #include "FilterDoubles.h"
 #include "FilterDates.h"
 #include "FilterStrings.h"
+#include "ProgressBar.h"
 
 static const double MIN {3};
 static const double MAX {56};
@@ -106,6 +107,52 @@ static FilterStrings* createFilterStrings(QLabel* infoLabel)
     return filterNames;
 }
 
+static QVBoxLayout* createLeftWidgetColumn(QLabel* infoLabel)
+{
+    QVBoxLayout* leftLayout = new QVBoxLayout();
+    leftLayout->setSpacing(10);
+    auto* groupBox = new QGroupBox(QStringLiteral("Double Slider"));
+    auto* layout = new QVBoxLayout(groupBox);
+    layout->addWidget(createDoubleSlider(infoLabel));
+    groupBox->setLayout(layout);
+    leftLayout->addWidget(groupBox);
+    leftLayout->addWidget(createFilterIntegers(infoLabel));
+    leftLayout->addWidget(createFilterDoubles(infoLabel));
+    leftLayout->addWidget(createFilterDates(infoLabel));
+    leftLayout->addWidget(createFilterStrings(infoLabel));
+    leftLayout->addWidget(infoLabel);
+    leftLayout->addStretch();
+    return leftLayout;
+}
+
+static QVBoxLayout* createRightWidgetColumn()
+{
+    QVBoxLayout* rightLayout = new QVBoxLayout();
+    rightLayout->setSpacing(10);
+    auto groupBox = new QGroupBox(QStringLiteral("Infinite progress bar"));
+    auto* progressBar = new ProgressBar("Test", 0, groupBox);
+    auto* layout = new QVBoxLayout();
+    layout->addWidget(progressBar);
+    auto* startStopButton = new QPushButton("start");
+    QObject::connect(startStopButton, &QPushButton::clicked, progressBar,
+                     [ = ]()
+    {
+        bool running = progressBar->isRunning();
+
+        if (running)
+            progressBar->stop();
+        else
+            progressBar->start();
+        startStopButton->setText((running ? "start" : "stop"));
+
+    });
+    layout->addWidget(startStopButton);
+    groupBox->setLayout(layout);
+    rightLayout->addWidget(groupBox);
+    rightLayout->addStretch();
+    return rightLayout;
+}
+
 int main(int argc, char* argv[])
 {
     QApplication a(argc, argv);
@@ -113,21 +160,12 @@ int main(int argc, char* argv[])
     QApplication::setStyle(QStyleFactory::create("Fusion"));
 
     QWidget widget;
-
     auto infoLabel = new QLabel("Status");
-    QVBoxLayout widgetLayout(&widget);
-    widgetLayout.setSpacing(10);
-    QGroupBox groupBox(QStringLiteral("Double Slider"));
-    QVBoxLayout layout(&groupBox);
-    layout.addWidget(createDoubleSlider(infoLabel));
-    groupBox.setLayout(&layout);
-    widgetLayout.addWidget(&groupBox);
-    widgetLayout.addWidget(createFilterIntegers(infoLabel));
-    widgetLayout.addWidget(createFilterDoubles(infoLabel));
-    widgetLayout.addWidget(createFilterDates(infoLabel));
-    widgetLayout.addWidget(createFilterStrings(infoLabel));
-    widgetLayout.addWidget(infoLabel);
-    widgetLayout.addStretch();
+    QHBoxLayout widgetLayout(&widget);
+    QVBoxLayout* leftWidgetColumn = createLeftWidgetColumn(infoLabel);
+    widgetLayout.addLayout(leftWidgetColumn);
+    QVBoxLayout* rightWidgetColumn = createRightWidgetColumn();
+    widgetLayout.addLayout(rightWidgetColumn);
     widget.setLayout(&widgetLayout);
     widget.show();
 
