@@ -25,6 +25,16 @@ public:
     ProgressBar& operator=(ProgressBar&& other) = delete;
     ProgressBar(ProgressBar&& other) = delete;
 
+    void start();
+
+    void stop();
+
+    void restart();
+
+    int getCurrentPercent();
+
+    bool isRunning();
+
 public Q_SLOTS:
     void updateProgress(int newValue);
 
@@ -34,6 +44,10 @@ protected:
     void timerEvent(QTimerEvent* event) override;
 
 private:
+    int timerId_ {0};
+
+    bool running_ {false};
+
     int currentPercent_ {0};
 
     const int maxValue_;
@@ -58,7 +72,7 @@ private:
 
     static constexpr int LINE_WIDTH {10};
 
-    static constexpr int TIMER_DEFAULT_INTERVAL {50};
+    static constexpr int TIMER_DEFAULT_INTERVAL {40};
 };
 
 #endif // PROGRESSBAR_H

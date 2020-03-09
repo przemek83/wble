@@ -24,12 +24,6 @@ ProgressBar::ProgressBar(QString title,
         setWindowModality(Qt::ApplicationModal);
     }
 
-    //Counter without %.
-    if (0 == maxValue_)
-    {
-        startTimer(TIMER_DEFAULT_INTERVAL);
-    }
-
     const int defaultWidth {120};
     const int defaultHeight {140};
     const QSize size(defaultWidth, defaultHeight);
@@ -68,6 +62,51 @@ ProgressBar::ProgressBar(QString title,
              geometry().center());
     }
     setMinimumSize(defaultWidth, defaultHeight);
+}
+
+void ProgressBar::start()
+{
+    running_ = true;
+
+    //Counter without %.
+    if (0 == maxValue_)
+        timerId_ = startTimer(TIMER_DEFAULT_INTERVAL);
+}
+
+void ProgressBar::stop()
+{
+    killTimer(timerId_);
+    timerId_ = 0;
+    if (maxValue_ != 0)
+        currentPercent_ = 0;
+    running_ = false;
+}
+
+void ProgressBar::restart()
+{
+    stop();
+    start();
+}
+
+int ProgressBar::getCurrentPercent()
+{
+    return currentPercent_;
+}
+
+bool ProgressBar::isRunning()
+{
+    return running_;
+}
+
+void ProgressBar::updateProgress(int newValue)
+{
+    int newPercent = lround(newValue * 1.0 / maxValue_ * 100);
+    if (newPercent > currentPercent_)
+    {
+        currentPercent_ = newPercent;
+        update();
+        QApplication::processEvents();
+    }
 }
 
 void ProgressBar::paintEvent([[maybe_unused]] QPaintEvent* event)
@@ -113,17 +152,6 @@ void ProgressBar::paintEvent([[maybe_unused]] QPaintEvent* event)
         setWindowTitle(QString::number(currentPercent_) + "% " +
                        QString(title_).replace('\n', ' ') + "...");
 
-    }
-}
-
-void ProgressBar::updateProgress(int newValue)
-{
-    int newPercent = lround(newValue * 1.0 / maxValue_ * 100);
-    if (newPercent > currentPercent_)
-    {
-        currentPercent_ = newPercent;
-        update();
-        QApplication::processEvents();
     }
 }
 
