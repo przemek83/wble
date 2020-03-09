@@ -60,15 +60,25 @@ target_link_libraries(wble PRIVATE Qt5::Core Qt5::Widgets)
 
 target_compile_definitions(wble PRIVATE WBLE_LIBRARY)
 
+add_custom_command(
+        TARGET wble POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy
+                ${CMAKE_BINARY_DIR}/libwble.dll
+                ${CMAKE_BINARY_DIR}/examples/libwble.dll)
+
+add_custom_command(
+        TARGET wble POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy
+                ${CMAKE_BINARY_DIR}/libwble.dll
+                ${CMAKE_BINARY_DIR}/tests/libwble.dll)
+
 install(TARGETS wble
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
-
-file(GLOB_RECURSE DLLS "${CMAKE_BINARY_DIR}/*.dll" )
-file(COPY ${DLLS} DESTINATION ${CMAKE_BINARY_DIR}/examples)
-file(COPY ${DLLS} DESTINATION ${CMAKE_BINARY_DIR}/tests)
 
 add_subdirectory(examples)
 
 enable_testing()
 add_subdirectory(tests)
+
+
