@@ -65,7 +65,7 @@ void ProgressBar::showDetached()
 void ProgressBar::paintEvent([[maybe_unused]] QPaintEvent* event)
 {
     QPainter painter(this);
-    paintProgress(painter);
+    paintProgressBar(painter);
     paintTitle(painter);
 }
 

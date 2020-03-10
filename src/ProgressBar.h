@@ -48,9 +48,8 @@ protected:
     static constexpr int QUARTER_CIRCLE_ANGLE {90};
     static constexpr int HALF_CIRCLE_ANGLE {2 * QUARTER_CIRCLE_ANGLE};
 
-    virtual void paintProgress(QPainter& painter) = 0;
+    virtual void paintProgressBar(QPainter& painter) = 0;
 
-    /// Area of round display.
     QRect arcRectangle_;
 
 private:
@@ -65,7 +64,7 @@ private:
 
     const QString title_;
 
-    /// Font used to display %.
+    /// Font used to display percent.
     QFont counterFont_;
 
     /// Font used do draw title.

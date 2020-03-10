@@ -20,7 +20,7 @@ void ProgressBarInfinite::stop()
     ProgressBar::stop();
 }
 
-void ProgressBarInfinite::paintProgress(QPainter& painter)
+void ProgressBarInfinite::paintProgressBar(QPainter& painter)
 {
     constexpr int step {45};
     int startAngle =

@@ -31,7 +31,7 @@ void ProgressBarCounter::updateProgress(int newValue)
     QApplication::processEvents();
 }
 
-void ProgressBarCounter::paintProgress(QPainter& painter)
+void ProgressBarCounter::paintProgressBar(QPainter& painter)
 {
     constexpr int startAngle {QUARTER_CIRCLE_ANGLE * FULL_DEGREE};
     const int spanAngle =
