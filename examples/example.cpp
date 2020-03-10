@@ -2,6 +2,7 @@
 #include <QGroupBox>
 #include <QLabel>
 #include <QPushButton>
+#include <QTimer>
 #include <QStyleFactory>
 #include <QVBoxLayout>
 #include <QWindow>
@@ -12,6 +13,7 @@
 #include "FilterDates.h"
 #include "FilterStrings.h"
 #include "ProgressBarInfinite.h"
+#include "ProgressBarCounter.h"
 
 static const double MIN {3};
 static const double MAX {56};
@@ -19,7 +21,6 @@ static const double MAX {56};
 static DoubleSlider* createDoubleSlider(QLabel* infoLabel)
 {
     auto slider = new DoubleSlider(MIN, MAX);
-
     QObject::connect(slider,
                      &DoubleSlider::currentMinChanged,
                      infoLabel,
@@ -125,14 +126,21 @@ static QVBoxLayout* createLeftWidgetColumn(QLabel* infoLabel)
     return leftLayout;
 }
 
-static QVBoxLayout* createRightWidgetColumn()
+QGroupBox* wrapProgressBar(QString name,
+                           ProgressBar* progressBar,
+                           QPushButton* startStopButton)
 {
-    QVBoxLayout* rightLayout = new QVBoxLayout();
-    rightLayout->setSpacing(10);
-    auto groupBox = new QGroupBox(QStringLiteral("Infinite progress bar"));
-    auto* progressBar = new ProgressBarInfinite("Test", groupBox);
+    auto groupBox = new QGroupBox(name);
     auto* layout = new QVBoxLayout();
     layout->addWidget(progressBar);
+    layout->addWidget(startStopButton);
+    groupBox->setLayout(layout);
+    return groupBox;
+}
+
+static QGroupBox* createProgressBarInfinite()
+{
+    auto* progressBar = new ProgressBarInfinite("Title");
     auto* startStopButton = new QPushButton("start");
     QObject::connect(startStopButton, &QPushButton::clicked, progressBar,
                      [ = ]()
@@ -146,9 +154,59 @@ static QVBoxLayout* createRightWidgetColumn()
         startStopButton->setText((running ? "start" : "stop"));
 
     });
-    layout->addWidget(startStopButton);
-    groupBox->setLayout(layout);
-    rightLayout->addWidget(groupBox);
+    return wrapProgressBar(QStringLiteral("Infinite progress bar"),
+                           progressBar,
+                           startStopButton);
+}
+
+static QGroupBox* createProgressBarCounter()
+{
+    auto* progressBar = new ProgressBarCounter("Title", 100);
+    auto* startStopButton = new QPushButton("start");
+    QTimer* timer = new QTimer(progressBar);
+    timer->setInterval(40);
+    QObject::connect(timer, &QTimer::timeout, progressBar,
+                     [ = ]()
+    {
+        static int progress = 0;
+        progressBar->updateProgress(progress);
+        progress++;
+        if (progress > 100)
+        {
+            timer->stop();
+            progress = 0;
+            startStopButton->click();
+        }
+    });
+    QObject::connect(startStopButton, &QPushButton::clicked, progressBar,
+                     [ = ]()
+    {
+        bool running = progressBar->isRunning();
+
+        if (running)
+        {
+            progressBar->stop();
+            timer->stop();
+        }
+        else
+        {
+            progressBar->start();
+            timer->start();
+        }
+        startStopButton->setText((running ? "start" : "stop"));
+
+    });
+    return wrapProgressBar(QStringLiteral("Counter progress bar"),
+                           progressBar,
+                           startStopButton);
+}
+
+static QVBoxLayout* createRightWidgetColumn()
+{
+    QVBoxLayout* rightLayout = new QVBoxLayout();
+    rightLayout->setSpacing(10);
+    rightLayout->addWidget(createProgressBarInfinite());
+    rightLayout->addWidget(createProgressBarCounter());
     rightLayout->addStretch();
     return rightLayout;
 }
