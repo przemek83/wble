@@ -38,6 +38,10 @@ add_library(wble SHARED
   src/DoubleClickEater.h
   src/ProgressBar.cpp
   src/ProgressBar.h
+  src/ProgressBarInfinite.cpp
+  src/ProgressBarInfinite.h
+  src/ProgressBarCounter.cpp
+  src/ProgressBarCounter.h
 )
 
 set_target_properties(wble PROPERTIES VERSION ${PROJECT_VERSION})
@@ -52,6 +56,8 @@ set_property(TARGET wble PROPERTY PUBLIC_HEADER
     src/FilterIntegers.h
     src/FilterDoubles.h
     src/ProgressBar.h
+    src/ProgressBarInfinite.h
+    src/ProgressBarCounter.h
     src/wble_global.h)
 target_include_directories(wble PUBLIC src)
 include(GNUInstallDirs)

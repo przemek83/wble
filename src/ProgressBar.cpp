@@ -4,21 +4,18 @@
 
 #include <QApplication>
 #include <QDebug>
-#include <QPainter>
 #include <QTime>
 #include <QTimer>
 
 ProgressBar::ProgressBar(QString title,
-                         int max,
                          QWidget* parent)
     : QWidget(parent),
-      maxValue_(max),
       title_(title)
 {
     static const char newLine('\n');
     setWindowTitle(QString(title_).replace(newLine, ' '));
 
-    if (nullptr == parent)
+    if (parent == nullptr)
     {
         setWindowFlags(Qt::CustomizeWindowHint | Qt::FramelessWindowHint);
         setWindowModality(Qt::ApplicationModal);
@@ -67,18 +64,10 @@ ProgressBar::ProgressBar(QString title,
 void ProgressBar::start()
 {
     running_ = true;
-
-    //Counter without %.
-    if (0 == maxValue_)
-        timerId_ = startTimer(TIMER_DEFAULT_INTERVAL);
 }
 
 void ProgressBar::stop()
 {
-    killTimer(timerId_);
-    timerId_ = 0;
-    if (maxValue_ != 0)
-        currentPercent_ = 0;
     running_ = false;
 }
 
@@ -88,77 +77,23 @@ void ProgressBar::restart()
     start();
 }
 
-int ProgressBar::getCurrentPercent()
-{
-    return currentPercent_;
-}
-
 bool ProgressBar::isRunning()
 {
     return running_;
 }
 
-void ProgressBar::updateProgress(int newValue)
+std::unique_ptr<QPainter> ProgressBar::getPainter()
 {
-    int newPercent = lround(newValue * 1.0 / maxValue_ * 100);
-    if (newPercent > currentPercent_)
-    {
-        currentPercent_ = newPercent;
-        update();
-        QApplication::processEvents();
-    }
+    auto painter = std::make_unique<QPainter>(this);
+    painter->setRenderHint(QPainter::Antialiasing);
+    painter->setPen(pen_);
+    painter->setBrush(brush_);
+    painter->setFont(counterFont_);
+    return painter;
 }
 
-void ProgressBar::paintEvent([[maybe_unused]] QPaintEvent* event)
+void ProgressBar::paintTitle(std::unique_ptr<QPainter>& painter)
 {
-    QPainter painter(this);
-    painter.setRenderHint(QPainter::Antialiasing);
-    painter.setPen(pen_);
-    painter.setBrush(brush_);
-    painter.setFont(counterFont_);
-
-    constexpr int fullDegree {16};
-    constexpr double hundredthOfFullCircle {3.6};
-    constexpr int quarterCircleAngle {90};
-    constexpr int halfCircleAngle {2 * quarterCircleAngle};
-
-    //Counter without %.
-    if (maxValue_ == 0)
-    {
-        const int step {45};
-        int startAngle = lround(currentPercent_ * hundredthOfFullCircle * fullDegree);
-        const int spanAngle = -step * fullDegree;
-        painter.drawArc(arcRectangle_, startAngle, spanAngle);
-        startAngle = lround((halfCircleAngle + currentPercent_ * hundredthOfFullCircle) * fullDegree);
-        painter.drawArc(arcRectangle_, startAngle, spanAngle);
-    }
-    else
-    {
-        constexpr int startAngle {quarterCircleAngle * fullDegree};
-        const int spanAngle = lround(-currentPercent_ * hundredthOfFullCircle * fullDegree);
-        painter.drawArc(arcRectangle_, startAngle, spanAngle);
-        painter.drawText(arcRectangle_,
-                         Qt::AlignCenter,
-                         QString::number(currentPercent_, 'f', 0) + "%");
-
-    }
-
-    painter.setFont(titleFont_);
-
-    painter.drawText(titleRectangle_, Qt::AlignCenter, title_ + "...");
-
-    if (maxValue_ != 0)
-    {
-        setWindowTitle(QString::number(currentPercent_) + "% " +
-                       QString(title_).replace('\n', ' ') + "...");
-
-    }
-}
-
-void ProgressBar::timerEvent(QTimerEvent* /*event*/)
-{
-    constexpr int maxPercent {100};
-    currentPercent_++;
-    currentPercent_ %= maxPercent;
-    update();
+    painter->setFont(titleFont_);
+    painter->drawText(titleRectangle_, Qt::AlignCenter, title_);
 }

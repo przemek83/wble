@@ -1,10 +1,13 @@
 #ifndef PROGRESSBAR_H
 #define PROGRESSBAR_H
 
-#include <QWidget>
-#include <QPen>
-#include <QApplication>
 #include <cmath>
+#include <memory>
+
+#include <QApplication>
+#include <QPainter>
+#include <QPen>
+#include <QWidget>
 
 #include "wble_global.h"
 
@@ -15,7 +18,7 @@ class WBLE_EXPORT ProgressBar : public QWidget
 {
     Q_OBJECT
 public:
-    ProgressBar(QString title, int max, QWidget* parent = nullptr);
+    explicit ProgressBar(QString title, QWidget* parent = nullptr);
 
     ~ProgressBar() override = default;
 
@@ -25,33 +28,30 @@ public:
     ProgressBar& operator=(ProgressBar&& other) = delete;
     ProgressBar(ProgressBar&& other) = delete;
 
-    void start();
+    virtual void start();
 
-    void stop();
+    virtual void stop();
 
     void restart();
 
-    int getCurrentPercent();
-
     bool isRunning();
 
-public Q_SLOTS:
-    void updateProgress(int newValue);
-
 protected:
-    void paintEvent(QPaintEvent* event) override;
+    void paintEvent(QPaintEvent* event) override = 0;
 
-    void timerEvent(QTimerEvent* event) override;
+    static constexpr int FULL_DEGREE {16};
+    static constexpr double HUNDREDTH_OF_FULL_CIRCLE {3.6};
+    static constexpr int QUARTER_CIRCLE_ANGLE {90};
+    static constexpr int HALF_CIRCLE_ANGLE {2 * QUARTER_CIRCLE_ANGLE};
+
+    std::unique_ptr<QPainter> getPainter();
+
+    void paintTitle(std::unique_ptr<QPainter>& painter);
+
+    ///Area of round display.
+    QRect arcRectangle_;
 
 private:
-    int timerId_ {0};
-
-    bool running_ {false};
-
-    int currentPercent_ {0};
-
-    const int maxValue_;
-
     const QString title_;
 
     ///Font used to display %.
@@ -59,9 +59,6 @@ private:
 
     ///Font used do draw title.
     QFont titleFont_;
-
-    ///Area of round display.
-    QRect arcRectangle_;
 
     ///Title area.
     QRect titleRectangle_;
@@ -72,7 +69,7 @@ private:
 
     static constexpr int LINE_WIDTH {10};
 
-    static constexpr int TIMER_DEFAULT_INTERVAL {40};
+    bool running_ {false};
 };
 
 #endif // PROGRESSBAR_H

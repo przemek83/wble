@@ -11,7 +11,7 @@
 #include "FilterDoubles.h"
 #include "FilterDates.h"
 #include "FilterStrings.h"
-#include "ProgressBar.h"
+#include "ProgressBarInfinite.h"
 
 static const double MIN {3};
 static const double MAX {56};
@@ -130,7 +130,7 @@ static QVBoxLayout* createRightWidgetColumn()
     QVBoxLayout* rightLayout = new QVBoxLayout();
     rightLayout->setSpacing(10);
     auto groupBox = new QGroupBox(QStringLiteral("Infinite progress bar"));
-    auto* progressBar = new ProgressBar("Test", 0, groupBox);
+    auto* progressBar = new ProgressBarInfinite("Test", groupBox);
     auto* layout = new QVBoxLayout();
     layout->addWidget(progressBar);
     auto* startStopButton = new QPushButton("start");
