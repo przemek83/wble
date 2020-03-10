@@ -10,7 +10,9 @@
 ProgressBar::ProgressBar(QString title,
                          QWidget* parent)
     : QWidget(parent),
-      title_(title)
+      title_(title),
+      color_(Qt::blue),
+      brush_(color_)
 {
     static const char newLine('\n');
     setWindowTitle(QString(title_).replace(newLine, ' '));
@@ -23,42 +25,22 @@ ProgressBar::ProgressBar(QString title,
 
     const int defaultWidth {120};
     const int defaultHeight {140};
+    setMinimumSize(defaultWidth, defaultHeight);
     const QSize size(defaultWidth, defaultHeight);
     resize(size);
 
-    const QColor blueColor(Qt::blue);
-    brush_ = QBrush(blueColor);
-
-    pen_.setColor(blueColor);
-    pen_.setWidth(LINE_WIDTH);
-    pen_.setStyle(Qt::SolidLine);
-
-    const double counterFontFactor {2.5};
-    int fontPointSizen = QApplication::font().pointSize();
-    counterFont_.setPointSize(lround(fontPointSizen * counterFontFactor));
-    counterFont_.setStyleStrategy(QFont::PreferAntialias);
-    const double titleFontFactor {1.5};
-    titleFont_.setPointSize(lround(fontPointSizen * titleFontFactor));
-    titleFont_.setBold(true);
-
-    QSize arcSize(width() - 4 * LINE_WIDTH, width() - 4 * LINE_WIDTH);
-    arcRectangle_ = QRect(width() / 2 - arcSize.width() / 2,
-                          (width() - 2 * LINE_WIDTH) / 2 - arcSize.height() / 2,
-                          arcSize.width(),
-                          arcSize.height());
-
-    titleRectangle_ = QRect(0,
-                            height() - LINE_WIDTH * 4,
-                            width(),
-                            LINE_WIDTH * 4);
+    initPen();
+    initCounterFont();
+    initTitleFont();
+    initArcRectangle();
+    initTitleRectangle();
 
     QWidget* activeWidget = QApplication::activeWindow();
-    if (nullptr != activeWidget)
+    if (activeWidget != nullptr)
     {
         move(QApplication::activeWindow()->geometry().center() -
              geometry().center());
     }
-    setMinimumSize(defaultWidth, defaultHeight);
 }
 
 void ProgressBar::start()
@@ -82,7 +64,7 @@ bool ProgressBar::isRunning()
     return running_;
 }
 
-void  ProgressBar::paintEvent([[maybe_unused]] QPaintEvent* event)
+void ProgressBar::paintEvent([[maybe_unused]] QPaintEvent* event)
 {
     QPainter painter(this);
     paintProgress(painter);
@@ -95,6 +77,46 @@ void ProgressBar::initPainter(QPainter* painter) const
     painter->setPen(pen_);
     painter->setBrush(brush_);
     painter->setFont(counterFont_);
+}
+
+void ProgressBar::initPen()
+{
+    pen_.setColor(color_);
+    pen_.setWidth(LINE_WIDTH);
+    pen_.setStyle(Qt::SolidLine);
+}
+
+void ProgressBar::initCounterFont()
+{
+    const double counterFontFactor {2.5};
+    const int fontPointSizen = QApplication::font().pointSize();
+    counterFont_.setPointSize(lround(fontPointSizen * counterFontFactor));
+    counterFont_.setStyleStrategy(QFont::PreferAntialias);
+}
+
+void ProgressBar::initTitleFont()
+{
+    const int fontPointSizen = QApplication::font().pointSize();
+    const double titleFontFactor {1.5};
+    titleFont_.setPointSize(lround(fontPointSizen * titleFontFactor));
+    titleFont_.setBold(true);
+}
+
+void ProgressBar::initArcRectangle()
+{
+    QSize arcSize(width() - 4 * LINE_WIDTH, width() - 4 * LINE_WIDTH);
+    arcRectangle_ = QRect(width() / 2 - arcSize.width() / 2,
+                          (width() - 2 * LINE_WIDTH) / 2 - arcSize.height() / 2,
+                          arcSize.width(),
+                          arcSize.height());
+}
+
+void ProgressBar::initTitleRectangle()
+{
+    titleRectangle_ = QRect(0,
+                            height() - LINE_WIDTH * 4,
+                            width(),
+                            LINE_WIDTH * 4);
 }
 
 void ProgressBar::paintTitle(QPainter& painter)

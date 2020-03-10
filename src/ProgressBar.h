@@ -52,6 +52,12 @@ protected:
     QRect arcRectangle_;
 
 private:
+    void initPen();
+    void initCounterFont();
+    void initTitleFont();
+    void initArcRectangle();
+    void initTitleRectangle();
+
     void paintTitle(QPainter& painter);
 
     const QString title_;
@@ -66,6 +72,8 @@ private:
     QRect titleRectangle_;
 
     QPen pen_;
+
+    QColor color_;
 
     QBrush brush_;
 
