@@ -15,8 +15,10 @@
 #include "ProgressBarInfinite.h"
 #include "ProgressBarCounter.h"
 
-static const double MIN {3};
-static const double MAX {56};
+static constexpr double MIN {3};
+static constexpr double MAX {56};
+
+static constexpr int MAX_PROGRESS_BAR_VALUE {100};
 
 static DoubleSlider* createDoubleSlider(QLabel* infoLabel)
 {
@@ -161,7 +163,7 @@ static QGroupBox* createProgressBarInfinite()
 
 static QGroupBox* createProgressBarCounter()
 {
-    auto* progressBar = new ProgressBarCounter("Title", 100);
+    auto* progressBar = new ProgressBarCounter("Title", MAX_PROGRESS_BAR_VALUE);
     auto* startStopButton = new QPushButton("start");
     QTimer* timer = new QTimer(progressBar);
     timer->setInterval(40);
@@ -171,7 +173,7 @@ static QGroupBox* createProgressBarCounter()
         static int progress = 0;
         progressBar->updateProgress(progress);
         progress++;
-        if (progress > 100)
+        if (progress > MAX_PROGRESS_BAR_VALUE)
         {
             timer->stop();
             progress = 0;
