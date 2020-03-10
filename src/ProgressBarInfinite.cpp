@@ -5,7 +5,6 @@
 ProgressBarInfinite::ProgressBarInfinite(QString title, QWidget* parent) :
     ProgressBar(title, parent)
 {
-
 }
 
 void ProgressBarInfinite::start()
@@ -21,21 +20,19 @@ void ProgressBarInfinite::stop()
     ProgressBar::stop();
 }
 
-void ProgressBarInfinite::paintEvent([[maybe_unused]] QPaintEvent* event)
+void ProgressBarInfinite::paintProgress(QPainter& painter)
 {
-    std::unique_ptr<QPainter> painter = getPainter();
-
     constexpr int step {45};
-    int startAngle = lround(progressCounter_ * HUNDREDTH_OF_FULL_CIRCLE * FULL_DEGREE);
+    int startAngle =
+        lround(progressCounter_ * HUNDREDTH_OF_FULL_CIRCLE * FULL_DEGREE);
     constexpr const int spanAngle = -step * FULL_DEGREE;
-    painter->drawArc(arcRectangle_, startAngle, spanAngle);
-    startAngle = lround((HALF_CIRCLE_ANGLE + progressCounter_ * HUNDREDTH_OF_FULL_CIRCLE) * FULL_DEGREE);
-    painter->drawArc(arcRectangle_, startAngle, spanAngle);
-
-    paintTitle(painter);
+    painter.drawArc(arcRectangle_, startAngle, spanAngle);
+    startAngle =
+        lround((HALF_CIRCLE_ANGLE + progressCounter_ * HUNDREDTH_OF_FULL_CIRCLE) * FULL_DEGREE);
+    painter.drawArc(arcRectangle_, startAngle, spanAngle);
 }
 
-void ProgressBarInfinite::timerEvent(QTimerEvent* /*event*/)
+void ProgressBarInfinite::timerEvent([[maybe_unused]] QTimerEvent* event)
 {
     constexpr int fullRotation {100};
     progressCounter_++;

@@ -82,18 +82,23 @@ bool ProgressBar::isRunning()
     return running_;
 }
 
-std::unique_ptr<QPainter> ProgressBar::getPainter()
+void  ProgressBar::paintEvent([[maybe_unused]] QPaintEvent* event)
 {
-    auto painter = std::make_unique<QPainter>(this);
+    QPainter painter(this);
+    paintProgress(painter);
+    paintTitle(painter);
+}
+
+void ProgressBar::initPainter(QPainter* painter) const
+{
     painter->setRenderHint(QPainter::Antialiasing);
     painter->setPen(pen_);
     painter->setBrush(brush_);
     painter->setFont(counterFont_);
-    return painter;
 }
 
-void ProgressBar::paintTitle(std::unique_ptr<QPainter>& painter)
+void ProgressBar::paintTitle(QPainter& painter)
 {
-    painter->setFont(titleFont_);
-    painter->drawText(titleRectangle_, Qt::AlignCenter, title_);
+    painter.setFont(titleFont_);
+    painter.drawText(titleRectangle_, Qt::AlignCenter, title_);
 }

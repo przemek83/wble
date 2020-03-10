@@ -16,7 +16,7 @@ public Q_SLOTS:
     void updateProgress(int newValue);
 
 protected:
-    void paintEvent(QPaintEvent* event) override;
+    void paintProgress(QPainter& painter) override;
 
 private:
     int currentPercent_ {0};

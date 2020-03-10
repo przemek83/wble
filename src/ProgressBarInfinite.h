@@ -13,7 +13,7 @@ public:
     void stop() override;
 
 protected:
-    void paintEvent(QPaintEvent* event) override;
+    void paintProgress(QPainter& painter) override;
 
     void timerEvent(QTimerEvent* event) override;
 

@@ -6,7 +6,6 @@ ProgressBarCounter::ProgressBarCounter(QString title,
     ProgressBar(title, parent),
     maxValue_(maxValue)
 {
-
 }
 
 void ProgressBarCounter::stop()
@@ -22,24 +21,22 @@ int ProgressBarCounter::getCurrentPercent()
 
 void ProgressBarCounter::updateProgress(int newValue)
 {
-    int newPercent = lround(newValue * 1.0 / maxValue_ * 100);
-    if (newPercent > currentPercent_)
-    {
-        currentPercent_ = newPercent;
-        update();
-        QApplication::processEvents();
-    }
+    const int newPercent = lround(newValue * 1.0 / maxValue_ * 100);
+    if (newPercent <= currentPercent_)
+        return;
+
+    currentPercent_ = newPercent;
+    update();
+    QApplication::processEvents();
 }
 
-void ProgressBarCounter::paintEvent([[maybe_unused]] QPaintEvent* event)
+void ProgressBarCounter::paintProgress(QPainter& painter)
 {
-    std::unique_ptr<QPainter> painter = getPainter();
     constexpr int startAngle {QUARTER_CIRCLE_ANGLE * FULL_DEGREE};
-    const int spanAngle = lround(-currentPercent_ * HUNDREDTH_OF_FULL_CIRCLE * FULL_DEGREE);
-    painter->drawArc(arcRectangle_, startAngle, spanAngle);
-    painter->drawText(arcRectangle_,
-                      Qt::AlignCenter,
-                      QString::number(currentPercent_, 'f', 0) + "%");
-
-    paintTitle(painter);
+    const int spanAngle =
+        lround(-currentPercent_ * HUNDREDTH_OF_FULL_CIRCLE * FULL_DEGREE);
+    painter.drawArc(arcRectangle_, startAngle, spanAngle);
+    painter.drawText(arcRectangle_,
+                     Qt::AlignCenter,
+                     QString::number(currentPercent_, 'f', 0) + "%");
 }

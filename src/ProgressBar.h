@@ -37,21 +37,23 @@ public:
     bool isRunning();
 
 protected:
-    void paintEvent(QPaintEvent* event) override = 0;
+    void paintEvent(QPaintEvent* event) override;
+
+    void initPainter(QPainter* painter) const override;
 
     static constexpr int FULL_DEGREE {16};
     static constexpr double HUNDREDTH_OF_FULL_CIRCLE {3.6};
     static constexpr int QUARTER_CIRCLE_ANGLE {90};
     static constexpr int HALF_CIRCLE_ANGLE {2 * QUARTER_CIRCLE_ANGLE};
 
-    std::unique_ptr<QPainter> getPainter();
-
-    void paintTitle(std::unique_ptr<QPainter>& painter);
+    virtual void paintProgress(QPainter& painter) = 0;
 
     ///Area of round display.
     QRect arcRectangle_;
 
 private:
+    void paintTitle(QPainter& painter);
+
     const QString title_;
 
     ///Font used to display %.
