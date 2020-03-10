@@ -21,7 +21,8 @@ int ProgressBarCounter::getCurrentPercent()
 
 void ProgressBarCounter::updateProgress(int newValue)
 {
-    const int newPercent = lround(newValue * 1.0 / maxValue_ * 100);
+    const int newPercent =
+        std::lround(static_cast<double>(newValue) / maxValue_ * 100.0);
     if (newPercent <= currentPercent_)
         return;
 
