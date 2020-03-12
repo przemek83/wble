@@ -6,6 +6,11 @@
 class WBLE_EXPORT ProgressBarInfinite : public ProgressBar
 {
 public:
+    /**
+     * Constructor of ProgressBarCounter class.
+     * @param title Title to be shown.
+     * @param parent Parent widget.
+     */
     ProgressBarInfinite(QString title, QWidget* parent = nullptr);
 
     void start() override;

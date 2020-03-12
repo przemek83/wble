@@ -12,12 +12,18 @@
 #include "wble_global.h"
 
 /**
- * @brief Round progress bar to show progress. If max != 0 '%' are used.
+ * @class ProgressBar
+ * @brief Round progress bar to visualize task progress.
  */
 class WBLE_EXPORT ProgressBar : public QWidget
 {
     Q_OBJECT
 public:
+    /**
+     * Constructor of ProgressBar class.
+     * @param title Title to be shown.
+     * @param parent Parent widget.
+     */
     explicit ProgressBar(QString title, QWidget* parent = nullptr);
 
     ~ProgressBar() override = default;
@@ -36,6 +42,7 @@ public:
 
     bool isRunning();
 
+    /// Without parent, draw progress bar as seperate frameless window.
     void showDetached();
 
 protected:
@@ -48,6 +55,10 @@ protected:
     static constexpr int QUARTER_CIRCLE_ANGLE {90};
     static constexpr int HALF_CIRCLE_ANGLE {2 * QUARTER_CIRCLE_ANGLE};
 
+    /**
+     * Paint graphically progress bar arc.
+     * @param painter Painter which should be used.
+     */
     virtual void paintProgressBar(QPainter& painter) = 0;
 
     QRect arcRectangle_;

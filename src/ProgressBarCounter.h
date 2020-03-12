@@ -6,6 +6,12 @@
 class WBLE_EXPORT ProgressBarCounter : public ProgressBar
 {
 public:
+    /**
+     * Constructor of ProgressBarCounter class.
+     * @param title Title to be shown.
+     * @param maxValue Maximum value after hitting which 100% is achieved..
+     * @param parent Parent widget.
+     */
     ProgressBarCounter(QString title, int maxValue, QWidget* parent = nullptr);
 
     int getCurrentPercent();
