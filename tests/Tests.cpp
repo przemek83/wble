@@ -6,7 +6,7 @@
 #include "FilterIntegersTest.h"
 #include "FilterStringsTest.h"
 #include "ProgressBarCounterTest.h"
-
+#include "ProgressBarInfiniteTest.h"
 
 int main(int argc, char* argv[])
 {
@@ -29,6 +29,9 @@ int main(int argc, char* argv[])
 
     ProgressBarCounterTest progressBarCounterTest;
     QTest::qExec(&progressBarCounterTest);
+
+    ProgressBarInfiniteTest progressBarInfiniteTest;
+    QTest::qExec(&progressBarInfiniteTest);
 
     return 0;
 }

@@ -18,6 +18,8 @@ set(${PROJECT_NAME}_SOURCES
     ProgressBarCounterTest.h
     ProgressBarCommon.cpp
     ProgressBarCommon.h
+    ProgressBarInfiniteTest.cpp
+    ProgressBarInfiniteTest.h
     )
 
 add_executable(tests ${${PROJECT_NAME}_SOURCES})
