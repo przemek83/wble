@@ -3,7 +3,6 @@
 #include <QCheckBox>
 #include <QListWidget>
 #include <QSignalSpy>
-#include <QtTest/QtTest>
 #include <QTest>
 
 #include "FilterStrings.h"

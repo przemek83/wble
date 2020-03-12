@@ -1,7 +1,6 @@
 #include "DoubleSliderTest.h"
 
 #include <QSignalSpy>
-#include <QtTest/QtTest>
 #include <QTest>
 
 #include "DoubleSlider.h"
