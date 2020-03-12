@@ -14,13 +14,11 @@ void ProgressBarCounter::stop()
     ProgressBar::stop();
 }
 
-int ProgressBarCounter::getCurrentPercent()
-{
-    return currentPercent_;
-}
-
 void ProgressBarCounter::updateProgress(int newValue)
 {
+    if (!isRunning())
+        start();
+
     const int newPercent =
         std::lround(static_cast<double>(newValue) / maxValue_ * 100.0);
     if (newPercent <= currentPercent_)

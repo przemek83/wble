@@ -14,8 +14,6 @@ public:
      */
     ProgressBarCounter(QString title, int maxValue, QWidget* parent = nullptr);
 
-    int getCurrentPercent();
-
     void stop() override;
 
 public Q_SLOTS:
