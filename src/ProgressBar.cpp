@@ -36,7 +36,8 @@ void ProgressBar::stop()
 
 void ProgressBar::restart()
 {
-    stop();
+    if (isRunning())
+        stop();
     start();
 }
 
