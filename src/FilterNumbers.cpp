@@ -6,8 +6,8 @@
 #include <QDebug>
 #include <QIntValidator>
 
-#include "ui_FilterNumbers.h"
 #include "Utilities.h"
+#include "ui_FilterNumbers.h"
 
 FilterNumbers::FilterNumbers(const QString& name,
                              double from,

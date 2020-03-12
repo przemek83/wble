@@ -9,7 +9,7 @@ class QLineEdit;
 class FilterIntegersTest: public QObject
 {
     Q_OBJECT
-private slots:
+private Q_SLOTS:
     void testToggling();
 
     void testChangingEditLinesValues();

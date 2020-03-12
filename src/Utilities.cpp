@@ -8,4 +8,4 @@ bool doublesAreEqual(double left, double right)
     return std::abs(left - right) <=
            qtDoublePrecision * std::max({ 1.0, std::abs(left), std::abs(right) });
 }
-}
+} // namespace Utilities

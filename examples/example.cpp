@@ -2,18 +2,18 @@
 #include <QGroupBox>
 #include <QLabel>
 #include <QPushButton>
-#include <QTimer>
 #include <QStyleFactory>
+#include <QTimer>
 #include <QVBoxLayout>
 #include <QWindow>
 
 #include "DoubleSlider.h"
-#include "FilterIntegers.h"
-#include "FilterDoubles.h"
 #include "FilterDates.h"
+#include "FilterDoubles.h"
+#include "FilterIntegers.h"
 #include "FilterStrings.h"
-#include "ProgressBarInfinite.h"
 #include "ProgressBarCounter.h"
+#include "ProgressBarInfinite.h"
 
 static constexpr double MIN {3};
 static constexpr double MAX {56};

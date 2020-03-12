@@ -15,4 +15,4 @@ std::tuple<QLineEdit*, QLineEdit*> getLineEdits(QList<QLineEdit*> lineEdits,
     return {fromEdit, toEdit};
 }
 
-};
+}  // namespace FilterNumbersCommon;

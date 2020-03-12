@@ -6,8 +6,8 @@
 #include <QListWidgetItem>
 #include <QScrollBar>
 
-#include "ui_FilterStrings.h"
 #include "DoubleClickEater.h"
+#include "ui_FilterStrings.h"
 
 FilterStrings::FilterStrings(const QString& name,
                              QStringList initialList,
