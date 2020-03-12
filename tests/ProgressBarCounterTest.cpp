@@ -2,14 +2,13 @@
 
 #include <QTest>
 
+#include "ProgressBarCommon.h"
 #include "ProgressBarCounter.h"
 
 void ProgressBarCounterTest::testStarting()
 {
     ProgressBarCounter progressBar("", max_);
-    QCOMPARE(progressBar.isRunning(), false);
-    progressBar.start();
-    QCOMPARE(progressBar.isRunning(), true);
+    ProgressBarCommon::checkStarting(progressBar);
 }
 
 void ProgressBarCounterTest::testFirstUpdatingProgress()
@@ -22,15 +21,11 @@ void ProgressBarCounterTest::testFirstUpdatingProgress()
 void ProgressBarCounterTest::testStopping()
 {
     ProgressBarCounter progressBar("", max_);
-    progressBar.start();
-    progressBar.stop();
-    QCOMPARE(progressBar.isRunning(), false);
+    ProgressBarCommon::checkStopping(progressBar);
 }
 
 void ProgressBarCounterTest::testRestarting()
 {
     ProgressBarCounter progressBar("", max_);
-    progressBar.start();
-    progressBar.restart();
-    QCOMPARE(progressBar.isRunning(), true);
+    ProgressBarCommon::checkRestarting(progressBar);
 }
