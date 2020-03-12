@@ -147,8 +147,7 @@ static QGroupBox* createProgressBarInfinite()
     QObject::connect(startStopButton, &QPushButton::clicked, progressBar,
                      [ = ]()
     {
-        bool running = progressBar->isRunning();
-
+        const bool running = progressBar->isRunning();
         if (running)
             progressBar->stop();
         else
@@ -183,8 +182,7 @@ static QGroupBox* createProgressBarCounter()
     QObject::connect(startStopButton, &QPushButton::clicked, progressBar,
                      [ = ]()
     {
-        bool running = progressBar->isRunning();
-
+        const bool running = progressBar->isRunning();
         if (running)
         {
             progressBar->stop();

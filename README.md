@@ -6,9 +6,7 @@
  + date filter  
  + infinity progress bar
  + counter progress bar
-
-**Work is in progress.**
- 
+  
 # Building
 Clone and use Cmake directly or via QtCreator. Cmake **should**:
 + configure everything automatically,
