@@ -112,7 +112,7 @@ void ProgressBar::initArcRectangle()
     const int centerOfWidth = width() / 2;
     const int centerOfArcWidth = arcSquareLength / 2;
     arcRectangle_ = QRect(centerOfWidth - centerOfArcWidth,
-                          centerOfWidth - centerOfArcWidth - LINE_WIDTH,
+                          centerOfWidth - centerOfArcWidth,
                           arcSquareLength,
                           arcSquareLength);
 }
