@@ -3,6 +3,10 @@
 
 #include "ProgressBar.h"
 
+/**
+ * @class ProgressBarCounter
+ * @brief Round progress bar with percent counter.
+ */
 class WBLE_EXPORT ProgressBarCounter : public ProgressBar
 {
 public:

@@ -3,6 +3,10 @@
 
 #include "ProgressBar.h"
 
+/**
+ * @class ProgressBarInfinite
+ * @brief Round progress showing two arcs moving infinitely.
+ */
 class WBLE_EXPORT ProgressBarInfinite : public ProgressBar
 {
 public:
