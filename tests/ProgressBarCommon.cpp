@@ -26,4 +26,4 @@ void checkRestarting(ProgressBar& progressBar)
     progressBar.restart();
     QCOMPARE(progressBar.isRunning(), true);
 }
-}  // namespace ProgressBarCommon;
+}  // namespace ProgressBarCommon

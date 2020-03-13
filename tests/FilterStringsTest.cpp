@@ -14,7 +14,7 @@ void FilterStringsTest::initTestCase()
 
 void FilterStringsTest::testToggling()
 {
-    FilterStrings filter(" ", testEntriesList_);
+    FilterStrings filter(QLatin1String(""), testEntriesList_);
     auto listWidget = filter.findChild<QListWidget*>();
     auto selectAll = filter.findChild<QCheckBox*>();
     QCOMPARE(listWidget->isEnabled(), true);
@@ -27,7 +27,7 @@ void FilterStringsTest::testToggling()
 
 void FilterStringsTest::testSelectAllToggling()
 {
-    FilterStrings filter(" ", testEntriesList_);
+    FilterStrings filter(QLatin1String(""), testEntriesList_);
     QSignalSpy spy(&filter, &FilterStrings::newStringFilter);
 
     auto selectAll = filter.findChild<QCheckBox*>();
@@ -42,7 +42,7 @@ void FilterStringsTest::testSelectAllToggling()
 
 void FilterStringsTest::testListItemChecking()
 {
-    FilterStrings filter(" ", testEntriesList_);
+    FilterStrings filter(QLatin1String(""), testEntriesList_);
     QSignalSpy spy(&filter, &FilterStrings::newStringFilter);
     const auto listWidget = filter.findChild<QListWidget*>();
     const auto item = listWidget->item(testEntriesList_.indexOf("b"));
