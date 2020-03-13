@@ -53,7 +53,7 @@ void FilterDatesTest::testProperInitOfEmptyDatesCheckbox()
     auto ignoreEmptyDates = filterWithEmptyDates.findChild<QCheckBox*>();
     QCOMPARE(ignoreEmptyDates->isEnabled(), true);
 
-    FilterDates filterWithoutEmptyDates(" ", fromDate_, toDate_, false);
+    FilterDates filterWithoutEmptyDates(QLatin1String(""), fromDate_, toDate_, false);
     ignoreEmptyDates = filterWithoutEmptyDates.findChild<QCheckBox*>();
     QCOMPARE(ignoreEmptyDates->isEnabled(), false);
 }

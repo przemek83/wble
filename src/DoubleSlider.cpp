@@ -20,7 +20,7 @@ DoubleSlider::DoubleSlider(double min, double max, QWidget* parent) :
     setMouseTracking(true);
 
     setMinimum(0);
-    setMaximum(100);
+    setMaximum(MAX_PERCENT);
 
     setHandleRect();
 }

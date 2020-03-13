@@ -36,8 +36,9 @@ void checkChangingEditLinesValues(U fromValue, U toValue)
     T filter("", fromValue, toValue);
     auto lineEdits = filter.template findChildren<QLineEdit*>();
     Q_ASSERT(lineEdits.count() == 2);
-    auto [fromLineEdit, toLineEdit] =
-        getLineEdits(lineEdits, fromValue, toValue);
+    auto [fromLineEdit, toLineEdit] = getLineEdits(lineEdits,
+                                                   static_cast<int>(fromValue),
+                                                   static_cast<int>(toValue));
 
     QSignalSpy spy(&filter, &T::newNumericFilter);
     const U newMin = 20.;

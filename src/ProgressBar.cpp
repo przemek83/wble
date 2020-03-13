@@ -10,7 +10,7 @@
 ProgressBar::ProgressBar(QString title,
                          QWidget* parent)
     : QWidget(parent),
-      title_(title),
+      title_(std::move(title)),
       color_(Qt::blue),
       brush_(color_)
 {

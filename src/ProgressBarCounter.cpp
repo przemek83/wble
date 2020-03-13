@@ -3,7 +3,7 @@
 ProgressBarCounter::ProgressBarCounter(QString title,
                                        int maxValue,
                                        QWidget* parent) :
-    ProgressBar(title, parent),
+    ProgressBar(std::move(title), parent),
     maxValue_(maxValue)
 {
 }

@@ -3,7 +3,7 @@
 #include <limits>
 
 ProgressBarInfinite::ProgressBarInfinite(QString title, QWidget* parent) :
-    ProgressBar(title, parent)
+    ProgressBar(std::move(title), parent)
 {
 }
 

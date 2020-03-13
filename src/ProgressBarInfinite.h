@@ -9,6 +9,7 @@
  */
 class WBLE_EXPORT ProgressBarInfinite : public ProgressBar
 {
+    Q_OBJECT
 public:
     /**
      * Constructor of ProgressBarCounter class.
