@@ -11,7 +11,7 @@ private Q_SLOTS:
 
     void testStopping();
 
-    void testRestarting();
+    void testReseting();
 };
 
 #endif // PROGRESSBARINFINITETEST_H

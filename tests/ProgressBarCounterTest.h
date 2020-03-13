@@ -13,7 +13,7 @@ private Q_SLOTS:
 
     void testStopping();
 
-    void testRestarting();
+    void testReseting();
 
 private:
     static constexpr int max_ {100};

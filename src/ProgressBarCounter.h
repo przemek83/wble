@@ -19,7 +19,7 @@ public:
      */
     ProgressBarCounter(QString title, int maxValue, QWidget* parent = nullptr);
 
-    void stop() override;
+    void reset() override;
 
 public Q_SLOTS:
     /**

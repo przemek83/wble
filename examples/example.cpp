@@ -177,7 +177,7 @@ static QGroupBox* createProgressBarCounter()
     QObject::connect(timer, &QTimer::timeout, progressBar,
                      [ = ]()
     {
-        static int progress = 0;
+        static int progress {0};
         progressBar->updateProgress(progress);
         progress++;
         if (progress > MAX_PROGRESS_BAR_VALUE)

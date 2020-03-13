@@ -34,11 +34,11 @@ void ProgressBar::stop()
     running_ = false;
 }
 
-void ProgressBar::restart()
+void ProgressBar::reset()
 {
     if (isRunning())
         stop();
-    start();
+    update();
 }
 
 bool ProgressBar::isRunning()

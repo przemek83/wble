@@ -20,6 +20,12 @@ void ProgressBarInfinite::stop()
     ProgressBar::stop();
 }
 
+void ProgressBarInfinite::reset()
+{
+    progressCounter_ = 0;
+    ProgressBar::reset();
+}
+
 void ProgressBarInfinite::paintProgressBar(QPainter& painter)
 {
     constexpr int step {45};

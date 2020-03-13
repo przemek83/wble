@@ -22,6 +22,8 @@ public:
 
     void stop() override;
 
+    void reset() override;
+
 protected:
     void paintProgressBar(QPainter& painter) override;
 

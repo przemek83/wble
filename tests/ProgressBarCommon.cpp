@@ -20,10 +20,10 @@ void checkStopping(ProgressBar& progressBar)
     QCOMPARE(progressBar.isRunning(), false);
 }
 
-void checkRestarting(ProgressBar& progressBar)
+void checkReseting(ProgressBar& progressBar)
 {
     progressBar.start();
-    progressBar.restart();
-    QCOMPARE(progressBar.isRunning(), true);
+    progressBar.reset();
+    QCOMPARE(progressBar.isRunning(), false);
 }
 }  // namespace ProgressBarCommon

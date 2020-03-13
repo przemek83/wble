@@ -24,8 +24,8 @@ void ProgressBarCounterTest::testStopping()
     ProgressBarCommon::checkStopping(progressBar);
 }
 
-void ProgressBarCounterTest::testRestarting()
+void ProgressBarCounterTest::testReseting()
 {
     ProgressBarCounter progressBar(QLatin1String(""), max_);
-    ProgressBarCommon::checkRestarting(progressBar);
+    ProgressBarCommon::checkReseting(progressBar);
 }

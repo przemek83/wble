@@ -9,7 +9,7 @@ void checkStarting(ProgressBar& progressBar);
 
 void checkStopping(ProgressBar& progressBar);
 
-void checkRestarting(ProgressBar& progressBar);
+void checkReseting(ProgressBar& progressBar);
 };
 
 #endif // PROGRESSBARCOMMON_H

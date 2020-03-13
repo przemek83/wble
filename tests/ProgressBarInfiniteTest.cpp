@@ -17,8 +17,8 @@ void ProgressBarInfiniteTest::testStopping()
     ProgressBarCommon::checkStopping(progressBar);
 }
 
-void ProgressBarInfiniteTest::testRestarting()
+void ProgressBarInfiniteTest::testReseting()
 {
     ProgressBarInfinite progressBar(QLatin1String(""));
-    ProgressBarCommon::checkRestarting(progressBar);
+    ProgressBarCommon::checkReseting(progressBar);
 }

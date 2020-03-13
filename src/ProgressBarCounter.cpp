@@ -8,10 +8,10 @@ ProgressBarCounter::ProgressBarCounter(QString title,
 {
 }
 
-void ProgressBarCounter::stop()
+void ProgressBarCounter::reset()
 {
     currentPercent_ = 0;
-    ProgressBar::stop();
+    ProgressBar::reset();
 }
 
 void ProgressBarCounter::updateProgress(int newValue)
@@ -21,8 +21,6 @@ void ProgressBarCounter::updateProgress(int newValue)
 
     const int newPercent =
         std::lround(static_cast<double>(newValue) / maxValue_ * 100.0);
-    if (newPercent <= currentPercent_)
-        return;
 
     currentPercent_ = newPercent;
     update();

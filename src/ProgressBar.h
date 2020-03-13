@@ -38,7 +38,7 @@ public:
 
     virtual void stop();
 
-    void restart();
+    virtual void reset();
 
     bool isRunning();
 
