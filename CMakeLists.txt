@@ -13,7 +13,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 find_package(Qt5 COMPONENTS Widgets Core Test REQUIRED)
 add_definitions( ${QT_DEFINITIONS} )
 
-add_library(wble SHARED
+add_library(${PROJECT_NAME} SHARED
   src/wble_global.h
   src/DoubleSlider.cpp
   src/DoubleSlider.h
@@ -44,10 +44,10 @@ add_library(wble SHARED
   src/ProgressBarCounter.h
 )
 
-set_target_properties(wble PROPERTIES VERSION ${PROJECT_VERSION})
-set_target_properties(wble PROPERTIES SOVERSION 1)
+set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${PROJECT_VERSION})
+set_target_properties(${PROJECT_NAME} PROPERTIES SOVERSION 1)
 
-set_property(TARGET wble PROPERTY PUBLIC_HEADER
+set_property(TARGET ${PROJECT_NAME} PROPERTY PUBLIC_HEADER
     src/DoubleSlider.h
     src/Filter.h
     src/FilterStrings.h
@@ -59,26 +59,30 @@ set_property(TARGET wble PROPERTY PUBLIC_HEADER
     src/ProgressBarInfinite.h
     src/ProgressBarCounter.h
     src/wble_global.h)
-target_include_directories(wble PUBLIC src)
+target_include_directories(${PROJECT_NAME} PUBLIC src)
 include(GNUInstallDirs)
 
-target_link_libraries(wble PRIVATE Qt5::Core Qt5::Widgets)
+target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Core Qt5::Widgets)
 
-target_compile_definitions(wble PRIVATE WBLE_LIBRARY)
+target_compile_definitions(${PROJECT_NAME} PRIVATE WBLE_LIBRARY)
 
-add_custom_command(
-        TARGET wble POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy
-                ${CMAKE_BINARY_DIR}/libwble${CMAKE_SHARED_LIBRARY_SUFFIX}*
-                ${CMAKE_BINARY_DIR}/examples/)
+message(${CMAKE_SHARED_LIBRARY_SUFFIX})
+message(${CMAKE_SHARED_LIBRARY_PREFIX})
+if (WIN32)
+    add_custom_command(
+            TARGET ${PROJECT_NAME} POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy
+                    ${CMAKE_BINARY_DIR}/${CMAKE_SHARED_LIBRARY_PREFIX}${PROJECT_NAME}${CMAKE_SHARED_LIBRARY_SUFFIX}
+                    ${CMAKE_BINARY_DIR}/examples/)
 
-add_custom_command(
-        TARGET wble POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy
-                ${CMAKE_BINARY_DIR}/libwble${CMAKE_SHARED_LIBRARY_SUFFIX}*
-                ${CMAKE_BINARY_DIR}/tests/)
+    add_custom_command(
+            TARGET ${PROJECT_NAME} POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy
+                    ${CMAKE_BINARY_DIR}/${CMAKE_SHARED_LIBRARY_PREFIX}${PROJECT_NAME}${CMAKE_SHARED_LIBRARY_SUFFIX}
+                    ${CMAKE_BINARY_DIR}/tests/)
+endif()
 
-install(TARGETS wble
+install(TARGETS ${PROJECT_NAME}
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
