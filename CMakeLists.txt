@@ -66,8 +66,6 @@ target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Core Qt5::Widgets)
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE WBLE_LIBRARY)
 
-message(${CMAKE_SHARED_LIBRARY_SUFFIX})
-message(${CMAKE_SHARED_LIBRARY_PREFIX})
 if (WIN32)
     add_custom_command(
             TARGET ${PROJECT_NAME} POST_BUILD
