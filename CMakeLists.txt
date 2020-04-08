@@ -69,14 +69,14 @@ target_compile_definitions(wble PRIVATE WBLE_LIBRARY)
 add_custom_command(
         TARGET wble POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy
-                ${CMAKE_BINARY_DIR}/libwble.dll
-                ${CMAKE_BINARY_DIR}/examples/libwble.dll)
+                ${CMAKE_BINARY_DIR}/libwble${CMAKE_SHARED_LIBRARY_SUFFIX}*
+                ${CMAKE_BINARY_DIR}/examples/)
 
 add_custom_command(
         TARGET wble POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy
-                ${CMAKE_BINARY_DIR}/libwble.dll
-                ${CMAKE_BINARY_DIR}/tests/libwble.dll)
+                ${CMAKE_BINARY_DIR}/libwble${CMAKE_SHARED_LIBRARY_SUFFIX}*
+                ${CMAKE_BINARY_DIR}/tests/)
 
 install(TARGETS wble
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
