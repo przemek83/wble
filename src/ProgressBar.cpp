@@ -3,7 +3,7 @@
 #include <cmath>
 
 #include <QApplication>
-#include <QDebug>
+#include <QScreen>
 #include <QTime>
 #include <QTimer>
 
@@ -54,12 +54,12 @@ void ProgressBar::showDetached()
     setWindowFlags(Qt::CustomizeWindowHint | Qt::FramelessWindowHint);
     setWindowModality(Qt::ApplicationModal);
 
-    const QWidget* activeWidget = QApplication::activeWindow();
-    if (activeWidget != nullptr)
-    {
+    if (const auto activeWidget = QApplication::activeWindow(); activeWidget)
         move(QApplication::activeWindow()->geometry().center() -
              geometry().center());
-    }
+    else
+        move(QGuiApplication::primaryScreen()->availableGeometry().center() -
+             geometry().center());
     show();
 }
 
