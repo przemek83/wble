@@ -8,4 +8,4 @@ namespace Utilities
 bool doublesAreEqual(double left, double right);
 }
 
-#endif // TOOLS_H
+#endif  // TOOLS_H

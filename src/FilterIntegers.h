@@ -11,9 +11,7 @@ class WBLE_EXPORT FilterIntegers : public FilterNumbers
 {
     Q_OBJECT
 public:
-    FilterIntegers(const QString& name,
-                   double from,
-                   double to,
+    FilterIntegers(const QString& name, double from, double to,
                    QWidget* parent = nullptr);
 
     ~FilterIntegers() override = default;
@@ -38,4 +36,4 @@ protected:
     void emitChangeSignal() override;
 };
 
-#endif // FILTERINTEGERS_H
+#endif  // FILTERINTEGERS_H

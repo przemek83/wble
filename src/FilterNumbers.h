@@ -11,7 +11,7 @@
 namespace Ui
 {
 class FilterNumbers;
-} // namespace Ui
+}  // namespace Ui
 
 class QLineEdit;
 
@@ -23,9 +23,7 @@ class WBLE_EXPORT FilterNumbers : public Filter
 {
     Q_OBJECT
 public:
-    FilterNumbers(const QString& name,
-                  double from,
-                  double to,
+    FilterNumbers(const QString& name, double from, double to,
                   QWidget* parent = nullptr);
 
     ~FilterNumbers() override;
@@ -94,4 +92,4 @@ private Q_SLOTS:
     void lineEditContentModified(const QString& currentContent);
 };
 
-#endif // FILTERNUMBERS_H
+#endif  // FILTERNUMBERS_H

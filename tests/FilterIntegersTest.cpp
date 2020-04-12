@@ -9,9 +9,9 @@
 
 #include "FilterNumbersCommon.h"
 
-using FilterNumbersCommon::checkToggling;
 using FilterNumbersCommon::checkChangingEditLinesValues;
 using FilterNumbersCommon::checkReactionForMovingDoubleSlider;
+using FilterNumbersCommon::checkToggling;
 
 void FilterIntegersTest::testToggling()
 {

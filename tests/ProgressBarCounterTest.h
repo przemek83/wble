@@ -16,7 +16,7 @@ private Q_SLOTS:
     void testReseting();
 
 private:
-    static constexpr int max_ {100};
+    static constexpr int max_{100};
 };
 
-#endif // PROGRESSBARCOUNTERTEST_H
+#endif  // PROGRESSBARCOUNTERTEST_H

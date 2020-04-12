@@ -7,8 +7,7 @@
 #include <QTime>
 #include <QTimer>
 
-ProgressBar::ProgressBar(QString title,
-                         QWidget* parent)
+ProgressBar::ProgressBar(QString title, QWidget* parent)
     : QWidget(parent),
       title_(std::move(title)),
       color_(Qt::blue),
@@ -24,15 +23,9 @@ ProgressBar::ProgressBar(QString title,
     initTitleRectangle();
 }
 
-void ProgressBar::start()
-{
-    running_ = true;
-}
+void ProgressBar::start() { running_ = true; }
 
-void ProgressBar::stop()
-{
-    running_ = false;
-}
+void ProgressBar::stop() { running_ = false; }
 
 void ProgressBar::reset()
 {
@@ -41,10 +34,7 @@ void ProgressBar::reset()
     update();
 }
 
-bool ProgressBar::isRunning()
-{
-    return running_;
-}
+bool ProgressBar::isRunning() { return running_; }
 
 void ProgressBar::showDetached()
 {
@@ -112,17 +102,13 @@ void ProgressBar::initArcRectangle()
     const int centerOfWidth = width() / 2;
     const int centerOfArcWidth = arcSquareLength / 2;
     arcRectangle_ = QRect(centerOfWidth - centerOfArcWidth,
-                          centerOfWidth - centerOfArcWidth,
-                          arcSquareLength,
+                          centerOfWidth - centerOfArcWidth, arcSquareLength,
                           arcSquareLength);
 }
 
 void ProgressBar::initTitleRectangle()
 {
-    titleRectangle_ = QRect(0,
-                            height() - TITLE_HEIGHT,
-                            width(),
-                            TITLE_HEIGHT);
+    titleRectangle_ = QRect(0, height() - TITLE_HEIGHT, width(), TITLE_HEIGHT);
 }
 
 void ProgressBar::paintTitle(QPainter& painter)

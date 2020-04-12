@@ -19,8 +19,8 @@ private Q_SLOTS:
 private:
     QStringList testEntriesList_;
 
-    static constexpr int NO_SIGNAL {0};
-    static constexpr int SIGNAL_RECEIVED {1};
+    static constexpr int NO_SIGNAL{0};
+    static constexpr int SIGNAL_RECEIVED{1};
 };
 
-#endif // FILTERNAMESTEST_H
+#endif  // FILTERNAMESTEST_H

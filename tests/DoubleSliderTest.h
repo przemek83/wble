@@ -5,7 +5,7 @@
 
 class DoubleSlider;
 
-class DoubleSliderTest: public QObject
+class DoubleSliderTest : public QObject
 {
     Q_OBJECT
 private Q_SLOTS:
@@ -30,13 +30,13 @@ private Q_SLOTS:
 private:
     void moveHandle(DoubleSlider& slider, QPoint from, QPoint to) const;
 
-    static constexpr int MIN {-100};
-    static constexpr int MAX {100};
-    static constexpr int SLIDER_WIDTH {MAX - MIN};
-    static constexpr int SLIDER_HEIGHT {SLIDER_WIDTH / 5};
+    static constexpr int MIN{-100};
+    static constexpr int MAX{100};
+    static constexpr int SLIDER_WIDTH{MAX - MIN};
+    static constexpr int SLIDER_HEIGHT{SLIDER_WIDTH / 5};
 
-    static constexpr int NO_SIGNAL {0};
-    static constexpr int SIGNAL_RECEIVED {1};
+    static constexpr int NO_SIGNAL{0};
+    static constexpr int SIGNAL_RECEIVED{1};
 };
 
-#endif // DOUBLESLIDERTEST
+#endif  // DOUBLESLIDERTEST

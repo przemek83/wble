@@ -7,7 +7,8 @@
 
 void DoubleSliderTest::initTestCase()
 {
-    qApp->setStyleSheet(QStringLiteral("QSlider::handle:horizontal {width: 10px}"));
+    qApp->setStyleSheet(
+        QStringLiteral("QSlider::handle:horizontal {width: 10px}"));
 }
 
 void DoubleSliderTest::testSettingCurrentValues()
@@ -18,12 +19,12 @@ void DoubleSliderTest::testSettingCurrentValues()
     QCOMPARE(slider.getCurrentMin(), MIN);
     QCOMPARE(slider.getCurrentMax(), MAX);
 
-    const double newMin {MIN / 2.};
+    const double newMin{MIN / 2.};
     slider.setCurrentMin(newMin);
     QCOMPARE(slider.getMin(), MIN);
     QCOMPARE(slider.getCurrentMin(), newMin);
 
-    const double newMax {MAX / 2.};
+    const double newMax{MAX / 2.};
     slider.setCurrentMax(newMax);
     QCOMPARE(slider.getMax(), MAX);
     QCOMPARE(slider.getCurrentMax(), newMax);
@@ -36,7 +37,7 @@ void DoubleSliderTest::testEmittingCurrentMinChanged()
     QSignalSpy spyMin(&slider, &DoubleSlider::currentMinChanged);
     QSignalSpy spyMax(&slider, &DoubleSlider::currentMaxChanged);
 
-    const double newMin {MIN / 2.};
+    const double newMin{MIN / 2.};
     slider.setCurrentMin(newMin);
     QCOMPARE(spyMin.count(), NO_SIGNAL);
     QCOMPARE(spyMax.count(), NO_SIGNAL);
@@ -93,7 +94,7 @@ void DoubleSliderTest::testMovingLeftHandle()
     QCOMPARE(spyMin.count(), SIGNAL_RECEIVED);
     QCOMPARE(spyMax.count(), NO_SIGNAL);
 
-    const int middleOfRange {(MAX + MIN) / 2};
+    const int middleOfRange{(MAX + MIN) / 2};
     QCOMPARE(spyMin[0], {middleOfRange});
 }
 
@@ -115,7 +116,7 @@ void DoubleSliderTest::testMovingRightHandle()
     QCOMPARE(spyMin.count(), NO_SIGNAL);
     QCOMPARE(spyMax.count(), SIGNAL_RECEIVED);
 
-    const int middleOfRange {(MAX + MIN) / 2};
+    const int middleOfRange{(MAX + MIN) / 2};
     QCOMPARE(spyMax[0], {middleOfRange});
 }
 
@@ -146,12 +147,15 @@ void DoubleSliderTest::testMovingBothHandlesTogether()
     QCOMPARE(spyMin[0], {MIN});
 }
 
-void DoubleSliderTest::moveHandle(DoubleSlider& slider, QPoint from, QPoint to) const
+void DoubleSliderTest::moveHandle(DoubleSlider& slider, QPoint from,
+                                  QPoint to) const
 {
     QTest::mousePress(&slider, Qt::LeftButton, Qt::NoModifier, from);
-    QMouseEvent initialEvent(QEvent::MouseMove, from, Qt::NoButton, Qt::LeftButton, Qt::NoModifier);
+    QMouseEvent initialEvent(QEvent::MouseMove, from, Qt::NoButton,
+                             Qt::LeftButton, Qt::NoModifier);
     QApplication::sendEvent(&slider, &initialEvent);
-    QMouseEvent moveEvent(QEvent::MouseMove, to, Qt::NoButton, Qt::LeftButton, Qt::NoModifier);
+    QMouseEvent moveEvent(QEvent::MouseMove, to, Qt::NoButton, Qt::LeftButton,
+                          Qt::NoModifier);
     QApplication::sendEvent(&slider, &moveEvent);
     QTest::mouseRelease(&slider, Qt::LeftButton, Qt::NoModifier, to);
 }

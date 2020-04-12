@@ -4,9 +4,9 @@
 #include <QtCore/qglobal.h>
 
 #if defined(WBLE_LIBRARY)
-#  define WBLE_EXPORT Q_DECL_EXPORT
+#define WBLE_EXPORT Q_DECL_EXPORT
 #else
-#  define WBLE_EXPORT Q_DECL_IMPORT
+#define WBLE_EXPORT Q_DECL_IMPORT
 #endif
 
-#endif // WBLE_GLOBAL_H
+#endif  // WBLE_GLOBAL_H

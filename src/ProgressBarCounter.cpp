@@ -1,10 +1,8 @@
 #include "ProgressBarCounter.h"
 
-ProgressBarCounter::ProgressBarCounter(QString title,
-                                       int maxValue,
-                                       QWidget* parent) :
-    ProgressBar(std::move(title), parent),
-    maxValue_(maxValue)
+ProgressBarCounter::ProgressBarCounter(QString title, int maxValue,
+                                       QWidget* parent)
+    : ProgressBar(std::move(title), parent), maxValue_(maxValue)
 {
 }
 
@@ -29,11 +27,10 @@ void ProgressBarCounter::updateProgress(int newValue)
 
 void ProgressBarCounter::paintProgressBar(QPainter& painter)
 {
-    constexpr int startAngle {QUARTER_CIRCLE_ANGLE * FULL_DEGREE};
+    constexpr int startAngle{QUARTER_CIRCLE_ANGLE * FULL_DEGREE};
     const int spanAngle =
         lround(-currentPercent_ * HUNDREDTH_OF_FULL_CIRCLE * FULL_DEGREE);
     painter.drawArc(arcRectangle_, startAngle, spanAngle);
-    painter.drawText(arcRectangle_,
-                     Qt::AlignCenter,
+    painter.drawText(arcRectangle_, Qt::AlignCenter,
                      QString::number(currentPercent_, 'f', 0) + "%");
 }

@@ -14,4 +14,4 @@ private Q_SLOTS:
     void testReseting();
 };
 
-#endif // PROGRESSBARINFINITETEST_H
+#endif  // PROGRESSBARINFINITETEST_H

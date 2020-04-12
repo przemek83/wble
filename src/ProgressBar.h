@@ -50,10 +50,10 @@ protected:
 
     void initPainter(QPainter* painter) const override;
 
-    static constexpr int FULL_DEGREE {16};
-    static constexpr double HUNDREDTH_OF_FULL_CIRCLE {3.6};
-    static constexpr int QUARTER_CIRCLE_ANGLE {90};
-    static constexpr int HALF_CIRCLE_ANGLE {2 * QUARTER_CIRCLE_ANGLE};
+    static constexpr int FULL_DEGREE{16};
+    static constexpr double HUNDREDTH_OF_FULL_CIRCLE{3.6};
+    static constexpr int QUARTER_CIRCLE_ANGLE{90};
+    static constexpr int HALF_CIRCLE_ANGLE{2 * QUARTER_CIRCLE_ANGLE};
 
     /**
      * Paint graphically progress bar arc.
@@ -90,14 +90,14 @@ private:
 
     const QBrush brush_;
 
-    static constexpr int LINE_WIDTH {10};
-    static constexpr int TITLE_HEIGHT {LINE_WIDTH * 3};
-    static constexpr int DEFAULT_WIDTH {120};
-    static constexpr int DEFAULT_HEIGHT {140};
-    static constexpr double COUNTER_FONT_FACTOR {2.5};
-    static constexpr double TITLE_FONT_FACTOR {1.5};
+    static constexpr int LINE_WIDTH{10};
+    static constexpr int TITLE_HEIGHT{LINE_WIDTH * 3};
+    static constexpr int DEFAULT_WIDTH{120};
+    static constexpr int DEFAULT_HEIGHT{140};
+    static constexpr double COUNTER_FONT_FACTOR{2.5};
+    static constexpr double TITLE_FONT_FACTOR{1.5};
 
-    bool running_ {false};
+    bool running_{false};
 };
 
-#endif // PROGRESSBAR_H
+#endif  // PROGRESSBAR_H

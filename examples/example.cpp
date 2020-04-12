@@ -15,29 +15,23 @@
 #include "ProgressBarCounter.h"
 #include "ProgressBarInfinite.h"
 
-static constexpr double MIN {3};
-static constexpr double MAX {56};
+static constexpr double MIN{3};
+static constexpr double MAX{56};
 
-static constexpr int MAX_PROGRESS_BAR_VALUE {100};
+static constexpr int MAX_PROGRESS_BAR_VALUE{100};
 
 static DoubleSlider* createDoubleSlider(QLabel* infoLabel)
 {
     auto slider = new DoubleSlider(MIN, MAX);
-    QObject::connect(slider,
-                     &DoubleSlider::currentMinChanged,
-                     infoLabel,
-                     [ = ](double min)
-    {
-        infoLabel->setText("Double Slider: min = " + QString::number(min));
-    });
+    QObject::connect(
+        slider, &DoubleSlider::currentMinChanged, infoLabel, [=](double min) {
+            infoLabel->setText("Double Slider: min = " + QString::number(min));
+        });
 
-    QObject::connect(slider,
-                     &DoubleSlider::currentMaxChanged,
-                     infoLabel,
-                     [ = ](double max)
-    {
-        infoLabel->setText("Double Slider: max = " + QString::number(max));
-    });
+    QObject::connect(
+        slider, &DoubleSlider::currentMaxChanged, infoLabel, [=](double max) {
+            infoLabel->setText("Double Slider: max = " + QString::number(max));
+        });
 
     return slider;
 }
@@ -46,14 +40,12 @@ static FilterNumbers* createFilterIntegers(QLabel* infoLabel)
 {
     auto filterNumbers =
         new FilterIntegers(QStringLiteral("Integers Filter"), MIN, MAX);
-    QObject::connect(filterNumbers,
-                     &FilterIntegers::newNumericFilter,
-                     infoLabel,
-                     [ = ](int min, int max)
-    {
-        infoLabel->setText("Integers Filter: " + QString::number(min) + " | " +
-                           QString::number(max));
-    });
+    QObject::connect(
+        filterNumbers, &FilterIntegers::newNumericFilter, infoLabel,
+        [=](int min, int max) {
+            infoLabel->setText("Integers Filter: " + QString::number(min) +
+                               " | " + QString::number(max));
+        });
 
     filterNumbers->setCheckable(true);
     return filterNumbers;
@@ -63,14 +55,12 @@ static FilterNumbers* createFilterDoubles(QLabel* infoLabel)
 {
     auto filterNumbers =
         new FilterDoubles(QStringLiteral("Doubles Filter"), MIN, MAX);
-    QObject::connect(filterNumbers,
-                     &FilterDoubles::newNumericFilter,
-                     infoLabel,
-                     [ = ](double min, double max)
-    {
-        infoLabel->setText("Doubles Filter: " + QString::number(min) + " | " +
-                           QString::number(max));
-    });
+    QObject::connect(
+        filterNumbers, &FilterDoubles::newNumericFilter, infoLabel,
+        [=](double min, double max) {
+            infoLabel->setText("Doubles Filter: " + QString::number(min) +
+                               " | " + QString::number(max));
+        });
 
     filterNumbers->setCheckable(true);
     return filterNumbers;
@@ -78,19 +68,15 @@ static FilterNumbers* createFilterDoubles(QLabel* infoLabel)
 
 static FilterDates* createFilterDates(QLabel* infoLabel)
 {
-    auto filterDates = new FilterDates(QStringLiteral("Dates Filter"),
-                                       QDate(2010, 9, 21),
-                                       QDate(2012, 2, 25),
-                                       true);
-    QObject::connect(filterDates,
-                     &FilterDates::newDateFilter,
-                     infoLabel,
-                     [ = ](QDate from, QDate to, bool filterEmptyDates)
-    {
-        infoLabel->setText("Dates Filter: " + from.toString() + " | " +
-                           to.toString() + " | " +
-                           (filterEmptyDates ? "yes" : "no"));
-    });
+    auto filterDates =
+        new FilterDates(QStringLiteral("Dates Filter"), QDate(2010, 9, 21),
+                        QDate(2012, 2, 25), true);
+    QObject::connect(filterDates, &FilterDates::newDateFilter, infoLabel,
+                     [=](QDate from, QDate to, bool filterEmptyDates) {
+                         infoLabel->setText("Dates Filter: " + from.toString() +
+                                            " | " + to.toString() + " | " +
+                                            (filterEmptyDates ? "yes" : "no"));
+                     });
 
     filterDates->setCheckable(true);
     return filterDates;
@@ -98,18 +84,15 @@ static FilterDates* createFilterDates(QLabel* infoLabel)
 
 static FilterStrings* createFilterStrings(QLabel* infoLabel)
 {
-    auto filterNames =  new FilterStrings(QStringLiteral("Names Filter"),
-                                          QStringList{QStringLiteral("a"),
-                                                      QStringLiteral("b"),
-                                                      QStringLiteral("c"),
-                                                      QStringLiteral("d")});
-    QObject::connect(filterNames,
-                     &FilterStrings::newStringFilter,
-                     infoLabel,
-                     [ = ](const QStringList & bannedItems)
-    {
-        infoLabel->setText("Names Filter: " + bannedItems.join(','));
-    });
+    auto filterNames = new FilterStrings(
+        QStringLiteral("Names Filter"),
+        QStringList{QStringLiteral("a"), QStringLiteral("b"),
+                    QStringLiteral("c"), QStringLiteral("d")});
+    QObject::connect(
+        filterNames, &FilterStrings::newStringFilter, infoLabel,
+        [=](const QStringList& bannedItems) {
+            infoLabel->setText("Names Filter: " + bannedItems.join(','));
+        });
 
     filterNames->setCheckable(true);
     return filterNames;
@@ -133,8 +116,7 @@ static QVBoxLayout* createLeftWidgetColumn(QLabel* infoLabel)
     return leftLayout;
 }
 
-static QGroupBox* wrapProgressBar(const QString& name,
-                                  ProgressBar* progressBar,
+static QGroupBox* wrapProgressBar(const QString& name, ProgressBar* progressBar,
                                   QPushButton* startStopButton)
 {
     auto groupBox = new QGroupBox(name);
@@ -149,21 +131,17 @@ static QGroupBox* createProgressBarInfinite()
 {
     auto progressBar = new ProgressBarInfinite(QStringLiteral("Title"));
     auto startStopButton = new QPushButton(QStringLiteral("start"));
-    QObject::connect(startStopButton, &QPushButton::clicked, progressBar,
-                     [ = ]()
-    {
-        const bool running = progressBar->isRunning();
-        if (running)
-            progressBar->stop();
-        else
-            progressBar->start();
-        startStopButton->setText((running ?
-                                  QStringLiteral("start") :
-                                  QStringLiteral("stop")));
-
-    });
-    return wrapProgressBar(QStringLiteral("Infinite progress bar"),
-                           progressBar,
+    QObject::connect(
+        startStopButton, &QPushButton::clicked, progressBar, [=]() {
+            const bool running = progressBar->isRunning();
+            if (running)
+                progressBar->stop();
+            else
+                progressBar->start();
+            startStopButton->setText(
+                (running ? QStringLiteral("start") : QStringLiteral("stop")));
+        });
+    return wrapProgressBar(QStringLiteral("Infinite progress bar"), progressBar,
                            startStopButton);
 }
 
@@ -174,10 +152,8 @@ static QGroupBox* createProgressBarCounter()
     auto startStopButton = new QPushButton(QStringLiteral("start"));
     auto timer = new QTimer(progressBar);
     timer->setInterval(40);
-    QObject::connect(timer, &QTimer::timeout, progressBar,
-                     [ = ]()
-    {
-        static int progress {0};
+    QObject::connect(timer, &QTimer::timeout, progressBar, [=]() {
+        static int progress{0};
         progressBar->updateProgress(progress);
         progress++;
         if (progress > MAX_PROGRESS_BAR_VALUE)
@@ -187,27 +163,23 @@ static QGroupBox* createProgressBarCounter()
             startStopButton->click();
         }
     });
-    QObject::connect(startStopButton, &QPushButton::clicked, progressBar,
-                     [ = ]()
-    {
-        const bool running = progressBar->isRunning();
-        if (running)
-        {
-            progressBar->stop();
-            timer->stop();
-        }
-        else
-        {
-            progressBar->start();
-            timer->start();
-        }
-        startStopButton->setText((running ?
-                                  QStringLiteral("start") :
-                                  QStringLiteral("stop")));
-
-    });
-    return wrapProgressBar(QStringLiteral("Counter progress bar"),
-                           progressBar,
+    QObject::connect(
+        startStopButton, &QPushButton::clicked, progressBar, [=]() {
+            const bool running = progressBar->isRunning();
+            if (running)
+            {
+                progressBar->stop();
+                timer->stop();
+            }
+            else
+            {
+                progressBar->start();
+                timer->start();
+            }
+            startStopButton->setText(
+                (running ? QStringLiteral("start") : QStringLiteral("stop")));
+        });
+    return wrapProgressBar(QStringLiteral("Counter progress bar"), progressBar,
                            startStopButton);
 }
 

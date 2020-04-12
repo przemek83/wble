@@ -6,7 +6,7 @@
 
 class QLineEdit;
 
-class FilterDoublesTest: public QObject
+class FilterDoublesTest : public QObject
 {
     Q_OBJECT
 private Q_SLOTS:
@@ -17,9 +17,8 @@ private Q_SLOTS:
     void testReactionForMovingDoubleSlider();
 
 private:
-    static constexpr double fromValue_ {0.};
-    static constexpr double toValue_ {100.};
+    static constexpr double fromValue_{0.};
+    static constexpr double toValue_{100.};
 };
 
-
-#endif // FILTERDOUBLESTEST_H
+#endif  // FILTERDOUBLESTEST_H

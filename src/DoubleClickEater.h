@@ -13,4 +13,4 @@ protected:
     bool eventFilter(QObject* obj, QEvent* event) override;
 };
 
-#endif // DOUBLECLICKEATER_H
+#endif  // DOUBLECLICKEATER_H

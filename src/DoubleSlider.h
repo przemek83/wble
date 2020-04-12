@@ -115,11 +115,11 @@ private:
     const double min_;
     const double max_;
 
-    double currentMin_ {0.};
-    double currentMax_ {0.};
+    double currentMin_{0.};
+    double currentMax_{0.};
 
-    double lastEmittedMin_ {0.};
-    double lastEmittedMax_ {0.};
+    double lastEmittedMin_{0.};
+    double lastEmittedMax_{0.};
 
     static constexpr int MAX_PERCENT{100};
 
@@ -131,4 +131,4 @@ private:
     Handle moving_{Handle::NONE};
 };
 
-#endif // DOUBLESLIDER_H
+#endif  // DOUBLESLIDER_H

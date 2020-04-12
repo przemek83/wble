@@ -30,4 +30,4 @@ protected:
     virtual void checkedStateChanged(bool checked) = 0;
 };
 
-#endif // FILTER_H
+#endif  // FILTER_H

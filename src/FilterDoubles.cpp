@@ -3,11 +3,9 @@
 #include <QDoubleValidator>
 #include <QLineEdit>
 
-FilterDoubles::FilterDoubles(const QString& name,
-                             double from,
-                             double to,
-                             QWidget* parent) :
-    FilterNumbers(name, from, to, parent)
+FilterDoubles::FilterDoubles(const QString& name, double from, double to,
+                             QWidget* parent)
+    : FilterNumbers(name, from, to, parent)
 {
     QLineEdit* fromLineEdit = getFromLineEdit();
     QLineEdit* toLineEdit = getToLineEdit();
@@ -22,11 +20,7 @@ FilterDoubles::FilterDoubles(const QString& name,
     toLineEdit->setText(QLocale::system().toString(to, 'f', 2));
 }
 
-bool FilterDoubles::isDoubleMode() const
-{
-    return true;
-}
-
+bool FilterDoubles::isDoubleMode() const { return true; }
 
 void FilterDoubles::emitChangeSignal()
 {
@@ -36,4 +30,3 @@ void FilterDoubles::emitChangeSignal()
     Q_EMIT newNumericFilter(QLocale::system().toDouble(fromLineEdit->text()),
                             QLocale::system().toDouble(toLineEdit->text()));
 }
-

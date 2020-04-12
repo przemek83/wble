@@ -6,7 +6,7 @@
 
 class QLineEdit;
 
-class FilterIntegersTest: public QObject
+class FilterIntegersTest : public QObject
 {
     Q_OBJECT
 private Q_SLOTS:
@@ -17,8 +17,8 @@ private Q_SLOTS:
     void testReactionForMovingDoubleSlider();
 
 private:
-    static constexpr int fromValue_ {0};
-    static constexpr int toValue_ {100};
+    static constexpr int fromValue_{0};
+    static constexpr int toValue_{100};
 };
 
-#endif // FILTERINTEGERSTEST_H
+#endif  // FILTERINTEGERSTEST_H

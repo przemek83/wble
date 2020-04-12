@@ -4,7 +4,7 @@
 #include <QDate>
 #include <QObject>
 
-class FilterDatesTest: public QObject
+class FilterDatesTest : public QObject
 {
     Q_OBJECT
 private Q_SLOTS:
@@ -22,8 +22,8 @@ private:
     QDate fromDate_;
     QDate toDate_;
 
-    static constexpr int NO_SIGNAL {0};
-    static constexpr int SIGNAL_RECEIVED {1};
+    static constexpr int NO_SIGNAL{0};
+    static constexpr int SIGNAL_RECEIVED{1};
 };
 
-#endif // FILTERDATESTEST_H
+#endif  // FILTERDATESTEST_H

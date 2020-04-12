@@ -32,9 +32,9 @@ protected:
     void paintProgressBar(QPainter& painter) override;
 
 private:
-    int currentPercent_ {0};
+    int currentPercent_{0};
 
     const int maxValue_;
 };
 
-#endif // PROGRESSBARCOUNTER_H
+#endif  // PROGRESSBARCOUNTER_H

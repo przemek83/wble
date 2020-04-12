@@ -9,9 +9,8 @@
 
 namespace FilterNumbersCommon
 {
-
-static constexpr int NO_SIGNAL {0};
-static constexpr int SIGNAL_RECEIVED {1};
+static constexpr int NO_SIGNAL{0};
+static constexpr int SIGNAL_RECEIVED{1};
 
 template <class T, typename U>
 void checkToggling(U fromValue, U toValue)
@@ -27,8 +26,7 @@ void checkToggling(U fromValue, U toValue)
 }
 
 std::tuple<QLineEdit*, QLineEdit*> getLineEdits(QList<QLineEdit*> lineEdits,
-                                                int fromValue,
-                                                int toValue);
+                                                int fromValue, int toValue);
 
 template <class T, typename U>
 void checkChangingEditLinesValues(U fromValue, U toValue)
@@ -36,16 +34,15 @@ void checkChangingEditLinesValues(U fromValue, U toValue)
     T filter("", fromValue, toValue);
     auto lineEdits = filter.template findChildren<QLineEdit*>();
     Q_ASSERT(lineEdits.count() == 2);
-    auto [fromLineEdit, toLineEdit] = getLineEdits(lineEdits,
-                                                   static_cast<int>(fromValue),
-                                                   static_cast<int>(toValue));
+    auto [fromLineEdit, toLineEdit] = getLineEdits(
+        lineEdits, static_cast<int>(fromValue), static_cast<int>(toValue));
 
     QSignalSpy spy(&filter, &T::newNumericFilter);
     const U newMin = 20.;
     fromLineEdit->setText(QLocale::system().toString(newMin));
     QTest::keyClick(fromLineEdit, Qt::Key_Enter);
     QCOMPARE(spy.count(), SIGNAL_RECEIVED);
-    QList<QVariant> expectedValues {newMin, toValue};
+    QList<QVariant> expectedValues{newMin, toValue};
     QCOMPARE(spy.takeFirst(), expectedValues);
 
     const U newMax = 50.;
@@ -70,7 +67,7 @@ void checkReactionForMovingDoubleSlider(U fromValue, U toValue)
     const U newMin = 20.;
     Q_EMIT doubleSlider->currentMinChanged(newMin);
     QCOMPARE(spy.count(), SIGNAL_RECEIVED);
-    QList<QVariant> expectedValues {newMin, toValue};
+    QList<QVariant> expectedValues{newMin, toValue};
     QCOMPARE(spy.takeFirst(), expectedValues);
 
     const U newMax = 50.;
@@ -80,6 +77,6 @@ void checkReactionForMovingDoubleSlider(U fromValue, U toValue)
     QCOMPARE(spy.takeFirst(), expectedValues);
 }
 
-};
+};  // namespace FilterNumbersCommon
 
-#endif // FILTERNUMBERSCOMMON_H
+#endif  // FILTERNUMBERSCOMMON_H

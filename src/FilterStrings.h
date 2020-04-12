@@ -11,7 +11,7 @@ class QListWidgetItem;
 namespace Ui
 {
 class FilterStrings;
-} // namespace Ui
+}  // namespace Ui
 
 /**
  * @class FilterNames
@@ -21,8 +21,7 @@ class WBLE_EXPORT FilterStrings : public Filter
 {
     Q_OBJECT
 public:
-    FilterStrings(const QString& name,
-                  QStringList initialList,
+    FilterStrings(const QString& name, QStringList initialList,
                   QWidget* parent = nullptr);
 
     ~FilterStrings() override;
@@ -57,10 +56,10 @@ private:
     Ui::FilterStrings* ui;
 
     /// Min number of chars to include scrioll margin.
-    static constexpr int minNameWidthForScrollMargin_ {25};
+    static constexpr int minNameWidthForScrollMargin_{25};
 
     /// Maximum widget heigh.
-    static constexpr int maximumHeigh_ {180};
+    static constexpr int maximumHeigh_{180};
 
     /// Flag indocating if additionall place for scroll should be added.
     bool addMarginForScrollBar_;
@@ -79,4 +78,4 @@ private Q_SLOTS:
     void selectAllToggled(bool checked);
 };
 
-#endif // FILTERNAMES_H
+#endif  // FILTERNAMES_H

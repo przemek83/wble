@@ -1,8 +1,8 @@
 #ifndef FILTERDATES_H
 #define FILTERDATES_H
 
-#include <QDate>
 #include <QCalendarWidget>
+#include <QDate>
 
 #include "Filter.h"
 #include "wble_global.h"
@@ -10,7 +10,7 @@
 namespace Ui
 {
 class FilterDates;
-} // namespace Ui
+}  // namespace Ui
 
 /**
  * @class FilterDates
@@ -36,7 +36,8 @@ Q_SIGNALS:
      * Emitted when filter state was changed.
      * @param fromDate Current from date.
      * @param toDate Current to date.
-     * @param filterEmptyDates Flag indicating that data with empty date should be ignored.
+     * @param filterEmptyDates Flag indicating that data with empty date should
+     * be ignored.
      */
     void newDateFilter(QDate fromDate, QDate toDate, bool filterEmptyDates);
 
@@ -77,4 +78,4 @@ private Q_SLOTS:
     void toDateChanged(QDate newDate);
 };
 
-#endif // FILTERDATES_H
+#endif  // FILTERDATES_H

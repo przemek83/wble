@@ -21,7 +21,7 @@ void FilterDatesTest::testFilterEmptyDatesToggle()
     auto ignoreEmptyDates = filter.findChild<QCheckBox*>();
     ignoreEmptyDates->toggle();
     QCOMPARE(spy.count(), SIGNAL_RECEIVED);
-    QList<QVariant> expectedSignalParams {fromDate_, toDate_, true};
+    QList<QVariant> expectedSignalParams{fromDate_, toDate_, true};
     QCOMPARE(spy.takeFirst(), expectedSignalParams);
 
     ignoreEmptyDates->toggle();
@@ -49,11 +49,13 @@ void FilterDatesTest::testToggling()
 
 void FilterDatesTest::testProperInitOfEmptyDatesCheckbox()
 {
-    FilterDates filterWithEmptyDates(QLatin1String(""), fromDate_, toDate_, true);
+    FilterDates filterWithEmptyDates(QLatin1String(""), fromDate_, toDate_,
+                                     true);
     auto ignoreEmptyDates = filterWithEmptyDates.findChild<QCheckBox*>();
     QCOMPARE(ignoreEmptyDates->isEnabled(), true);
 
-    FilterDates filterWithoutEmptyDates(QLatin1String(""), fromDate_, toDate_, false);
+    FilterDates filterWithoutEmptyDates(QLatin1String(""), fromDate_, toDate_,
+                                        false);
     ignoreEmptyDates = filterWithoutEmptyDates.findChild<QCheckBox*>();
     QCOMPARE(ignoreEmptyDates->isEnabled(), false);
 }
@@ -63,13 +65,17 @@ void FilterDatesTest::testChangingDates()
     FilterDates filter(QLatin1String(""), fromDate_, toDate_, true);
     auto lineEdits = filter.findChildren<QDateEdit*>();
     Q_ASSERT(lineEdits.count() == 2);
-    QDateEdit* fromEdit = (lineEdits.first()->date() == fromDate_ ? lineEdits.first() : lineEdits.last());
-    QDateEdit* toEdit = (lineEdits.first()->date() == toDate_ ? lineEdits.first() : lineEdits.last());
+    QDateEdit* fromEdit =
+        (lineEdits.first()->date() == fromDate_ ? lineEdits.first()
+                                                : lineEdits.last());
+    QDateEdit* toEdit =
+        (lineEdits.first()->date() == toDate_ ? lineEdits.first()
+                                              : lineEdits.last());
 
     QSignalSpy spy(&filter, &FilterDates::newDateFilter);
     fromEdit->setDate(fromDate_.addDays(1));
     QCOMPARE(spy.count(), SIGNAL_RECEIVED);
-    QList<QVariant> expectedSignalParams {fromDate_.addDays(1), toDate_, false};
+    QList<QVariant> expectedSignalParams{fromDate_.addDays(1), toDate_, false};
     QCOMPARE(spy.takeFirst(), expectedSignalParams);
 
     toEdit->setDate(toDate_.addMonths(-1));

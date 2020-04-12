@@ -9,13 +9,13 @@
 
 #include "FilterNumbersCommon.h"
 
-using FilterNumbersCommon::checkToggling;
 using FilterNumbersCommon::checkChangingEditLinesValues;
 using FilterNumbersCommon::checkReactionForMovingDoubleSlider;
+using FilterNumbersCommon::checkToggling;
 
 void FilterDoublesTest::testToggling()
 {
-    checkToggling<FilterDoubles, double> (fromValue_, toValue_);
+    checkToggling<FilterDoubles, double>(fromValue_, toValue_);
 }
 
 void FilterDoublesTest::testChangingEditLinesValues()
@@ -27,5 +27,4 @@ void FilterDoublesTest::testReactionForMovingDoubleSlider()
 {
     checkReactionForMovingDoubleSlider<FilterDoubles, double>(fromValue_,
                                                               toValue_);
-
 }

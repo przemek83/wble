@@ -10,6 +10,6 @@ void checkStarting(ProgressBar& progressBar);
 void checkStopping(ProgressBar& progressBar);
 
 void checkReseting(ProgressBar& progressBar);
-};
+};  // namespace ProgressBarCommon
 
-#endif // PROGRESSBARCOMMON_H
+#endif  // PROGRESSBARCOMMON_H

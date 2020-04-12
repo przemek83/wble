@@ -1,7 +1,6 @@
 #include "Filter.h"
 
-Filter::Filter(const QString& title, QWidget* parent) :
-    QGroupBox(title, parent)
+Filter::Filter(const QString& title, QWidget* parent) : QGroupBox(title, parent)
 {
     connect(this, &Filter::toggled, this, &Filter::setChecked);
 }
