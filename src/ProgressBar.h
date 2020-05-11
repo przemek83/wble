@@ -42,7 +42,7 @@ public:
 
     bool isRunning();
 
-    /// Without parent, draw progress bar as seperate frameless window.
+    /// Without parent, draw progress bar as separate frameless window.
     void showDetached();
 
 protected:

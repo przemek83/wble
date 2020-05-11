@@ -22,12 +22,12 @@ public:
     FilterIntegers& operator=(FilterIntegers&& other) = delete;
     FilterIntegers(FilterIntegers&& other) = delete;
 
+Q_SIGNALS:
     /**
      * Emitted when filter state was changed.
      * @param from Current value of from number.
      * @param to Current value of to number.
      */
-Q_SIGNALS:
     void newNumericFilter(int from, int to);
 
 protected:

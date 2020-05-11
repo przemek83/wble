@@ -23,7 +23,7 @@ public:
 
 public Q_SLOTS:
     /**
-     * Update progree with new value.
+     * Update progress with new value.
      * @param newValue New value for drawing progress: % = newValue / maxValue_.
      */
     void updateProgress(int newValue);

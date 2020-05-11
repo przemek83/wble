@@ -22,12 +22,12 @@ public:
     FilterDoubles& operator=(FilterDoubles&& other) = delete;
     FilterDoubles(FilterDoubles&& other) = delete;
 
+Q_SIGNALS:
     /**
      * Emitted when filter state was changed.
      * @param from Current value of from number.
      * @param to Current value of to number.
      */
-Q_SIGNALS:
     void newNumericFilter(double from, double to);
 
 protected:

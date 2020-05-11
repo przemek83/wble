@@ -68,24 +68,24 @@ private:
 
 private Q_SLOTS:
     /**
-     * Trigerred on change of left handle on slider.
+     * Triggered on change of left handle on slider.
      * @param newValue new value.
      */
     void sliderFromChanged(double newValue);
 
     /**
-     * Trigerred on change of right handle on slider.
+     * Triggered on change of right handle on slider.
      * @param newValue new value.
      */
     void sliderToChanged(double newValue);
 
     /**
-     * Trigerred on change of left LineEdit (from).
+     * Triggered on change of left LineEdit (from).
      */
     void fromEditingFinished();
 
     /**
-     * Trigerred on change of right LineEdit (to).
+     * Triggered on change of right LineEdit (to).
      */
     void toEditingFinished();
 

@@ -55,13 +55,13 @@ private:
 
     Ui::FilterStrings* ui;
 
-    /// Min number of chars to include scrioll margin.
+    /// Min number of chars to include scroll margin.
     static constexpr int minNameWidthForScrollMargin_{25};
 
     /// Maximum widget heigh.
     static constexpr int maximumHeigh_{180};
 
-    /// Flag indocating if additionall place for scroll should be added.
+    /// Flag indicating that additional place for scroll should be added.
     bool addMarginForScrollBar_;
 
 private Q_SLOTS:
