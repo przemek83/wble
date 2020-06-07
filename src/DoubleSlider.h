@@ -23,12 +23,6 @@ public:
 
     ~DoubleSlider() override = default;
 
-    DoubleSlider& operator=(const DoubleSlider& other) = delete;
-    DoubleSlider(const DoubleSlider& other) = delete;
-
-    DoubleSlider& operator=(DoubleSlider&& other) = delete;
-    DoubleSlider(DoubleSlider&& other) = delete;
-
     /**
      * Get slider minimum value.
      * @return Slider minimum value.

@@ -16,12 +16,6 @@ public:
 
     ~FilterIntegers() override = default;
 
-    FilterIntegers& operator=(const FilterIntegers& other) = delete;
-    FilterIntegers(const FilterIntegers& other) = delete;
-
-    FilterIntegers& operator=(FilterIntegers&& other) = delete;
-    FilterIntegers(FilterIntegers&& other) = delete;
-
 Q_SIGNALS:
     /**
      * Emitted when filter state was changed.

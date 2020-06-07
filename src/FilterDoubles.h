@@ -16,12 +16,6 @@ public:
 
     ~FilterDoubles() override = default;
 
-    FilterDoubles& operator=(const FilterDoubles& other) = delete;
-    FilterDoubles(const FilterDoubles& other) = delete;
-
-    FilterDoubles& operator=(FilterDoubles&& other) = delete;
-    FilterDoubles(FilterDoubles&& other) = delete;
-
 Q_SIGNALS:
     /**
      * Emitted when filter state was changed.

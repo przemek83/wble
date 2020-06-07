@@ -17,12 +17,6 @@ public:
 
     ~Filter() override = default;
 
-    Filter& operator=(const Filter& other) = delete;
-    Filter(const Filter& other) = delete;
-
-    Filter& operator=(Filter&& other) = delete;
-    Filter(Filter&& other) = delete;
-
 public Q_SLOTS:
     void setChecked(bool checked);
 

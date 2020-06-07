@@ -117,8 +117,8 @@ bool DoubleSlider::mouseIsOnHandle(int mousePosX, int handlePos) const
                                                      sliderBarWidth);
 
     // Handle drawing rectangle is shifted according to position on handle bar:
-    // - on left adge handle rectangle is placed between min and handle width.
-    // - on right adge handle rectangle is placed between max - handle width and
+    // - on left edge handle rectangle is placed between min and handle width.
+    // - on right edge handle rectangle is placed between max - handle width and
     // max.
     // - on center handle rectangle is placed between center - handle width / 2
     // and center + handle width / 2.

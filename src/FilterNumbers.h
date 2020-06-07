@@ -28,12 +28,6 @@ public:
 
     ~FilterNumbers() override;
 
-    FilterNumbers& operator=(const FilterNumbers& other) = delete;
-    FilterNumbers(const FilterNumbers& other) = delete;
-
-    FilterNumbers& operator=(FilterNumbers&& other) = delete;
-    FilterNumbers(FilterNumbers&& other) = delete;
-
 protected:
     void checkedStateChanged(bool checked) override;
 

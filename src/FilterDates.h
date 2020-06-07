@@ -25,12 +25,6 @@ public:
 
     ~FilterDates() override;
 
-    FilterDates& operator=(const FilterDates& other) = delete;
-    FilterDates(const FilterDates& other) = delete;
-
-    FilterDates& operator=(FilterDates&& other) = delete;
-    FilterDates(FilterDates&& other) = delete;
-
 Q_SIGNALS:
     /**
      * Emitted when filter state was changed.
@@ -66,13 +60,13 @@ private:
 
 private Q_SLOTS:
     /**
-     * Trigerred on change of date in from date edit.
+     * Triggered on change of date in from date edit.
      * @param newDate New value.
      */
     void fromDateChanged(QDate newDate);
 
     /**
-     * Trigerred on change of date in to date edit.
+     * Triggered on change of date in to date edit.
      * @param newDate New value.
      */
     void toDateChanged(QDate newDate);

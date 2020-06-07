@@ -26,12 +26,6 @@ public:
 
     ~FilterStrings() override;
 
-    FilterStrings& operator=(const FilterStrings& other) = delete;
-    FilterStrings(const FilterStrings& other) = delete;
-
-    FilterStrings& operator=(FilterStrings&& other) = delete;
-    FilterStrings(FilterStrings&& other) = delete;
-
     QSize sizeHint() const override;
 
 Q_SIGNALS:

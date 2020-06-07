@@ -28,12 +28,6 @@ public:
 
     ~ProgressBar() override = default;
 
-    ProgressBar& operator=(const ProgressBar& other) = delete;
-    ProgressBar(const ProgressBar& other) = delete;
-
-    ProgressBar& operator=(ProgressBar&& other) = delete;
-    ProgressBar(ProgressBar&& other) = delete;
-
     virtual void start();
 
     virtual void stop();

@@ -85,7 +85,7 @@ QSize FilterStrings::sizeHint() const
            names detected in constructor.*/
         if (addMarginForScrollBar_ && 3 >= ui->listWidget->count())
         {
-            // Scroll size retrieved here is not actual one, use rtow heigh
+            // Scroll size retrieved here is not actual one, use row heigh
             // instead.
             maxListHeight += ui->listWidget->sizeHintForRow(0);
         }
