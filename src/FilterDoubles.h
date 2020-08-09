@@ -1,5 +1,4 @@
-#ifndef FILTERDOUBLES_H
-#define FILTERDOUBLES_H
+#pragma once
 
 #include "FilterNumbers.h"
 
@@ -29,5 +28,3 @@ protected:
 
     void emitChangeSignal() override;
 };
-
-#endif  // FILTERDOUBLES_H

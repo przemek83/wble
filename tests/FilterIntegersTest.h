@@ -1,5 +1,4 @@
-#ifndef FILTERINTEGERSTEST_H
-#define FILTERINTEGERSTEST_H
+#pragma once
 
 #include <QList>
 #include <QObject>
@@ -20,5 +19,3 @@ private:
     static constexpr int fromValue_{0};
     static constexpr int toValue_{100};
 };
-
-#endif  // FILTERINTEGERSTEST_H

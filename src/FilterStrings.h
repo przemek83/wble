@@ -1,5 +1,4 @@
-#ifndef FILTERNAMES_H
-#define FILTERNAMES_H
+#pragma once
 
 #include <QSet>
 
@@ -71,5 +70,3 @@ private Q_SLOTS:
      */
     void selectAllToggled(bool checked);
 };
-
-#endif  // FILTERNAMES_H

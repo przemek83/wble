@@ -1,5 +1,4 @@
-#ifndef FILTERDATES_H
-#define FILTERDATES_H
+#pragma once
 
 #include <QCalendarWidget>
 #include <QDate>
@@ -71,5 +70,3 @@ private Q_SLOTS:
      */
     void toDateChanged(QDate newDate);
 };
-
-#endif  // FILTERDATES_H

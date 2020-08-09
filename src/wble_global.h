@@ -1,5 +1,4 @@
-#ifndef WBLE_GLOBAL_H
-#define WBLE_GLOBAL_H
+#pragma once
 
 #include <QtCore/qglobal.h>
 
@@ -8,5 +7,3 @@
 #else
 #define WBLE_EXPORT Q_DECL_IMPORT
 #endif
-
-#endif  // WBLE_GLOBAL_H

@@ -1,5 +1,4 @@
-#ifndef FILTERNUMBERSCOMMON_H
-#define FILTERNUMBERSCOMMON_H
+#pragma once
 
 #include <QLineEdit>
 #include <QSignalSpy>
@@ -78,5 +77,3 @@ void checkReactionForMovingDoubleSlider(U fromValue, U toValue)
 }
 
 };  // namespace FilterNumbersCommon
-
-#endif  // FILTERNUMBERSCOMMON_H

@@ -1,5 +1,4 @@
-#ifndef FILTERNUMBERS_H
-#define FILTERNUMBERS_H
+#pragma once
 
 #include <memory>
 
@@ -85,5 +84,3 @@ private Q_SLOTS:
 
     void lineEditContentModified(const QString& currentContent);
 };
-
-#endif  // FILTERNUMBERS_H

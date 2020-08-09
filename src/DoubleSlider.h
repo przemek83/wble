@@ -1,5 +1,4 @@
-#ifndef DOUBLESLIDER_H
-#define DOUBLESLIDER_H
+#pragma once
 
 #include <QSlider>
 
@@ -124,5 +123,3 @@ private:
     /// Flag to remember which handle is moving.
     Handle moving_{Handle::NONE};
 };
-
-#endif  // DOUBLESLIDER_H

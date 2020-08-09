@@ -1,5 +1,4 @@
-#ifndef DOUBLECLICKEATER_H
-#define DOUBLECLICKEATER_H
+#pragma once
 
 #include <QObject>
 
@@ -12,5 +11,3 @@ public:
 protected:
     bool eventFilter(QObject* obj, QEvent* event) override;
 };
-
-#endif  // DOUBLECLICKEATER_H

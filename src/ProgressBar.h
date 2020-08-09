@@ -1,5 +1,4 @@
-#ifndef PROGRESSBAR_H
-#define PROGRESSBAR_H
+#pragma once
 
 #include <cmath>
 #include <memory>
@@ -93,5 +92,3 @@ private:
 
     bool running_{false};
 };
-
-#endif  // PROGRESSBAR_H

@@ -1,5 +1,4 @@
-#ifndef PROGRESSBARCOUNTERTEST_H
-#define PROGRESSBARCOUNTERTEST_H
+#pragma once
 
 #include <QObject>
 
@@ -18,5 +17,3 @@ private Q_SLOTS:
 private:
     static constexpr int max_{100};
 };
-
-#endif  // PROGRESSBARCOUNTERTEST_H

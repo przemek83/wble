@@ -1,5 +1,4 @@
-#ifndef FILTERDATESTEST_H
-#define FILTERDATESTEST_H
+#pragma once
 
 #include <QDate>
 #include <QObject>
@@ -25,5 +24,3 @@ private:
     static constexpr int NO_SIGNAL{0};
     static constexpr int SIGNAL_RECEIVED{1};
 };
-
-#endif  // FILTERDATESTEST_H

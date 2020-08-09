@@ -1,5 +1,4 @@
-#ifndef PROGRESSBARCOUNTER_H
-#define PROGRESSBARCOUNTER_H
+#pragma once
 
 #include "ProgressBar.h"
 
@@ -36,5 +35,3 @@ private:
 
     const int maxValue_;
 };
-
-#endif  // PROGRESSBARCOUNTER_H

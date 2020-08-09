@@ -1,5 +1,4 @@
-#ifndef PROGRESSBARCOMMON_H
-#define PROGRESSBARCOMMON_H
+#pragma once
 
 class ProgressBar;
 
@@ -11,5 +10,3 @@ void checkStopping(ProgressBar& progressBar);
 
 void checkReseting(ProgressBar& progressBar);
 };  // namespace ProgressBarCommon
-
-#endif  // PROGRESSBARCOMMON_H

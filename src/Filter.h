@@ -1,5 +1,4 @@
-#ifndef FILTER_H
-#define FILTER_H
+#pragma once
 
 #include <QGroupBox>
 
@@ -23,5 +22,3 @@ public Q_SLOTS:
 protected:
     virtual void checkedStateChanged(bool checked) = 0;
 };
-
-#endif  // FILTER_H

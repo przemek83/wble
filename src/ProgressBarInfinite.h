@@ -1,5 +1,4 @@
-#ifndef PROGRESSBARINFINITE_H
-#define PROGRESSBARINFINITE_H
+#pragma once
 
 #include "ProgressBar.h"
 
@@ -36,5 +35,3 @@ private:
 
     unsigned int progressCounter_{0};
 };
-
-#endif  // PROGRESSBARINFINITE_H

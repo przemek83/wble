@@ -1,5 +1,4 @@
-#ifndef FILTERDOUBLESTEST_H
-#define FILTERDOUBLESTEST_H
+#pragma once
 
 #include <QList>
 #include <QObject>
@@ -20,5 +19,3 @@ private:
     static constexpr double fromValue_{0.};
     static constexpr double toValue_{100.};
 };
-
-#endif  // FILTERDOUBLESTEST_H

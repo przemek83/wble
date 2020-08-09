@@ -1,5 +1,4 @@
-#ifndef PROGRESSBARINFINITETEST_H
-#define PROGRESSBARINFINITETEST_H
+#pragma once
 
 #include <QObject>
 
@@ -13,5 +12,3 @@ private Q_SLOTS:
 
     void testReseting();
 };
-
-#endif  // PROGRESSBARINFINITETEST_H

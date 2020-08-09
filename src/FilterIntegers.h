@@ -1,5 +1,4 @@
-#ifndef FILTERINTEGERS_H
-#define FILTERINTEGERS_H
+#pragma once
 
 #include "FilterNumbers.h"
 
@@ -29,5 +28,3 @@ protected:
 
     void emitChangeSignal() override;
 };
-
-#endif  // FILTERINTEGERS_H

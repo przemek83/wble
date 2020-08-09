@@ -1,5 +1,4 @@
-#ifndef DOUBLESLIDERTEST
-#define DOUBLESLIDERTEST
+#pragma once
 
 #include <QObject>
 
@@ -38,5 +37,3 @@ private:
     static constexpr int NO_SIGNAL{0};
     static constexpr int SIGNAL_RECEIVED{1};
 };
-
-#endif  // DOUBLESLIDERTEST
