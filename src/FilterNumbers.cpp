@@ -80,7 +80,7 @@ void FilterNumbers::initLineEdits()
 
 void FilterNumbers::initColorForLineEdits()
 {
-    QPalette defaultPalette{QApplication::palette(ui->fromValue)};
+    const QPalette defaultPalette{QApplication::palette(ui->fromValue)};
     defaultBackgroundColor_ =
         defaultPalette.color(ui->fromValue->backgroundRole());
     altBackgroundColor_ = defaultPalette.color(QPalette::Highlight);
@@ -110,13 +110,14 @@ void FilterNumbers::sliderToChanged(double newValue)
 
 void FilterNumbers::fromEditingFinished()
 {
-    auto slider{findChild<DoubleSlider*>()};
+    auto* slider{findChild<DoubleSlider*>()};
     if (slider == nullptr)
         return;
 
-    QString newFromAsText{ui->fromValue->text()};
-    double fromToSet{isDoubleMode() ? QLocale::system().toDouble(newFromAsText)
-                                    : QLocale::system().toInt(newFromAsText)};
+    const QString newFromAsText{ui->fromValue->text()};
+    const double fromToSet{isDoubleMode()
+                               ? QLocale::system().toDouble(newFromAsText)
+                               : QLocale::system().toInt(newFromAsText)};
 
     slider->setCurrentMin(fromToSet);
     emitChangeSignal();
@@ -124,13 +125,14 @@ void FilterNumbers::fromEditingFinished()
 
 void FilterNumbers::toEditingFinished()
 {
-    auto slider{findChild<DoubleSlider*>()};
+    auto* slider{findChild<DoubleSlider*>()};
     if (slider == nullptr)
         return;
 
-    QString newToAsText = ui->toValue->text();
-    double toToSet{isDoubleMode() ? QLocale::system().toDouble(newToAsText)
-                                  : QLocale::system().toInt(newToAsText)};
+    const QString newToAsText = ui->toValue->text();
+    const double toToSet{isDoubleMode()
+                             ? QLocale::system().toDouble(newToAsText)
+                             : QLocale::system().toInt(newToAsText)};
 
     slider->setCurrentMax(toToSet);
     emitChangeSignal();
@@ -138,7 +140,7 @@ void FilterNumbers::toEditingFinished()
 
 void FilterNumbers::lineEditContentModified(const QString& currentContent)
 {
-    auto lineEdit = qobject_cast<QLineEdit*>(sender());
+    auto* lineEdit = qobject_cast<QLineEdit*>(sender());
     const double currentValue = QLocale::system().toDouble(currentContent);
     QPalette palette = lineEdit->palette();
     const bool currentValueValid =

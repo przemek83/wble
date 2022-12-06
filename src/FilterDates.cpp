@@ -69,7 +69,7 @@ void FilterDates::toDateChanged(QDate newDate)
 
 void FilterDates::checkedStateChanged(bool checked)
 {
-    QList<QDateEdit*> dateWidgets = findChildren<QDateEdit*>();
+    const QList<QDateEdit*> dateWidgets = findChildren<QDateEdit*>();
 
     for (QWidget* current : dateWidgets)
     {

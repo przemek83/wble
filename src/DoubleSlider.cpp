@@ -113,8 +113,8 @@ bool DoubleSlider::mouseIsOnHandle(int mousePosX, int handlePos) const
     initStyleOption(&defaultStyle);
     const QRect innerRect(defaultStyle.rect);
     const int sliderBarWidth{innerRect.width() - innerRect.x()};
-    int handlePosX = QStyle::sliderPositionFromValue(0, MAX_PERCENT, handlePos,
-                                                     sliderBarWidth);
+    const int handlePosX = QStyle::sliderPositionFromValue(
+        0, MAX_PERCENT, handlePos, sliderBarWidth);
 
     // Handle drawing rectangle is shifted according to position on handle bar:
     // - on left edge handle rectangle is placed between min and handle width.
@@ -193,8 +193,7 @@ void DoubleSlider::drawSliderBar(QPainter& painter) const
     qDrawPlainRect(&painter, plain, palette().color(QPalette::Dark));
 }
 
-int DoubleSlider::getHandleMiddlePosX(int handlePos, int handleWidth,
-                                      int span) const
+int DoubleSlider::getHandleMiddlePosX(int handlePos, int handleWidth, int span)
 {
     const int handlePosX =
         QStyle::sliderPositionFromValue(0, MAX_PERCENT, handlePos, span);

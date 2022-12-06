@@ -99,7 +99,7 @@ private:
 
     bool mouseIsOnHandle(int mousePosX, int handlePos) const;
 
-    int getHandleMiddlePosX(int handlePos, int handleWidth, int span) const;
+    static int getHandleMiddlePosX(int handlePos, int handleWidth, int span);
 
     void setHandleRect();
 
