@@ -33,7 +33,7 @@ public:
 
     virtual void reset();
 
-    bool isRunning();
+    bool isRunning() const;
 
     /// Without parent, draw progress bar as separate frameless window.
     void showDetached();
@@ -54,7 +54,7 @@ protected:
      */
     virtual void paintProgressBar(QPainter& painter) = 0;
 
-    QRect arcRectangle_;
+    QRect getArcRectangle() const;
 
 private:
     void initSizes();
@@ -91,4 +91,6 @@ private:
     static constexpr double TITLE_FONT_FACTOR{1.5};
 
     bool running_{false};
+
+    QRect arcRectangle_;
 };

@@ -34,7 +34,7 @@ void ProgressBar::reset()
     update();
 }
 
-bool ProgressBar::isRunning() { return running_; }
+bool ProgressBar::isRunning() const { return running_; }
 
 void ProgressBar::showDetached()
 {
@@ -67,6 +67,8 @@ void ProgressBar::initPainter(QPainter* painter) const
     painter->setBrush(brush_);
     painter->setFont(counterFont_);
 }
+
+QRect ProgressBar::getArcRectangle() const { return arcRectangle_; }
 
 void ProgressBar::initSizes()
 {
