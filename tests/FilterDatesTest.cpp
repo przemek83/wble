@@ -18,7 +18,7 @@ void FilterDatesTest::testFilterEmptyDatesToggle()
     FilterDates filter(QLatin1String(""), fromDate_, toDate_, true);
     QSignalSpy spy(&filter, &FilterDates::newDateFilter);
 
-    auto ignoreEmptyDates = filter.findChild<QCheckBox*>();
+    auto* ignoreEmptyDates = filter.findChild<QCheckBox*>();
     ignoreEmptyDates->toggle();
     QCOMPARE(spy.count(), SIGNAL_RECEIVED);
     QList<QVariant> expectedSignalParams{fromDate_, toDate_, true};
@@ -34,16 +34,16 @@ void FilterDatesTest::testToggling()
     FilterDates filter(QLatin1String(""), fromDate_, toDate_, true);
     auto lineEdits = filter.findChildren<QDateEdit*>();
     auto checkBoxes = filter.findChildren<QCheckBox*>();
-    for (const auto widget : lineEdits)
+    for (const auto* widget : lineEdits)
         QCOMPARE(widget->isEnabled(), true);
-    for (const auto widget : checkBoxes)
+    for (const auto* widget : checkBoxes)
         QCOMPARE(widget->isEnabled(), true);
 
     filter.setChecked(false);
     QApplication::processEvents();
-    for (const auto widget : lineEdits)
+    for (const auto* widget : lineEdits)
         QCOMPARE(widget->isEnabled(), false);
-    for (const auto widget : checkBoxes)
+    for (const auto* widget : checkBoxes)
         QCOMPARE(widget->isEnabled(), false);
 }
 
@@ -51,7 +51,7 @@ void FilterDatesTest::testProperInitOfEmptyDatesCheckbox()
 {
     FilterDates filterWithEmptyDates(QLatin1String(""), fromDate_, toDate_,
                                      true);
-    auto ignoreEmptyDates = filterWithEmptyDates.findChild<QCheckBox*>();
+    auto* ignoreEmptyDates = filterWithEmptyDates.findChild<QCheckBox*>();
     QCOMPARE(ignoreEmptyDates->isEnabled(), true);
 
     FilterDates filterWithoutEmptyDates(QLatin1String(""), fromDate_, toDate_,

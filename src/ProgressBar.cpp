@@ -44,7 +44,7 @@ void ProgressBar::showDetached()
     setWindowFlags(Qt::CustomizeWindowHint | Qt::FramelessWindowHint);
     setWindowModality(Qt::ApplicationModal);
 
-    if (const auto activeWidget = QApplication::activeWindow(); activeWidget)
+    if (const auto* activeWidget = QApplication::activeWindow(); activeWidget)
         move(QApplication::activeWindow()->geometry().center() -
              geometry().center());
     else

@@ -24,7 +24,7 @@ FilterStrings::FilterStrings(const QString& name, QStringList initialList,
     int longestNameWidth{0};
     for (const QString& itemName : initialList_)
     {
-        auto item = new QListWidgetItem(itemName, ui->listWidget);
+        auto* item = new QListWidgetItem(itemName, ui->listWidget);
         item->setFlags(item->flags() & ~Qt::ItemIsUserCheckable);
         item->setCheckState(Qt::Checked);
         longestNameWidth = qMax(longestNameWidth, itemName.length());
@@ -97,7 +97,7 @@ QSize FilterStrings::sizeHint() const
 
 void FilterStrings::checkedStateChanged(bool checked)
 {
-    auto checkBox = findChild<QCheckBox*>();
+    auto* checkBox = findChild<QCheckBox*>();
 
     QList<QWidget*> widgets = findChildren<QWidget*>();
     widgets.removeOne(checkBox);
