@@ -15,7 +15,7 @@ public:
      * @param title Title to be shown.
      * @param parent Parent widget.
      */
-    ProgressBarInfinite(QString title, QWidget* parent = nullptr);
+    explicit ProgressBarInfinite(QString title, QWidget* parent = nullptr);
 
     void start() override;
 
