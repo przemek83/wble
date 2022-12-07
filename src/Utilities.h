@@ -5,4 +5,4 @@
 namespace Utilities
 {
 bool doublesAreEqual(double left, double right);
-}
+}  // namespace Utilities
