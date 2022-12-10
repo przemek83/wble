@@ -9,11 +9,11 @@ class FilterDoublesTest : public QObject
 {
     Q_OBJECT
 private Q_SLOTS:
-    void testToggling();
+    static void testToggling();
 
-    void testChangingEditLinesValues();
+    static void testChangingEditLinesValues();
 
-    void testReactionForMovingDoubleSlider();
+    static void testReactionForMovingDoubleSlider();
 
 private:
     static constexpr double fromValue_{0.};

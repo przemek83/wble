@@ -6,9 +6,9 @@ class ProgressBarInfiniteTest : public QObject
 {
     Q_OBJECT
 private Q_SLOTS:
-    void testStarting();
+    static void testStarting();
 
-    void testStopping();
+    static void testStopping();
 
-    void testReseting();
+    static void testReseting();
 };

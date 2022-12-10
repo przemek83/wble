@@ -9,11 +9,11 @@ class FilterIntegersTest : public QObject
 {
     Q_OBJECT
 private Q_SLOTS:
-    void testToggling();
+    static void testToggling();
 
-    void testChangingEditLinesValues();
+    static void testChangingEditLinesValues();
 
-    void testReactionForMovingDoubleSlider();
+    static void testReactionForMovingDoubleSlider();
 
 private:
     static constexpr int fromValue_{0};

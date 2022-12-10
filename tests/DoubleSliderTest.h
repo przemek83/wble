@@ -8,17 +8,17 @@ class DoubleSliderTest : public QObject
 {
     Q_OBJECT
 private Q_SLOTS:
-    void initTestCase();
+    static void initTestCase();
 
-    void testSettingCurrentValues();
+    static void testSettingCurrentValues();
 
-    void testEmittingCurrentMinChanged();
+    static void testEmittingCurrentMinChanged();
 
-    void testEmittingCurrentMaxChanged();
+    static void testEmittingCurrentMaxChanged();
 
-    void testSettingInvalidCurrentMin();
+    static void testSettingInvalidCurrentMin();
 
-    void testSettingInvalidCurrentMax();
+    static void testSettingInvalidCurrentMax();
 
     void testMovingLeftHandle();
 

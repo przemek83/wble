@@ -6,13 +6,13 @@ class ProgressBarCounterTest : public QObject
 {
     Q_OBJECT
 private Q_SLOTS:
-    void testStarting();
+    static void testStarting();
 
-    void testFirstUpdatingProgress();
+    static void testFirstUpdatingProgress();
 
-    void testStopping();
+    static void testStopping();
 
-    void testReseting();
+    static void testReseting();
 
 private:
     static constexpr int max_{100};
