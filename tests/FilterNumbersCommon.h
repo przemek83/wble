@@ -8,7 +8,6 @@
 
 namespace FilterNumbersCommon
 {
-static constexpr int NO_SIGNAL{0};
 static constexpr int SIGNAL_RECEIVED{1};
 
 template <class T, typename U>
