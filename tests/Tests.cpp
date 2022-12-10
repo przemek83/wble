@@ -10,7 +10,7 @@
 
 int main(int argc, char* argv[])
 {
-    QApplication a(argc, argv);
+    const QApplication a(argc, argv);
 
     DoubleSliderTest doubleSliderTest;
     QTest::qExec(&doubleSliderTest);

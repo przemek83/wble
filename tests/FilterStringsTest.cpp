@@ -28,7 +28,7 @@ void FilterStringsTest::testToggling()
 
 void FilterStringsTest::testSelectAllToggling()
 {
-    FilterStrings filter(QLatin1String(""), testEntriesList_);
+    const FilterStrings filter(QLatin1String(""), testEntriesList_);
     QSignalSpy spy(&filter, &FilterStrings::newStringFilter);
 
     auto* selectAll = filter.findChild<QCheckBox*>();
@@ -43,7 +43,7 @@ void FilterStringsTest::testSelectAllToggling()
 
 void FilterStringsTest::testListItemChecking()
 {
-    FilterStrings filter(QLatin1String(""), testEntriesList_);
+    const FilterStrings filter(QLatin1String(""), testEntriesList_);
     QSignalSpy spy(&filter, &FilterStrings::newStringFilter);
     const auto* listWidget = filter.findChild<QListWidget*>();
     const auto* item =
