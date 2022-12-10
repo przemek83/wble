@@ -1,3 +1,10 @@
+# Table of content
+- [About project](#about-project)
+- [Building](#building)
+- [Usage](#usage)
+- [Widgets](#widgets)
+
+
 # About project
  Library of useful Qt widgets. Created as a result of division of code of Volbx project and moving parts of it to independent library. Library contains:  
  + double slider
