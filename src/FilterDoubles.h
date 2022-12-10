@@ -13,8 +13,6 @@ public:
     FilterDoubles(const QString& name, double from, double to,
                   QWidget* parent = nullptr);
 
-    ~FilterDoubles() override = default;
-
 Q_SIGNALS:
     /**
      * Emitted when filter state was changed.

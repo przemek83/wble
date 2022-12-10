@@ -25,8 +25,6 @@ public:
      */
     explicit ProgressBar(QString title, QWidget* parent = nullptr);
 
-    ~ProgressBar() override = default;
-
     virtual void start();
 
     virtual void stop();

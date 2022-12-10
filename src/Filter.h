@@ -14,8 +14,6 @@ class WBLE_EXPORT Filter : public QGroupBox
 public:
     explicit Filter(const QString& title, QWidget* parent = nullptr);
 
-    ~Filter() override = default;
-
 public Q_SLOTS:
     void setChecked(bool checked);
 

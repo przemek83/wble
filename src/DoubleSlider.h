@@ -20,8 +20,6 @@ public:
      */
     DoubleSlider(double min, double max, QWidget* parent = nullptr);
 
-    ~DoubleSlider() override = default;
-
     /**
      * Get slider minimum value.
      * @return Slider minimum value.
