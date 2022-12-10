@@ -1,4 +1,4 @@
-# Table of content
+## Table of content
 - [About project](#about-project)
 - [Building](#building)
 - [Usage](#usage)
