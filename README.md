@@ -29,10 +29,10 @@ To use it as external project via CMake you may check how it is done in my other
 | Tool |  Windows | Lubuntu |
 | --- | --- | --- |
 | OS version | 10 22H2 | 22.04 |
-| GCC | 8.1.0 | 9.5.0 |
+| GCC | 11.2.0 | 11.3.0 |
 | CMake | 3.25.0 | 3.25.0 |
 | Git | 2.38.1 | 2.34.1 |
-| Qt | 5.15.2 | 5.15.2 |
+| Qt | 6.5.1 | 6.5.1 |
 | Qt Creator | 9.0.0 |9.0.0 |
 
 # Usage
