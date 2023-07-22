@@ -151,11 +151,11 @@ void DoubleSliderTest::moveHandle(DoubleSlider& slider, QPoint from,
                                   QPoint to) const
 {
     QTest::mousePress(&slider, Qt::LeftButton, Qt::NoModifier, from);
-    QMouseEvent initialEvent(QEvent::MouseMove, from, Qt::NoButton,
-                             Qt::LeftButton, Qt::NoModifier);
+    QMouseEvent initialEvent(QEvent::MouseMove, from, slider.mapToGlobal(from),
+                             Qt::NoButton, Qt::LeftButton, Qt::NoModifier);
     QApplication::sendEvent(&slider, &initialEvent);
-    QMouseEvent moveEvent(QEvent::MouseMove, to, Qt::NoButton, Qt::LeftButton,
-                          Qt::NoModifier);
+    QMouseEvent moveEvent(QEvent::MouseMove, to, slider.mapToGlobal(to),
+                          Qt::NoButton, Qt::LeftButton, Qt::NoModifier);
     QApplication::sendEvent(&slider, &moveEvent);
     QTest::mouseRelease(&slider, Qt::LeftButton, Qt::NoModifier, to);
 }
