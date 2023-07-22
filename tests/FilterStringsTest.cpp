@@ -53,7 +53,7 @@ void FilterStringsTest::testListItemChecking()
                       itemRect.center());
 
     QCOMPARE(spy.count(), SIGNAL_RECEIVED);
-    QCOMPARE(spy.takeFirst(), {QLatin1String("b")});
+    QCOMPARE(spy.takeFirst(), {QVariant(QStringList{"b"})});
     QCOMPARE(spy.count(), NO_SIGNAL);
 
     QApplication::processEvents();
