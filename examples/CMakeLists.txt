@@ -1,10 +1,10 @@
 project(examples)
 
-set(${PROJECT_NAME}_SOURCES
+set(SOURCES
     example.cpp
-    )
+)
 
-add_executable(examples ${${PROJECT_NAME}_SOURCES})
+add_executable(examples ${SOURCES})
 
-target_link_libraries(examples PRIVATE Qt5::Core Qt5::Widgets wble)
+target_link_libraries(examples PRIVATE Qt6::Core Qt6::Widgets wble)
 

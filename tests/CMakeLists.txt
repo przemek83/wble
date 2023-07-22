@@ -1,30 +1,33 @@
 project(tests)
 
-set(${PROJECT_NAME}_SOURCES
+set(SOURCES
     Tests.cpp
     DoubleSliderTest.cpp
-    DoubleSliderTest.h
     FilterDatesTest.cpp
-    FilterDatesTest.h
     FilterStringsTest.cpp
-    FilterStringsTest.h
     FilterIntegersTest.cpp
-    FilterIntegersTest.h
     FilterDoublesTest.cpp
-    FilterDoublesTest.h
     FilterNumbersCommon.cpp
-    FilterNumbersCommon.h
     ProgressBarCounterTest.cpp
-    ProgressBarCounterTest.h
     ProgressBarCommon.cpp
-    ProgressBarCommon.h
     ProgressBarInfiniteTest.cpp
+)
+
+set(HEADERS
+    DoubleSliderTest.h
+    FilterDatesTest.h
+    FilterStringsTest.h
+    FilterIntegersTest.h
+    FilterDoublesTest.h
+    FilterNumbersCommon.h
+    ProgressBarCounterTest.h
+    ProgressBarCommon.h
     ProgressBarInfiniteTest.h
-    )
+ )
 
-add_executable(tests ${${PROJECT_NAME}_SOURCES})
+add_executable(tests ${SOURCES} ${HEADERS})
 
-target_link_libraries(tests PRIVATE Qt5::Test Qt5::Core Qt5::Widgets wble)
+target_link_libraries(tests PRIVATE Qt6::Core Qt6::Widgets Qt6::Test wble)
 
 add_test(NAME tests COMMAND tests)
 
