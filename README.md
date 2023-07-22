@@ -32,8 +32,8 @@ To use it as external project via CMake you may check how it is done in my other
 | GCC | 11.2.0 | 11.3.0 |
 | CMake | 3.25.0 | 3.25.0 |
 | Git | 2.38.1 | 2.34.1 |
-| Qt | 6.5.1 | 6.5.1 |
-| Qt Creator | 9.0.0 |9.0.0 |
+| Qt | 6.5.2 | 6.5.2 |
+| Qt Creator | 10.0.2 | 10.0.2 |
 
 # Usage
 The easiest way is to check examples subproject, where you can find how to create and interact with each widget included in this library.  
