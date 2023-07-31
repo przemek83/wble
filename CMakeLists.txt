@@ -52,21 +52,25 @@ set(UI
 source_group("UI Files" FILES ${UI})
 
 add_library(${PROJECT_NAME} SHARED ${SOURCES} ${HEADERS} ${UI})
+
+set(PUBLIC_HEADERS
+    src/wble_global.h
+    src/DoubleSlider.h
+    src/Filter.h
+    src/FilterStrings.h
+    src/FilterDates.h
+    src/FilterNumbers.h
+    src/FilterIntegers.h
+    src/FilterDoubles.h
+    src/ProgressBar.h
+    src/ProgressBarInfinite.h
+    src/ProgressBarCounter.h
+)
+
 set_target_properties(${PROJECT_NAME} PROPERTIES
     VERSION ${PROJECT_VERSION}
     SOVERSION 1
-    PUBLIC_HEADER
-        src/wble_global.h
-        src/DoubleSlider.h
-        src/Filter.h
-        src/FilterStrings.h
-        src/FilterDates.h
-        src/FilterNumbers.h
-        src/FilterIntegers.h
-        src/FilterDoubles.h
-        src/ProgressBar.h
-        src/ProgressBarInfinite.h
-        src/ProgressBarCounter.h
+    PUBLIC_HEADER "${PUBLIC_HEADERS}"
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC src)
