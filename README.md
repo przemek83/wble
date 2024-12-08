@@ -1,9 +1,10 @@
+[![Build & test](https://github.com/przemek83/wble/actions/workflows/buld-and-test.yml/badge.svg)](https://github.com/przemek83/wble/actions/workflows/buld-and-test.yml)
+
 ## Table of content
 - [About project](#about-project)
 - [Building](#building)
 - [Usage](#usage)
 - [Widgets](#widgets)
-
 
 # About project
  Library of useful Qt widgets. Created as a result of division of code of Volbx project and moving parts of it to independent library. Library contains:  
