@@ -83,9 +83,8 @@ install(TARGETS ${PROJECT_NAME}
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
-add_subdirectory(examples)
-
-enable_testing()
-add_subdirectory(tests)
-
-
+if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
+    add_subdirectory(examples)
+    enable_testing()
+    add_subdirectory(tests)
+endif()
