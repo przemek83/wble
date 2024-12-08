@@ -4,8 +4,8 @@
 #include <QSignalSpy>
 #include <QTest>
 
-#include "DoubleSlider.h"
-#include "FilterDoubles.h"
+#include <wble/DoubleSlider.h>
+#include <wble/FilterDoubles.h>
 
 #include "FilterNumbersCommon.h"
 

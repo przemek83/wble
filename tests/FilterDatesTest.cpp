@@ -5,7 +5,7 @@
 #include <QSignalSpy>
 #include <QTest>
 
-#include "FilterDates.h"
+#include <wble/FilterDates.h>
 
 void FilterDatesTest::initTestCase()
 {

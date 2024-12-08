@@ -1,4 +1,4 @@
-#include "FilterDates.h"
+#include <wble/FilterDates.h>
 
 #include "ui_FilterDates.h"
 
@@ -12,10 +12,12 @@ FilterDates::FilterDates(const QString& name, QDate fromDate, QDate toDate,
 {
     ui->setupUi(this);
 
-    connect(ui->ignoreEmptyDates, &QCheckBox::toggled, this, [=](bool checked) {
-        Q_EMIT newDateFilter(ui->fromDateEdit->date(), ui->toDateEdit->date(),
-                             checked);
-    });
+    connect(ui->ignoreEmptyDates, &QCheckBox::toggled, this,
+            [=](bool checked)
+            {
+                Q_EMIT newDateFilter(ui->fromDateEdit->date(),
+                                     ui->toDateEdit->date(), checked);
+            });
 
     if (fromDate_ == toDate_)
         setDisabled(true);

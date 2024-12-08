@@ -1,4 +1,4 @@
-#include "FilterDoubles.h"
+#include <wble/FilterDoubles.h>
 
 #include <QDoubleValidator>
 #include <QLineEdit>

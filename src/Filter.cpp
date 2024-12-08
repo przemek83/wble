@@ -1,4 +1,4 @@
-#include "Filter.h"
+#include <wble/Filter.h>
 
 Filter::Filter(const QString& title, QWidget* parent) : QGroupBox(title, parent)
 {

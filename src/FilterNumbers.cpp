@@ -1,8 +1,8 @@
-#include "FilterNumbers.h"
+#include <wble/FilterNumbers.h>
 
 #include <cmath>
 
-#include <DoubleSlider.h>
+#include <wble/DoubleSlider.h>
 #include <QDebug>
 #include <QIntValidator>
 

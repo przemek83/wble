@@ -2,8 +2,8 @@
 
 #include <QTest>
 
+#include <wble/ProgressBarCounter.h>
 #include "ProgressBarCommon.h"
-#include "ProgressBarCounter.h"
 
 void ProgressBarCounterTest::testStarting()
 {

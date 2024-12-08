@@ -2,8 +2,8 @@
 
 #include <QTest>
 
+#include <wble/ProgressBarInfinite.h>
 #include "ProgressBarCommon.h"
-#include "ProgressBarInfinite.h"
 
 void ProgressBarInfiniteTest::testStarting()
 {

@@ -1,4 +1,4 @@
-#include "FilterIntegers.h"
+#include <wble/FilterIntegers.h>
 
 #include <QIntValidator>
 #include <QLineEdit>

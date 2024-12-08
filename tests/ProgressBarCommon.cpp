@@ -2,7 +2,7 @@
 
 #include <QTest>
 
-#include "ProgressBar.h"
+#include <wble/ProgressBar.h>
 
 namespace ProgressBarCommon
 {

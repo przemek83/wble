@@ -1,33 +1,30 @@
-project(tests)
+SET(PROJECT_TESTS ${PROJECT_NAME}-tests)
 
-set(SOURCES
+set(${PROJECT_TESTS}_SOURCES
     Tests.cpp
+    DoubleSliderTest.h
     DoubleSliderTest.cpp
+    FilterDatesTest.h
     FilterDatesTest.cpp
+    FilterStringsTest.h
     FilterStringsTest.cpp
+    FilterIntegersTest.h
     FilterIntegersTest.cpp
+    FilterDoublesTest.h
     FilterDoublesTest.cpp
+    FilterNumbersCommon.h
     FilterNumbersCommon.cpp
+    ProgressBarCounterTest.h
     ProgressBarCounterTest.cpp
+    ProgressBarCommon.h
     ProgressBarCommon.cpp
+    ProgressBarInfiniteTest.h
     ProgressBarInfiniteTest.cpp
 )
 
-set(HEADERS
-    DoubleSliderTest.h
-    FilterDatesTest.h
-    FilterStringsTest.h
-    FilterIntegersTest.h
-    FilterDoublesTest.h
-    FilterNumbersCommon.h
-    ProgressBarCounterTest.h
-    ProgressBarCommon.h
-    ProgressBarInfiniteTest.h
- )
+add_executable(${PROJECT_TESTS} ${${PROJECT_TESTS}_SOURCES})
 
-add_executable(tests ${SOURCES} ${HEADERS})
+target_link_libraries(${PROJECT_TESTS} PRIVATE wble Qt6::Core Qt6::Widgets Qt6::Test)
 
-target_link_libraries(tests PRIVATE Qt6::Core Qt6::Widgets Qt6::Test wble)
-
-add_test(NAME tests COMMAND tests)
+add_test(NAME ${PROJECT_TESTS} COMMAND ${PROJECT_TESTS})
 

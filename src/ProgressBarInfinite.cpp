@@ -1,4 +1,4 @@
-#include "ProgressBarInfinite.h"
+#include <wble/ProgressBarInfinite.h>
 
 #include <limits>
 

@@ -1,4 +1,4 @@
-#include "FilterStrings.h"
+#include <wble/FilterStrings.h>
 
 #include <algorithm>
 
@@ -36,7 +36,8 @@ FilterStrings::FilterStrings(const QString& name, QStringList initialList,
     ui->listWidget->viewport()->installEventFilter(
         new DoubleClickEater(ui->listWidget));
 
-    auto setAlternativeState = [=](QListWidgetItem* item) {
+    auto setAlternativeState = [=](QListWidgetItem* item)
+    {
         item->setCheckState(
             (item->checkState() == Qt::Checked ? Qt::Unchecked : Qt::Checked));
         itemChecked(item);

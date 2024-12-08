@@ -1,4 +1,4 @@
-#include "ProgressBarCounter.h"
+#include <wble/ProgressBarCounter.h>
 
 ProgressBarCounter::ProgressBarCounter(QString title, int maxValue,
                                        QWidget* parent)

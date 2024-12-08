@@ -5,7 +5,7 @@
 #include <QSignalSpy>
 #include <QTest>
 
-#include "FilterStrings.h"
+#include <wble/FilterStrings.h>
 
 void FilterStringsTest::initTestCase()
 {

@@ -1,4 +1,4 @@
-#include "ProgressBar.h"
+#include <wble/ProgressBar.h>
 
 #include <cmath>
 

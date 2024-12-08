@@ -1,4 +1,4 @@
-#include "DoubleSlider.h"
+#include <wble/DoubleSlider.h>
 
 #include <cmath>
 

@@ -4,7 +4,7 @@
 #include <QSignalSpy>
 #include <QTest>
 
-#include "DoubleSlider.h"
+#include <wble/DoubleSlider.h>
 
 namespace FilterNumbersCommon
 {
