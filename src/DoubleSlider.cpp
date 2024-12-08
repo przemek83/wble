@@ -78,12 +78,13 @@ int DoubleSlider::getMousePosition(QMouseEvent* event) const
     const int sliderBarWidth{innerRect.width() - innerRect.x()};
 
     // Handle drawing rectangle is shifted according to position on handle bar.
-    const double shiftRatio =
-        static_cast<double>(event->position().x()) / sliderBarWidth - 0.5;
+    const double shiftRatio = event->position().x() / sliderBarWidth - 0.5;
     const int shiftInPixels =
         static_cast<int>(std::round(handleRect_.width() * shiftRatio));
     const int pos = QStyle::sliderValueFromPosition(
-        0, MAX_PERCENT, event->position().x() + shiftInPixels, sliderBarWidth);
+        0, MAX_PERCENT, static_cast<int>(event->position().x()) + shiftInPixels,
+        sliderBarWidth);
+
     return pos;
 }
 
@@ -139,8 +140,10 @@ void DoubleSlider::mouseMoveEvent(QMouseEvent* event)
     const int minX = getHandlePosition(Handle::LEFT);
     const int maxX = getHandlePosition(Handle::RIGHT);
 
-    const bool onMinHandle = mouseIsOnHandle(event->position().x(), minX);
-    const bool onMaxHandle = mouseIsOnHandle(event->position().x(), maxX);
+    const bool onMinHandle =
+        mouseIsOnHandle(static_cast<int>(event->position().x()), minX);
+    const bool onMaxHandle =
+        mouseIsOnHandle(static_cast<int>(event->position().x()), maxX);
 
     const double range{max_ - min_};
     const double newCurrent =
