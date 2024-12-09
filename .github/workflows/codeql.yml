@@ -1,0 +1,15 @@
+name: "CodeQL"
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  schedule:
+    - cron: '29 2 * * 0'
+
+jobs:
+  analyze:
+    uses: przemek83/workflows/.github/workflows/codeql-qt.yml@main
+    with:
+      qt-version: 6.5.*
