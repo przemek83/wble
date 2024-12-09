@@ -2,6 +2,12 @@
 [![CodeQL](https://github.com/przemek83/wble/actions/workflows/codeql.yml/badge.svg)](https://github.com/przemek83/wble/actions/workflows/codeql.yml)
 [![codecov](https://codecov.io/gh/przemek83/wble/graph/badge.svg?token=G42WUKQD8V)](https://codecov.io/gh/przemek83/wble)
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=przemek83_wble&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=przemek83_wble)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=przemek83_wble&metric=bugs)](https://sonarcloud.io/summary/new_code?id=przemek83_wble)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=przemek83_wble&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=przemek83_wble)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=przemek83_wble&metric=coverage)](https://sonarcloud.io/summary/new_code?id=przemek83_wble)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=przemek83_wble&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=przemek83_wble)
+
 ## Table of content
 - [About project](#about-project)
 - [Building](#building)
