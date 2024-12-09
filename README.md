@@ -1,4 +1,6 @@
 [![Build & test](https://github.com/przemek83/wble/actions/workflows/buld-and-test.yml/badge.svg)](https://github.com/przemek83/wble/actions/workflows/buld-and-test.yml)
+[![CodeQL](https://github.com/przemek83/wble/actions/workflows/codeql.yml/badge.svg)](https://github.com/przemek83/wble/actions/workflows/codeql.yml)
+[![codecov](https://codecov.io/gh/przemek83/wble/graph/badge.svg?token=G42WUKQD8V)](https://codecov.io/gh/przemek83/wble)
 
 ## Table of content
 - [About project](#about-project)
