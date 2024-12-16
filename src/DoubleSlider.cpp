@@ -40,7 +40,7 @@ double DoubleSlider::getMax() const { return max_; }
 
 void DoubleSlider::setCurrentMin(double currentMinToSet)
 {
-    if (Utilities::doublesAreEqual(currentMin_, currentMinToSet))
+    if (utilities::doublesAreEqual(currentMin_, currentMinToSet))
         return;
 
     currentMin_ = getNormalizedValue(currentMinToSet);
@@ -52,7 +52,7 @@ void DoubleSlider::setCurrentMin(double currentMinToSet)
 
 void DoubleSlider::setCurrentMax(double currentMaxToSet)
 {
-    if (Utilities::doublesAreEqual(currentMax_, currentMaxToSet))
+    if (utilities::doublesAreEqual(currentMax_, currentMaxToSet))
         return;
 
     currentMax_ = getNormalizedValue(currentMaxToSet);
@@ -161,13 +161,13 @@ void DoubleSlider::mouseMoveEvent(QMouseEvent* event)
         moving_ = Handle::RIGHT;
     }
 
-    if (!Utilities::doublesAreEqual(lastEmittedMin_, currentMin_))
+    if (!utilities::doublesAreEqual(lastEmittedMin_, currentMin_))
     {
         lastEmittedMin_ = currentMin_;
         Q_EMIT currentMinChanged(currentMin_);
     }
 
-    if (!Utilities::doublesAreEqual(lastEmittedMax_, currentMax_))
+    if (!utilities::doublesAreEqual(lastEmittedMax_, currentMax_))
     {
         lastEmittedMax_ = currentMax_;
         Q_EMIT currentMaxChanged(currentMax_);
@@ -267,7 +267,7 @@ void DoubleSlider::drawHandles(QPainter& painter) const
 
 void DoubleSlider::paintEvent(QPaintEvent* event)
 {
-    if (Utilities::doublesAreEqual(min_, max_))
+    if (utilities::doublesAreEqual(min_, max_))
         return;
 
     QPainter painter(this);

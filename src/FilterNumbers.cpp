@@ -24,7 +24,7 @@ FilterNumbers::FilterNumbers(const QString& name, double from, double to,
 
     initColorForLineEdits();
 
-    if (Utilities::doublesAreEqual(initialFromValue_, initialToValue_))
+    if (utilities::doublesAreEqual(initialFromValue_, initialToValue_))
         setDisabled(true);
 }
 

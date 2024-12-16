@@ -2,7 +2,7 @@
 
 #include <algorithm>
 
-namespace Utilities
+namespace utilities
 {
 bool doublesAreEqual(double left, double right);
-}  // namespace Utilities
+}  // namespace utilities
