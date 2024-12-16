@@ -1,7 +1,5 @@
 #include <wble/ProgressBarInfinite.h>
 
-#include <limits>
-
 ProgressBarInfinite::ProgressBarInfinite(QString title, QWidget* parent)
     : ProgressBar(std::move(title), parent)
 {
