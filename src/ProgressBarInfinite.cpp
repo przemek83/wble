@@ -40,7 +40,7 @@ void ProgressBarInfinite::paintProgressBar(QPainter& painter)
 void ProgressBarInfinite::timerEvent([[maybe_unused]] QTimerEvent* event)
 {
     constexpr int fullRotation{100};
-    progressCounter_++;
+    ++progressCounter_;
     progressCounter_ %= fullRotation;
     update();
 }
