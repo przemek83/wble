@@ -9,5 +9,5 @@ public:
     explicit DoubleClickEater(QObject* parent = nullptr);
 
 protected:
-    bool eventFilter(QObject* obj, QEvent* event) override;
+    bool eventFilter(QObject* watched, QEvent* event) override;
 };

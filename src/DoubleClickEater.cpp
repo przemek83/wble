@@ -4,9 +4,9 @@
 
 DoubleClickEater::DoubleClickEater(QObject* parent) : QObject(parent) {}
 
-bool DoubleClickEater::eventFilter(QObject* obj, QEvent* event)
+bool DoubleClickEater::eventFilter(QObject* watched, QEvent* event)
 {
     if (event->type() == QEvent::MouseButtonDblClick)
         return true;
-    return QObject::eventFilter(obj, event);
+    return QObject::eventFilter(watched, event);
 }
