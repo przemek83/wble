@@ -44,7 +44,8 @@ void ProgressBar::showDetached()
     setWindowFlags(Qt::CustomizeWindowHint | Qt::FramelessWindowHint);
     setWindowModality(Qt::ApplicationModal);
 
-    if (const auto* activeWidget = QApplication::activeWindow(); activeWidget)
+    if (const auto* activeWidget = QApplication::activeWindow();
+        activeWidget != nullptr)
         move(QApplication::activeWindow()->geometry().center() -
              geometry().center());
     else
@@ -113,7 +114,7 @@ void ProgressBar::initTitleRectangle()
     titleRectangle_ = QRect(0, height() - TITLE_HEIGHT, width(), TITLE_HEIGHT);
 }
 
-void ProgressBar::paintTitle(QPainter& painter)
+void ProgressBar::paintTitle(QPainter& painter) const
 {
     painter.setFont(titleFont_);
     painter.drawText(titleRectangle_, Qt::AlignCenter, title_);

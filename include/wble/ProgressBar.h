@@ -61,7 +61,7 @@ private:
     void initArcRectangle();
     void initTitleRectangle();
 
-    void paintTitle(QPainter& painter);
+    void paintTitle(QPainter& painter) const;
 
     const QString title_;
 
