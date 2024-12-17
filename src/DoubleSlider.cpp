@@ -62,15 +62,15 @@ void DoubleSlider::setCurrentMax(double currentMaxToSet)
     update();
 }
 
-double DoubleSlider::getNormalizedValue(double value)
+double DoubleSlider::getNormalizedValue(double value) const
 {
-    if (value <= max_ && value >= min_)
+    if ((value <= max_) && (value >= min_))
         return value;
 
     return value > max_ ? max_ : min_;
 }
 
-int DoubleSlider::getMousePosition(QMouseEvent* event) const
+int DoubleSlider::getMousePosition(const QMouseEvent* event) const
 {
     QStyleOptionSlider defaultStyle;
     initStyleOption(&defaultStyle);
@@ -78,7 +78,7 @@ int DoubleSlider::getMousePosition(QMouseEvent* event) const
     const int sliderBarWidth{innerRect.width() - innerRect.x()};
 
     // Handle drawing rectangle is shifted according to position on handle bar.
-    const double shiftRatio = event->position().x() / sliderBarWidth - 0.5;
+    const double shiftRatio = (event->position().x() / sliderBarWidth) - 0.5;
     const int shiftInPixels =
         static_cast<int>(std::round(handleRect_.width() * shiftRatio));
     const int pos = QStyle::sliderValueFromPosition(
@@ -124,8 +124,9 @@ bool DoubleSlider::mouseIsOnHandle(int mousePosX, int handlePos) const
     // - on center handle rectangle is placed between center - handle width / 2
     // and center + handle width / 2.
     const double shiftRatio{static_cast<double>(handlePos) / MAX_PERCENT};
-    return mousePosX <= handlePosX + handleRect_.width() * (1 - shiftRatio) &&
-           mousePosX >= handlePosX - handleRect_.width() * shiftRatio;
+    return (mousePosX <=
+            (handlePosX + (handleRect_.width() * (1 - shiftRatio)))) &&
+           (mousePosX >= (handlePosX - (handleRect_.width() * shiftRatio)));
 }
 
 void DoubleSlider::mouseMoveEvent(QMouseEvent* event)
@@ -149,13 +150,14 @@ void DoubleSlider::mouseMoveEvent(QMouseEvent* event)
     const double newCurrent =
         static_cast<double>(newPosition) / MAX_PERCENT * range + min_;
 
-    if (moving_ == Handle::LEFT || (moving_ == Handle::NONE && onMinHandle))
+    if ((moving_ == Handle::LEFT) || ((moving_ == Handle::NONE) && onMinHandle))
     {
         setCurrentMin(newCurrent);
         moving_ = Handle::LEFT;
     }
 
-    if (moving_ == Handle::RIGHT || (moving_ == Handle::NONE && onMaxHandle))
+    if ((moving_ == Handle::RIGHT) ||
+        ((moving_ == Handle::NONE) && onMaxHandle))
     {
         setCurrentMax(newCurrent);
         moving_ = Handle::RIGHT;
@@ -193,7 +195,7 @@ void DoubleSlider::drawSliderBar(QPainter& painter) const
     const QRect plain = QRect(
         innerRect.x() + handleRect_.width() / 4, innerRect.y() + handleHight,
         innerRect.width() - handleRect_.width() / 2, handleHight);
-    qDrawPlainRect(&painter, plain, palette().color(QPalette::Dark));
+    ::qDrawPlainRect(&painter, plain, palette().color(QPalette::Dark));
 }
 
 int DoubleSlider::getHandleMiddlePosX(int handlePos, int handleWidth, int span)
@@ -237,10 +239,10 @@ void DoubleSlider::drawSliderBarBetweenHandles(QPainter& painter) const
 
     const QRect barRect = QRect(
         innerRect.x() + leftHandleMiddleX, innerRect.y() + barHeight,
-        innerRect.x() + rightHandleMiddleX - leftHandleMiddleX, barHeight);
+        (innerRect.x() + rightHandleMiddleX) - leftHandleMiddleX, barHeight);
 
     const QBrush brush = palette().brush(QPalette::Dark);
-    qDrawShadePanel(&painter, barRect, palette(), true, 1, &brush);
+    ::qDrawShadePanel(&painter, barRect, palette(), true, 1, &brush);
 }
 
 QStyleOptionSlider DoubleSlider::getHandleStyle(bool moving, int position) const
