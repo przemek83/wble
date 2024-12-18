@@ -41,7 +41,7 @@ protected:
 private:
     void initDoubleSlider();
 
-    void initLineEdits();
+    void initLineEdits() const;
 
     void initColorForLineEdits();
 
@@ -80,5 +80,5 @@ private Q_SLOTS:
      */
     void toEditingFinished();
 
-    void lineEditContentModified(const QString& currentContent);
+    void lineEditContentModified(const QString& currentContent) const;
 };

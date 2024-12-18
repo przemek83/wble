@@ -65,7 +65,7 @@ void FilterNumbers::initDoubleSlider()
     ui->verticalLayout->addWidget(slider);
 }
 
-void FilterNumbers::initLineEdits()
+void FilterNumbers::initLineEdits() const
 {
     connect(ui->fromValue, &QLineEdit::editingFinished, this,
             &FilterNumbers::fromEditingFinished);
@@ -138,7 +138,7 @@ void FilterNumbers::toEditingFinished()
     emitChangeSignal();
 }
 
-void FilterNumbers::lineEditContentModified(const QString& currentContent)
+void FilterNumbers::lineEditContentModified(const QString& currentContent) const
 {
     auto* lineEdit = qobject_cast<QLineEdit*>(sender());
     const double currentValue = QLocale::system().toDouble(currentContent);
