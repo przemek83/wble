@@ -140,7 +140,7 @@ void FilterNumbers::toEditingFinished()
 
 void FilterNumbers::lineEditContentModified(const QString& currentContent) const
 {
-    auto* lineEdit = qobject_cast<QLineEdit*>(sender());
+    auto* lineEdit = ::qobject_cast<QLineEdit*>(sender());
     const double currentValue = QLocale::system().toDouble(currentContent);
     QPalette palette = lineEdit->palette();
     const bool currentValueValid =
