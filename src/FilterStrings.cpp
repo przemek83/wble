@@ -37,7 +37,7 @@ FilterStrings::FilterStrings(const QString& name, QStringList initialList,
     ui->listWidget->viewport()->installEventFilter(
         new DoubleClickEater(ui->listWidget));
 
-    auto setAlternativeState = [=](QListWidgetItem* item)
+    auto setAlternativeState = [this](QListWidgetItem* item)
     {
         item->setCheckState(item->checkState() == Qt::Checked ? Qt::Unchecked
                                                               : Qt::Checked);

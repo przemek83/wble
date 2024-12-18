@@ -13,7 +13,7 @@ FilterDates::FilterDates(const QString& name, QDate fromDate, QDate toDate,
     ui->setupUi(this);
 
     connect(ui->ignoreEmptyDates, &QCheckBox::toggled, this,
-            [=](bool checked)
+            [this](bool checked)
             {
                 Q_EMIT newDateFilter(ui->fromDateEdit->date(),
                                      ui->toDateEdit->date(), checked);
