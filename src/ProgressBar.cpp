@@ -88,14 +88,16 @@ void ProgressBar::initPen()
 void ProgressBar::initCounterFont()
 {
     const int fontPointSizen = QApplication::font().pointSize();
-    counterFont_.setPointSize(lround(fontPointSizen * COUNTER_FONT_FACTOR));
+    counterFont_.setPointSize(
+        static_cast<int>(std::lround(fontPointSizen * COUNTER_FONT_FACTOR)));
     counterFont_.setStyleStrategy(QFont::PreferAntialias);
 }
 
 void ProgressBar::initTitleFont()
 {
     const int fontPointSize = QApplication::font().pointSize();
-    titleFont_.setPointSize(lround(fontPointSize * TITLE_FONT_FACTOR));
+    titleFont_.setPointSize(
+        static_cast<int>(std::lround(fontPointSize * TITLE_FONT_FACTOR)));
     titleFont_.setBold(true);
 }
 

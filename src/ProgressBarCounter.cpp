@@ -17,8 +17,8 @@ void ProgressBarCounter::updateProgress(int newValue)
     if (!isRunning())
         start();
 
-    const int newPercent =
-        std::lround(static_cast<double>(newValue) / maxValue_ * 100.0);
+    const int newPercent{static_cast<int>(
+        std::lround((static_cast<double>(newValue) / maxValue_) * 100.0))};
 
     currentPercent_ = newPercent;
     update();
@@ -28,8 +28,8 @@ void ProgressBarCounter::updateProgress(int newValue)
 void ProgressBarCounter::paintProgressBar(QPainter& painter)
 {
     constexpr int startAngle{QUARTER_CIRCLE_ANGLE * FULL_DEGREE};
-    const int spanAngle =
-        lround(-currentPercent_ * HUNDREDTH_OF_FULL_CIRCLE * FULL_DEGREE);
+    const int spanAngle{static_cast<int>(std::lround(
+        -currentPercent_ * HUNDREDTH_OF_FULL_CIRCLE * FULL_DEGREE))};
     painter.drawArc(getArcRectangle(), startAngle, spanAngle);
     painter.drawText(getArcRectangle(), Qt::AlignCenter,
                      QString::number(currentPercent_, 'f', 0) + "%");

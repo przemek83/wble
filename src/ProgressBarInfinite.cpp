@@ -27,13 +27,13 @@ void ProgressBarInfinite::reset()
 void ProgressBarInfinite::paintProgressBar(QPainter& painter)
 {
     constexpr int step{45};
-    int startAngle =
-        lround(progressCounter_ * HUNDREDTH_OF_FULL_CIRCLE * FULL_DEGREE);
+    int startAngle{static_cast<int>(std::lround(
+        progressCounter_ * HUNDREDTH_OF_FULL_CIRCLE * FULL_DEGREE))};
     constexpr const int spanAngle = -step * FULL_DEGREE;
     painter.drawArc(getArcRectangle(), startAngle, spanAngle);
-    startAngle = lround(
-        (HALF_CIRCLE_ANGLE + progressCounter_ * HUNDREDTH_OF_FULL_CIRCLE) *
-        FULL_DEGREE);
+    startAngle = static_cast<int>(std::lround(
+        (HALF_CIRCLE_ANGLE + (progressCounter_ * HUNDREDTH_OF_FULL_CIRCLE)) *
+        FULL_DEGREE));
     painter.drawArc(getArcRectangle(), startAngle, spanAngle);
 }
 
