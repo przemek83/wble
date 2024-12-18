@@ -27,7 +27,8 @@ FilterStrings::FilterStrings(const QString& name, QStringList initialList,
         auto* item = new QListWidgetItem(itemName, ui->listWidget);
         item->setFlags(item->flags() & ~Qt::ItemIsUserCheckable);
         item->setCheckState(Qt::Checked);
-        longestNameWidth = qMax(longestNameWidth, itemName.length());
+        longestNameWidth =
+            static_cast<int>(::qMax(longestNameWidth, itemName.length()));
     }
 
     if (minNameWidthForScrollMargin_ <= longestNameWidth)
@@ -56,7 +57,7 @@ FilterStrings::FilterStrings(const QString& name, QStringList initialList,
 
 FilterStrings::~FilterStrings() { delete ui; }
 
-void FilterStrings::itemChecked(QListWidgetItem* item)
+void FilterStrings::itemChecked(const QListWidgetItem* item)
 {
     if (item == nullptr)
         return;
@@ -78,13 +79,13 @@ QSize FilterStrings::sizeHint() const
     if (isChecked())
     {
         int maxListHeight = std::min(
-            ui->listWidget->sizeHintForRow(0) * ui->listWidget->count() +
-                2 * ui->listWidget->frameWidth(),
+            (ui->listWidget->sizeHintForRow(0) * ui->listWidget->count()) +
+                (2 * ui->listWidget->frameWidth()),
             maximumHeigh_);
 
-        /* Add space for scroll in case of 3 or less items and long
-           names detected in constructor.*/
-        if (addMarginForScrollBar_ && 3 >= ui->listWidget->count())
+        // Add space for scroll in case of 3 or less items and long
+        //   names detected in constructor.
+        if (addMarginForScrollBar_ && (3 >= ui->listWidget->count()))
         {
             // Scroll size retrieved here is not actual one, use row heigh
             // instead.
@@ -109,17 +110,18 @@ void FilterStrings::checkedStateChanged(bool checked)
         current->setEnabled(checked);
     }
 
-    ui->selectAll->setVisible(checked && initialList_.size() > 1);
+    ui->selectAll->setVisible(checked && (initialList_.size() > 1));
     ui->selectAll->setEnabled(checked);
 }
 
 QStringList FilterStrings::getListOfSelectedItems() const
 {
     QStringList currentList;
-    currentList.reserve(ui->listWidget->count());
-    for (int i = 0; i < ui->listWidget->count(); ++i)
+    const int itemCount{ui->listWidget->count()};
+    currentList.reserve(itemCount);
+    for (int i = 0; i < itemCount; ++i)
     {
-        QListWidgetItem* currentItem = ui->listWidget->item(i);
+        const QListWidgetItem* currentItem = ui->listWidget->item(i);
         if (Qt::Unchecked == currentItem->checkState())
             currentList << currentItem->text();
     }
@@ -130,7 +132,8 @@ QStringList FilterStrings::getListOfSelectedItems() const
 void FilterStrings::updateSelectAllCheckbox()
 {
     bool allChecked{true};
-    for (int i = 0; i < ui->listWidget->count(); ++i)
+    const int itemCount{ui->listWidget->count()};
+    for (int i = 0; i < itemCount; ++i)
     {
         if (Qt::Unchecked == ui->listWidget->item(i)->checkState())
         {
@@ -148,7 +151,8 @@ void FilterStrings::selectAllToggled(bool checked)
     Q_ASSERT(ui->listWidget->count() > 0);
 
     ui->listWidget->blockSignals(true);
-    for (int i = 0; i < ui->listWidget->count(); ++i)
+    const int itemCount{ui->listWidget->count()};
+    for (int i = 0; i < itemCount; ++i)
     {
         if (checked)
             ui->listWidget->item(i)->setCheckState(Qt::Checked);

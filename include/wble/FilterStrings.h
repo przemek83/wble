@@ -62,7 +62,7 @@ private Q_SLOTS:
      * Triggered when user click on item.
      * @param item Item clicked.
      */
-    void itemChecked(QListWidgetItem* item);
+    void itemChecked(const QListWidgetItem* item);
 
     /**
      * Triggered when user click on select all checkbox.
