@@ -39,8 +39,8 @@ FilterStrings::FilterStrings(const QString& name, QStringList initialList,
 
     auto setAlternativeState = [=](QListWidgetItem* item)
     {
-        item->setCheckState(
-            (item->checkState() == Qt::Checked ? Qt::Unchecked : Qt::Checked));
+        item->setCheckState(item->checkState() == Qt::Checked ? Qt::Unchecked
+                                                              : Qt::Checked);
         itemChecked(item);
     };
     connect(ui->listWidget, &QListWidget::itemClicked, this,
@@ -142,7 +142,7 @@ void FilterStrings::updateSelectAllCheckbox()
         }
     }
     ui->selectAll->blockSignals(true);
-    ui->selectAll->setCheckState((allChecked ? Qt::Checked : Qt::Unchecked));
+    ui->selectAll->setCheckState(allChecked ? Qt::Checked : Qt::Unchecked);
     ui->selectAll->blockSignals(false);
 }
 
