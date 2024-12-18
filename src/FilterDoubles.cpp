@@ -10,8 +10,10 @@ FilterDoubles::FilterDoubles(const QString& name, double from, double to,
     QLineEdit* fromLineEdit = getFromLineEdit();
     QLineEdit* toLineEdit = getToLineEdit();
 
-    QValidator* fromValidator = new QDoubleValidator(from, to, 2, fromLineEdit);
-    QValidator* toValidator = new QDoubleValidator(from, to, 2, toLineEdit);
+    const QValidator* fromValidator =
+        new QDoubleValidator(from, to, 2, fromLineEdit);
+    const QValidator* toValidator =
+        new QDoubleValidator(from, to, 2, toLineEdit);
 
     fromLineEdit->setValidator(fromValidator);
     toLineEdit->setValidator(toValidator);
@@ -24,8 +26,8 @@ bool FilterDoubles::isDoubleMode() const { return true; }
 
 void FilterDoubles::emitChangeSignal()
 {
-    QLineEdit* fromLineEdit = getFromLineEdit();
-    QLineEdit* toLineEdit = getToLineEdit();
+    const QLineEdit* fromLineEdit = getFromLineEdit();
+    const QLineEdit* toLineEdit = getToLineEdit();
 
     Q_EMIT newNumericFilter(QLocale::system().toDouble(fromLineEdit->text()),
                             QLocale::system().toDouble(toLineEdit->text()));
