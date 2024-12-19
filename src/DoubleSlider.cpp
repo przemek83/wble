@@ -148,7 +148,7 @@ void DoubleSlider::mouseMoveEvent(QMouseEvent* event)
 
     const double range{max_ - min_};
     const double newCurrent =
-        static_cast<double>(newPosition) / MAX_PERCENT * range + min_;
+        ((static_cast<double>(newPosition) / MAX_PERCENT) * range) + min_;
 
     if ((moving_ == Handle::LEFT) || ((moving_ == Handle::NONE) && onMinHandle))
     {
@@ -181,7 +181,7 @@ int DoubleSlider::getHandlePosition(Handle handle) const
     const double range{max_ - min_};
     const double currentValue =
         (handle == Handle::LEFT ? currentMin_ : currentMax_) - min_;
-    return static_cast<int>((std::round(currentValue / range * MAX_PERCENT)));
+    return static_cast<int>(std::round((currentValue / range) * MAX_PERCENT));
 }
 
 void DoubleSlider::drawSliderBar(QPainter& painter) const
@@ -193,8 +193,8 @@ void DoubleSlider::drawSliderBar(QPainter& painter) const
     const int handleHight =
         static_cast<int>(innerRect.height() * BAR_HEIGHT_RATIO);
     const QRect plain = QRect(
-        innerRect.x() + handleRect_.width() / 4, innerRect.y() + handleHight,
-        innerRect.width() - handleRect_.width() / 2, handleHight);
+        innerRect.x() + (handleRect_.width() / 4), innerRect.y() + handleHight,
+        innerRect.width() - (handleRect_.width() / 2), handleHight);
     ::qDrawPlainRect(&painter, plain, palette().color(QPalette::Dark));
 }
 
@@ -204,8 +204,8 @@ int DoubleSlider::getHandleMiddlePosX(int handlePos, int handleWidth, int span)
         QStyle::sliderPositionFromValue(0, MAX_PERCENT, handlePos, span);
     const double handleShiftRatio{handlePos / static_cast<double>(MAX_PERCENT)};
     const int handleMiddleX =
-        handlePosX +
-        static_cast<int>(std::round((1 - handleShiftRatio) * handleWidth / 2.));
+        handlePosX + static_cast<int>(std::round(
+                         ((1 - handleShiftRatio) * handleWidth) / 2.));
     return handleMiddleX;
 }
 
