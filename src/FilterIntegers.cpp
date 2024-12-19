@@ -1,26 +1,23 @@
 #include <wble/FilterIntegers.h>
 
-#include <QIntValidator>
 #include <QLineEdit>
 
 FilterIntegers::FilterIntegers(const QString& name, double from, double to,
                                QWidget* parent)
     : FilterNumbers(name, from, to, parent)
 {
-    QLineEdit* fromLineEdit = getFromLineEdit();
-    QLineEdit* toLineEdit = getToLineEdit();
-
     const int fromInt{static_cast<int>(from)};
     const int toInt{static_cast<int>(to)};
-    const QValidator* fromValidator =
-        new QIntValidator(fromInt, toInt, fromLineEdit);
-    const QValidator* toValidator =
-        new QIntValidator(fromInt, toInt, toLineEdit);
-    fromLineEdit->setValidator(fromValidator);
-    toLineEdit->setValidator(toValidator);
+    fromValidator_.setRange(fromInt, toInt);
+    toValidator_.setRange(fromInt, toInt);
 
-    fromLineEdit->setText(QLocale::system().toString(static_cast<int>(from)));
-    toLineEdit->setText(QLocale::system().toString(static_cast<int>(to)));
+    QLineEdit* fromLineEdit = getFromLineEdit();
+    fromLineEdit->setValidator(&fromValidator_);
+    fromLineEdit->setText(QLocale::system().toString(fromInt));
+
+    QLineEdit* toLineEdit = getToLineEdit();
+    toLineEdit->setValidator(&toValidator_);
+    toLineEdit->setText(QLocale::system().toString(toInt));
 }
 
 bool FilterIntegers::isDoubleMode() const { return false; }

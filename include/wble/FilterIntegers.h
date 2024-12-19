@@ -1,5 +1,7 @@
 #pragma once
 
+#include <QIntValidator>
+
 #include "FilterNumbers.h"
 
 /**
@@ -25,4 +27,8 @@ protected:
     bool isDoubleMode() const override;
 
     void emitChangeSignal() override;
+
+private:
+    QIntValidator fromValidator_;
+    QIntValidator toValidator_;
 };
