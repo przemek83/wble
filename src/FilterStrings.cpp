@@ -13,18 +13,18 @@ FilterStrings::FilterStrings(const QString& name, QStringList initialList,
                              QWidget* parent)
     : Filter(name, parent),
       initialList_(std::move(initialList)),
-      ui(new Ui::FilterStrings),
+      ui_{std::make_unique<Ui::FilterStrings>()},
       addMarginForScrollBar_(false)
 {
-    ui->setupUi(this);
+    ui_->setupUi(this);
 
-    connect(ui->selectAll, &QCheckBox::toggled, this,
+    connect(ui_->selectAll, &QCheckBox::toggled, this,
             &FilterStrings::selectAllToggled);
 
     int longestNameWidth{0};
     for (const QString& itemName : initialList_)
     {
-        auto* item = new QListWidgetItem(itemName, ui->listWidget);
+        auto* item = new QListWidgetItem(itemName, ui_->listWidget);
         item->setFlags(item->flags() & ~Qt::ItemIsUserCheckable);
         item->setCheckState(Qt::Checked);
         longestNameWidth =
@@ -34,8 +34,8 @@ FilterStrings::FilterStrings(const QString& name, QStringList initialList,
     if (minNameWidthForScrollMargin_ <= longestNameWidth)
         addMarginForScrollBar_ = true;
 
-    ui->listWidget->viewport()->installEventFilter(
-        new DoubleClickEater(ui->listWidget));
+    ui_->listWidget->viewport()->installEventFilter(
+        new DoubleClickEater(ui_->listWidget));
 
     auto setAlternativeState = [this](QListWidgetItem* item)
     {
@@ -43,19 +43,19 @@ FilterStrings::FilterStrings(const QString& name, QStringList initialList,
                                                               : Qt::Checked);
         itemChecked(item);
     };
-    connect(ui->listWidget, &QListWidget::itemClicked, this,
+    connect(ui_->listWidget, &QListWidget::itemClicked, this,
             setAlternativeState);
-    connect(ui->listWidget, &QListWidget::itemActivated, this,
+    connect(ui_->listWidget, &QListWidget::itemActivated, this,
             setAlternativeState);
 
     if (initialList_.size() <= 1)
     {
-        ui->selectAll->hide();
-        ui->selectAll->setEnabled(false);
+        ui_->selectAll->hide();
+        ui_->selectAll->setEnabled(false);
     }
 }
 
-FilterStrings::~FilterStrings() { delete ui; }
+FilterStrings::~FilterStrings() = default;
 
 void FilterStrings::itemChecked(const QListWidgetItem* item)
 {
@@ -79,20 +79,20 @@ QSize FilterStrings::sizeHint() const
     if (isChecked())
     {
         int maxListHeight = std::min(
-            (ui->listWidget->sizeHintForRow(0) * ui->listWidget->count()) +
-                (2 * ui->listWidget->frameWidth()),
+            (ui_->listWidget->sizeHintForRow(0) * ui_->listWidget->count()) +
+                (2 * ui_->listWidget->frameWidth()),
             maximumHeigh_);
 
         // Add space for scroll in case of 3 or less items and long
         //   names detected in constructor.
-        if (addMarginForScrollBar_ && (3 >= ui->listWidget->count()))
+        if (addMarginForScrollBar_ && (3 >= ui_->listWidget->count()))
         {
             // Scroll size retrieved here is not actual one, use row heigh
             // instead.
-            maxListHeight += ui->listWidget->sizeHintForRow(0);
+            maxListHeight += ui_->listWidget->sizeHintForRow(0);
         }
 
-        ui->listWidget->setMaximumHeight(maxListHeight);
+        ui_->listWidget->setMaximumHeight(maxListHeight);
     }
     return QGroupBox::sizeHint();
 }
@@ -110,18 +110,18 @@ void FilterStrings::checkedStateChanged(bool checked)
         current->setEnabled(checked);
     }
 
-    ui->selectAll->setVisible(checked && (initialList_.size() > 1));
-    ui->selectAll->setEnabled(checked);
+    ui_->selectAll->setVisible(checked && (initialList_.size() > 1));
+    ui_->selectAll->setEnabled(checked);
 }
 
 QStringList FilterStrings::getListOfSelectedItems() const
 {
     QStringList currentList;
-    const int itemCount{ui->listWidget->count()};
+    const int itemCount{ui_->listWidget->count()};
     currentList.reserve(itemCount);
     for (int i = 0; i < itemCount; ++i)
     {
-        const QListWidgetItem* currentItem = ui->listWidget->item(i);
+        const QListWidgetItem* currentItem = ui_->listWidget->item(i);
         if (Qt::Unchecked == currentItem->checkState())
             currentList << currentItem->text();
     }
@@ -132,33 +132,33 @@ QStringList FilterStrings::getListOfSelectedItems() const
 void FilterStrings::updateSelectAllCheckbox()
 {
     bool allChecked{true};
-    const int itemCount{ui->listWidget->count()};
+    const int itemCount{ui_->listWidget->count()};
     for (int i = 0; i < itemCount; ++i)
     {
-        if (Qt::Unchecked == ui->listWidget->item(i)->checkState())
+        if (Qt::Unchecked == ui_->listWidget->item(i)->checkState())
         {
             allChecked = false;
             break;
         }
     }
-    ui->selectAll->blockSignals(true);
-    ui->selectAll->setCheckState(allChecked ? Qt::Checked : Qt::Unchecked);
-    ui->selectAll->blockSignals(false);
+    ui_->selectAll->blockSignals(true);
+    ui_->selectAll->setCheckState(allChecked ? Qt::Checked : Qt::Unchecked);
+    ui_->selectAll->blockSignals(false);
 }
 
 void FilterStrings::selectAllToggled(bool checked)
 {
-    Q_ASSERT(ui->listWidget->count() > 0);
+    Q_ASSERT(ui_->listWidget->count() > 0);
 
-    ui->listWidget->blockSignals(true);
-    const int itemCount{ui->listWidget->count()};
+    ui_->listWidget->blockSignals(true);
+    const int itemCount{ui_->listWidget->count()};
     for (int i = 0; i < itemCount; ++i)
     {
         if (checked)
-            ui->listWidget->item(i)->setCheckState(Qt::Checked);
+            ui_->listWidget->item(i)->setCheckState(Qt::Checked);
         else
-            ui->listWidget->item(i)->setCheckState(Qt::Unchecked);
+            ui_->listWidget->item(i)->setCheckState(Qt::Unchecked);
     }
-    ui->listWidget->blockSignals(false);
-    itemChecked(ui->listWidget->item(0));
+    ui_->listWidget->blockSignals(false);
+    itemChecked(ui_->listWidget->item(0));
 }

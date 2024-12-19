@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #include <QSet>
 
 #include "Filter.h"
@@ -46,7 +48,7 @@ private:
 
     QStringList lastEmittedList_;
 
-    Ui::FilterStrings* ui;
+    std::unique_ptr<Ui::FilterStrings> ui_;
 
     /// Min number of chars to include scroll margin.
     static constexpr int minNameWidthForScrollMargin_{25};
