@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #include <QCalendarWidget>
 #include <QDate>
 
@@ -48,7 +50,7 @@ private:
     /// Initial filter to date.
     const QDate toDate_;
 
-    Ui::FilterDates* ui;
+    std::unique_ptr<Ui::FilterDates> ui_;
 
     QCalendarWidget calendarFrom_;
 
