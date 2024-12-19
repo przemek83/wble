@@ -1,25 +1,21 @@
 #include <wble/FilterDoubles.h>
 
-#include <QDoubleValidator>
 #include <QLineEdit>
 
 FilterDoubles::FilterDoubles(const QString& name, double from, double to,
                              QWidget* parent)
-    : FilterNumbers(name, from, to, parent)
+    : FilterNumbers(name, from, to, parent),
+      fromValidator_{from, to, decimalPlaces_},
+      toValidator_{from, to, decimalPlaces_}
 {
     QLineEdit* fromLineEdit = getFromLineEdit();
+    fromLineEdit->setValidator(&fromValidator_);
+    fromLineEdit->setText(
+        QLocale::system().toString(from, 'f', decimalPlaces_));
+
     QLineEdit* toLineEdit = getToLineEdit();
-
-    const QValidator* fromValidator =
-        new QDoubleValidator(from, to, 2, fromLineEdit);
-    const QValidator* toValidator =
-        new QDoubleValidator(from, to, 2, toLineEdit);
-
-    fromLineEdit->setValidator(fromValidator);
-    toLineEdit->setValidator(toValidator);
-
-    fromLineEdit->setText(QLocale::system().toString(from, 'f', 2));
-    toLineEdit->setText(QLocale::system().toString(to, 'f', 2));
+    toLineEdit->setValidator(&toValidator_);
+    toLineEdit->setText(QLocale::system().toString(to, 'f', decimalPlaces_));
 }
 
 bool FilterDoubles::isDoubleMode() const { return true; }

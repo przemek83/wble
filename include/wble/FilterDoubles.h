@@ -1,5 +1,7 @@
 #pragma once
 
+#include <QDoubleValidator>
+
 #include "FilterNumbers.h"
 
 /**
@@ -25,4 +27,10 @@ protected:
     bool isDoubleMode() const override;
 
     void emitChangeSignal() override;
+
+private:
+    const int decimalPlaces_{2};
+
+    QDoubleValidator fromValidator_;
+    QDoubleValidator toValidator_;
 };
