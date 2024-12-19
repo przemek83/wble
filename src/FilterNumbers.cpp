@@ -143,17 +143,18 @@ void FilterNumbers::lineEditContentModified(const QString& currentContent) const
     auto* lineEdit = ::qobject_cast<QLineEdit*>(sender());
     const double currentValue = QLocale::system().toDouble(currentContent);
     QPalette palette = lineEdit->palette();
-    const bool currentValueValid =
-        currentValue >= initialFromValue_ && currentValue <= initialToValue_;
+    const bool currentValueValid = (currentValue >= initialFromValue_) &&
+                                   (currentValue <= initialToValue_);
     const QColor currentBackgroundColor{
         palette.color(lineEdit->backgroundRole())};
-    if (currentValueValid && currentBackgroundColor == altBackgroundColor_)
+    if (currentValueValid && (currentBackgroundColor == altBackgroundColor_))
     {
         palette.setColor(lineEdit->backgroundRole(), defaultBackgroundColor_);
         lineEdit->setPalette(palette);
     }
 
-    if (!currentValueValid && currentBackgroundColor == defaultBackgroundColor_)
+    if ((!currentValueValid) &&
+        (currentBackgroundColor == defaultBackgroundColor_))
     {
         palette.setColor(lineEdit->backgroundRole(), altBackgroundColor_);
         lineEdit->setPalette(palette);
