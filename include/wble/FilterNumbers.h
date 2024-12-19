@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #include <QWidget>
 
 #include "Filter.h"
@@ -45,7 +47,7 @@ private:
 
     void initColorForLineEdits();
 
-    Ui::FilterNumbers* ui;
+    std::unique_ptr<Ui::FilterNumbers> ui_;
 
     /// Minimum set on filter creation.
     double initialFromValue_;

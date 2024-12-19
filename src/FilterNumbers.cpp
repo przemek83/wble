@@ -12,11 +12,11 @@
 FilterNumbers::FilterNumbers(const QString& name, double from, double to,
                              QWidget* parent)
     : Filter(name, parent),
-      ui(new Ui::FilterNumbers),
+      ui_{std::make_unique<Ui::FilterNumbers>()},
       initialFromValue_(from),
       initialToValue_(to)
 {
-    ui->setupUi(this);
+    ui_->setupUi(this);
 
     initLineEdits();
 
@@ -28,7 +28,7 @@ FilterNumbers::FilterNumbers(const QString& name, double from, double to,
         setDisabled(true);
 }
 
-FilterNumbers::~FilterNumbers() { delete ui; }
+FilterNumbers::~FilterNumbers() = default;
 
 void FilterNumbers::checkedStateChanged(bool checked)
 {
@@ -41,9 +41,9 @@ void FilterNumbers::checkedStateChanged(bool checked)
     }
 }
 
-QLineEdit* FilterNumbers::getFromLineEdit() const { return ui->fromValue; }
+QLineEdit* FilterNumbers::getFromLineEdit() const { return ui_->fromValue; }
 
-QLineEdit* FilterNumbers::getToLineEdit() const { return ui->toValue; }
+QLineEdit* FilterNumbers::getToLineEdit() const { return ui_->toValue; }
 
 void FilterNumbers::changeEvent(QEvent* event)
 {
@@ -62,36 +62,36 @@ void FilterNumbers::initDoubleSlider()
     connect(slider, &DoubleSlider::currentMaxChanged, this,
             &FilterNumbers::sliderToChanged);
 
-    ui->verticalLayout->addWidget(slider);
+    ui_->verticalLayout->addWidget(slider);
 }
 
 void FilterNumbers::initLineEdits() const
 {
-    connect(ui->fromValue, &QLineEdit::editingFinished, this,
+    connect(ui_->fromValue, &QLineEdit::editingFinished, this,
             &FilterNumbers::fromEditingFinished);
-    connect(ui->toValue, &QLineEdit::editingFinished, this,
+    connect(ui_->toValue, &QLineEdit::editingFinished, this,
             &FilterNumbers::toEditingFinished);
 
-    connect(ui->fromValue, &QLineEdit::textChanged, this,
+    connect(ui_->fromValue, &QLineEdit::textChanged, this,
             &FilterNumbers::lineEditContentModified);
-    connect(ui->toValue, &QLineEdit::textChanged, this,
+    connect(ui_->toValue, &QLineEdit::textChanged, this,
             &FilterNumbers::lineEditContentModified);
 }
 
 void FilterNumbers::initColorForLineEdits()
 {
-    const QPalette defaultPalette{QApplication::palette(ui->fromValue)};
+    const QPalette defaultPalette{QApplication::palette(ui_->fromValue)};
     defaultBackgroundColor_ =
-        defaultPalette.color(ui->fromValue->backgroundRole());
+        defaultPalette.color(ui_->fromValue->backgroundRole());
     altBackgroundColor_ = defaultPalette.color(QPalette::Highlight);
 }
 
 void FilterNumbers::sliderFromChanged(double newValue)
 {
     if (isDoubleMode())
-        ui->fromValue->setText(QLocale::system().toString(newValue, 'f', 2));
+        ui_->fromValue->setText(QLocale::system().toString(newValue, 'f', 2));
     else
-        ui->fromValue->setText(
+        ui_->fromValue->setText(
             QLocale::system().toString(static_cast<int>(newValue)));
 
     emitChangeSignal();
@@ -100,9 +100,9 @@ void FilterNumbers::sliderFromChanged(double newValue)
 void FilterNumbers::sliderToChanged(double newValue)
 {
     if (isDoubleMode())
-        ui->toValue->setText(QLocale::system().toString(newValue, 'f', 2));
+        ui_->toValue->setText(QLocale::system().toString(newValue, 'f', 2));
     else
-        ui->toValue->setText(
+        ui_->toValue->setText(
             QLocale::system().toString(static_cast<int>(newValue)));
 
     emitChangeSignal();
@@ -114,7 +114,7 @@ void FilterNumbers::fromEditingFinished()
     if (slider == nullptr)
         return;
 
-    const QString newFromAsText{ui->fromValue->text()};
+    const QString newFromAsText{ui_->fromValue->text()};
     const double fromToSet{isDoubleMode()
                                ? QLocale::system().toDouble(newFromAsText)
                                : QLocale::system().toInt(newFromAsText)};
@@ -129,7 +129,7 @@ void FilterNumbers::toEditingFinished()
     if (slider == nullptr)
         return;
 
-    const QString newToAsText = ui->toValue->text();
+    const QString newToAsText = ui_->toValue->text();
     const double toToSet{isDoubleMode()
                              ? QLocale::system().toDouble(newToAsText)
                              : QLocale::system().toInt(newToAsText)};
