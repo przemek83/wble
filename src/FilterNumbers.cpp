@@ -14,7 +14,8 @@ FilterNumbers::FilterNumbers(const QString& name, double from, double to,
     : Filter(name, parent),
       ui_{std::make_unique<Ui::FilterNumbers>()},
       initialFromValue_(from),
-      initialToValue_(to)
+      initialToValue_(to),
+      doubleSlider_{from, to}
 {
     ui_->setupUi(this);
 
@@ -55,14 +56,12 @@ void FilterNumbers::changeEvent(QEvent* event)
 
 void FilterNumbers::initDoubleSlider()
 {
-    DoubleSlider* slider{
-        new DoubleSlider(initialFromValue_, initialToValue_, this)};
-    connect(slider, &DoubleSlider::currentMinChanged, this,
+    connect(&doubleSlider_, &DoubleSlider::currentMinChanged, this,
             &FilterNumbers::sliderFromChanged);
-    connect(slider, &DoubleSlider::currentMaxChanged, this,
+    connect(&doubleSlider_, &DoubleSlider::currentMaxChanged, this,
             &FilterNumbers::sliderToChanged);
 
-    ui_->verticalLayout->addWidget(slider);
+    ui_->verticalLayout->addWidget(&doubleSlider_);
 }
 
 void FilterNumbers::initLineEdits() const

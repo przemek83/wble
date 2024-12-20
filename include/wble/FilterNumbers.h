@@ -4,6 +4,7 @@
 
 #include <QWidget>
 
+#include "DoubleSlider.h"
 #include "Filter.h"
 #include "wble_global.h"
 
@@ -58,6 +59,8 @@ private:
     QColor defaultBackgroundColor_;
 
     QColor altBackgroundColor_;
+
+    DoubleSlider doubleSlider_;
 
 private Q_SLOTS:
     /**
