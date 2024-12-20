@@ -18,7 +18,7 @@ void FilterDatesTest::testFilterEmptyDatesToggle()
     const FilterDates filter(QLatin1String(""), fromDate_, toDate_, true);
     QSignalSpy spy(&filter, &FilterDates::newDateFilter);
 
-    auto* ignoreEmptyDates = filter.findChild<QCheckBox*>();
+    auto* ignoreEmptyDates{filter.findChild<QCheckBox*>()};
     ignoreEmptyDates->toggle();
     QCOMPARE(spy.count(), SIGNAL_RECEIVED);
     QList<QVariant> expectedSignalParams{fromDate_, toDate_, true};
@@ -32,8 +32,8 @@ void FilterDatesTest::testFilterEmptyDatesToggle()
 void FilterDatesTest::testToggling()
 {
     FilterDates filter(QLatin1String(""), fromDate_, toDate_, true);
-    auto lineEdits = filter.findChildren<QDateEdit*>();
-    auto checkBoxes = filter.findChildren<QCheckBox*>();
+    auto lineEdits{filter.findChildren<QDateEdit*>()};
+    auto checkBoxes{filter.findChildren<QCheckBox*>()};
     for (const auto* widget : lineEdits)
         QCOMPARE(widget->isEnabled(), true);
     for (const auto* widget : checkBoxes)
@@ -51,7 +51,7 @@ void FilterDatesTest::testProperInitOfEmptyDatesCheckbox()
 {
     const FilterDates filterWithEmptyDates(QLatin1String(""), fromDate_,
                                            toDate_, true);
-    auto* ignoreEmptyDates = filterWithEmptyDates.findChild<QCheckBox*>();
+    auto* ignoreEmptyDates{filterWithEmptyDates.findChild<QCheckBox*>()};
     QCOMPARE(ignoreEmptyDates->isEnabled(), true);
 
     const FilterDates filterWithoutEmptyDates(QLatin1String(""), fromDate_,
@@ -63,14 +63,14 @@ void FilterDatesTest::testProperInitOfEmptyDatesCheckbox()
 void FilterDatesTest::testChangingDates()
 {
     const FilterDates filter(QLatin1String(""), fromDate_, toDate_, true);
-    auto lineEdits = filter.findChildren<QDateEdit*>();
+    auto lineEdits{filter.findChildren<QDateEdit*>()};
     Q_ASSERT(lineEdits.count() == 2);
-    QDateEdit* fromEdit =
-        (lineEdits.first()->date() == fromDate_ ? lineEdits.first()
-                                                : lineEdits.last());
-    QDateEdit* toEdit =
-        (lineEdits.first()->date() == toDate_ ? lineEdits.first()
-                                              : lineEdits.last());
+    QDateEdit* fromEdit{(lineEdits.first()->date() == fromDate_
+                             ? lineEdits.first()
+                             : lineEdits.last())};
+    QDateEdit* toEdit{(lineEdits.first()->date() == toDate_
+                           ? lineEdits.first()
+                           : lineEdits.last())};
 
     QSignalSpy spy(&filter, &FilterDates::newDateFilter);
     fromEdit->setDate(fromDate_.addDays(1));
