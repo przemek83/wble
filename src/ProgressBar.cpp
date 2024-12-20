@@ -8,10 +8,10 @@
 #include <QTimer>
 
 ProgressBar::ProgressBar(QString title, QWidget* parent)
-    : QWidget(parent),
-      title_(std::move(title)),
-      color_(Qt::blue),
-      brush_(color_)
+    : QWidget{parent},
+      title_{std::move(title)},
+      color_{Qt::blue},
+      brush_{color_}
 {
     setWindowTitle(title_);
 
@@ -44,7 +44,7 @@ void ProgressBar::showDetached()
     setWindowFlags(Qt::CustomizeWindowHint | Qt::FramelessWindowHint);
     setWindowModality(Qt::ApplicationModal);
 
-    if (const auto* activeWidget = QApplication::activeWindow();
+    if (const auto* activeWidget{QApplication::activeWindow()};
         activeWidget != nullptr)
         move(QApplication::activeWindow()->geometry().center() -
              geometry().center());
@@ -87,7 +87,7 @@ void ProgressBar::initPen()
 
 void ProgressBar::initCounterFont()
 {
-    const int fontPointSizen = QApplication::font().pointSize();
+    const int fontPointSizen{QApplication::font().pointSize()};
     counterFont_.setPointSize(
         static_cast<int>(std::lround(fontPointSizen * COUNTER_FONT_FACTOR)));
     counterFont_.setStyleStrategy(QFont::PreferAntialias);
@@ -95,7 +95,7 @@ void ProgressBar::initCounterFont()
 
 void ProgressBar::initTitleFont()
 {
-    const int fontPointSize = QApplication::font().pointSize();
+    const int fontPointSize{QApplication::font().pointSize()};
     titleFont_.setPointSize(
         static_cast<int>(std::lround(fontPointSize * TITLE_FONT_FACTOR)));
     titleFont_.setBold(true);
@@ -103,9 +103,9 @@ void ProgressBar::initTitleFont()
 
 void ProgressBar::initArcRectangle()
 {
-    const int arcSquareLength = width() - TITLE_HEIGHT;
-    const int centerOfWidth = width() / 2;
-    const int centerOfArcWidth = arcSquareLength / 2;
+    const int arcSquareLength{width() - TITLE_HEIGHT};
+    const int centerOfWidth{width() / 2};
+    const int centerOfArcWidth{arcSquareLength / 2};
     arcRectangle_ = QRect(centerOfWidth - centerOfArcWidth,
                           centerOfWidth - centerOfArcWidth, arcSquareLength,
                           arcSquareLength);

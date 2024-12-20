@@ -4,18 +4,18 @@
 
 FilterIntegers::FilterIntegers(const QString& name, double from, double to,
                                QWidget* parent)
-    : FilterNumbers(name, from, to, parent)
+    : FilterNumbers{name, from, to, parent}
 {
     const int fromInt{static_cast<int>(from)};
     const int toInt{static_cast<int>(to)};
     fromValidator_.setRange(fromInt, toInt);
     toValidator_.setRange(fromInt, toInt);
 
-    QLineEdit* fromLineEdit = getFromLineEdit();
+    QLineEdit* fromLineEdit{getFromLineEdit()};
     fromLineEdit->setValidator(&fromValidator_);
     fromLineEdit->setText(QLocale::system().toString(fromInt));
 
-    QLineEdit* toLineEdit = getToLineEdit();
+    QLineEdit* toLineEdit{getToLineEdit()};
     toLineEdit->setValidator(&toValidator_);
     toLineEdit->setText(QLocale::system().toString(toInt));
 }
@@ -24,8 +24,8 @@ bool FilterIntegers::isDoubleMode() const { return false; }
 
 void FilterIntegers::emitChangeSignal()
 {
-    const QLineEdit* fromLineEdit = getFromLineEdit();
-    const QLineEdit* toLineEdit = getToLineEdit();
+    const QLineEdit* fromLineEdit{getFromLineEdit()};
+    const QLineEdit* toLineEdit{getToLineEdit()};
 
     Q_EMIT newNumericFilter(QLocale::system().toInt(fromLineEdit->text()),
                             QLocale::system().toInt(toLineEdit->text()));

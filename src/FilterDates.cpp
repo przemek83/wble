@@ -4,11 +4,11 @@
 
 FilterDates::FilterDates(const QString& name, QDate fromDate, QDate toDate,
                          bool emptyDates, QWidget* parent)
-    : Filter(name, parent),
-      fromDate_(fromDate),
-      toDate_(toDate),
+    : Filter{name, parent},
+      fromDate_{fromDate},
+      toDate_{toDate},
       ui_{std::make_unique<Ui::FilterDates>()},
-      emptyDates_(emptyDates)
+      emptyDates_{emptyDates}
 {
     ui_->setupUi(this);
 
@@ -71,7 +71,7 @@ void FilterDates::toDateChanged(QDate newDate)
 
 void FilterDates::checkedStateChanged(bool checked)
 {
-    const QList<QDateEdit*> dateWidgets = findChildren<QDateEdit*>();
+    const QList<QDateEdit*> dateWidgets{findChildren<QDateEdit*>()};
 
     for (QWidget* current : dateWidgets)
     {

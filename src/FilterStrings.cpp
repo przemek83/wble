@@ -11,10 +11,10 @@
 
 FilterStrings::FilterStrings(const QString& name, QStringList initialList,
                              QWidget* parent)
-    : Filter(name, parent),
-      initialList_(std::move(initialList)),
+    : Filter{name, parent},
+      initialList_{std::move(initialList)},
       ui_{std::make_unique<Ui::FilterStrings>()},
-      addMarginForScrollBar_(false),
+      addMarginForScrollBar_{false},
       doubleClickEater_{std::make_unique<DoubleClickEater>()}
 {
     ui_->setupUi(this);
@@ -30,12 +30,14 @@ FilterStrings::FilterStrings(const QString& name, QStringList initialList,
 
     ui_->listWidget->viewport()->installEventFilter(&*doubleClickEater_);
 
-    auto setAlternativeState = [this](QListWidgetItem* item)
-    {
-        item->setCheckState(item->checkState() == Qt::Checked ? Qt::Unchecked
-                                                              : Qt::Checked);
-        itemChecked(item);
-    };
+    auto setAlternativeState{
+        [this](QListWidgetItem* item)
+        {
+            item->setCheckState(item->checkState() == Qt::Checked
+                                    ? Qt::Unchecked
+                                    : Qt::Checked);
+            itemChecked(item);
+        }};
     connect(ui_->listWidget, &QListWidget::itemClicked, this,
             setAlternativeState);
     connect(ui_->listWidget, &QListWidget::itemActivated, this,
@@ -71,10 +73,10 @@ QSize FilterStrings::sizeHint() const
 {
     if (isChecked())
     {
-        int maxListHeight = std::min(
+        int maxListHeight{std::min(
             (ui_->listWidget->sizeHintForRow(0) * ui_->listWidget->count()) +
                 (2 * ui_->listWidget->frameWidth()),
-            maximumHeigh_);
+            maximumHeigh_)};
 
         // Add space for scroll in case of 3 or less items and long
         //   names detected in constructor.
@@ -92,9 +94,9 @@ QSize FilterStrings::sizeHint() const
 
 void FilterStrings::checkedStateChanged(bool checked)
 {
-    auto* checkBox = findChild<QCheckBox*>();
+    auto* checkBox{findChild<QCheckBox*>()};
 
-    QList<QWidget*> widgets = findChildren<QWidget*>();
+    QList<QWidget*> widgets{findChildren<QWidget*>()};
     widgets.removeOne(checkBox);
 
     for (QWidget* current : widgets)
@@ -114,7 +116,7 @@ QStringList FilterStrings::getListOfSelectedItems() const
     currentList.reserve(itemCount);
     for (int i = 0; i < itemCount; ++i)
     {
-        const QListWidgetItem* currentItem = ui_->listWidget->item(i);
+        const QListWidgetItem* currentItem{ui_->listWidget->item(i)};
         if (Qt::Unchecked == currentItem->checkState())
             currentList << currentItem->text();
     }

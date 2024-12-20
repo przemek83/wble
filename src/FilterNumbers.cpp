@@ -11,10 +11,10 @@
 
 FilterNumbers::FilterNumbers(const QString& name, double from, double to,
                              QWidget* parent)
-    : Filter(name, parent),
+    : Filter{name, parent},
       ui_{std::make_unique<Ui::FilterNumbers>()},
-      initialFromValue_(from),
-      initialToValue_(to),
+      initialFromValue_{from},
+      initialToValue_{to},
       doubleSlider_{from, to}
 {
     ui_->setupUi(this);
@@ -128,7 +128,7 @@ void FilterNumbers::toEditingFinished()
     if (slider == nullptr)
         return;
 
-    const QString newToAsText = ui_->toValue->text();
+    const QString newToAsText{ui_->toValue->text()};
     const double toToSet{isDoubleMode()
                              ? QLocale::system().toDouble(newToAsText)
                              : QLocale::system().toInt(newToAsText)};
@@ -139,11 +139,11 @@ void FilterNumbers::toEditingFinished()
 
 void FilterNumbers::lineEditContentModified(const QString& currentContent) const
 {
-    auto* lineEdit = ::qobject_cast<QLineEdit*>(sender());
-    const double currentValue = QLocale::system().toDouble(currentContent);
-    QPalette palette = lineEdit->palette();
-    const bool currentValueValid = (currentValue >= initialFromValue_) &&
-                                   (currentValue <= initialToValue_);
+    auto* lineEdit{::qobject_cast<QLineEdit*>(sender())};
+    const double currentValue{QLocale::system().toDouble(currentContent)};
+    QPalette palette{lineEdit->palette()};
+    const bool currentValueValid{(currentValue >= initialFromValue_) &&
+                                 (currentValue <= initialToValue_)};
     const QColor currentBackgroundColor{
         palette.color(lineEdit->backgroundRole())};
     if (currentValueValid && (currentBackgroundColor == altBackgroundColor_))
