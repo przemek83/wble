@@ -21,17 +21,10 @@ FilterStrings::FilterStrings(const QString& name, QStringList initialList,
     connect(ui_->selectAll, &QCheckBox::toggled, this,
             &FilterStrings::selectAllToggled);
 
-    int longestNameWidth{0};
-    for (const QString& itemName : initialList_)
-    {
-        auto* item = new QListWidgetItem(itemName, ui_->listWidget);
-        item->setFlags(item->flags() & ~Qt::ItemIsUserCheckable);
-        item->setCheckState(Qt::Checked);
-        longestNameWidth =
-            static_cast<int>(::qMax(longestNameWidth, itemName.length()));
-    }
+    initItems();
 
-    if (minNameWidthForScrollMargin_ <= longestNameWidth)
+    if (int longestNameWidth{getLongestItemWitdth()};
+        minNameWidthForScrollMargin_ <= longestNameWidth)
         addMarginForScrollBar_ = true;
 
     ui_->listWidget->viewport()->installEventFilter(
@@ -144,6 +137,27 @@ void FilterStrings::updateSelectAllCheckbox()
     ui_->selectAll->blockSignals(true);
     ui_->selectAll->setCheckState(allChecked ? Qt::Checked : Qt::Unchecked);
     ui_->selectAll->blockSignals(false);
+}
+
+void FilterStrings::initItems()
+{
+    ui_->listWidget->addItems(initialList_);
+    const int itemsCount{ui_->listWidget->count()};
+    for (int i{0}; i < itemsCount; ++i)
+    {
+        QListWidgetItem* item{ui_->listWidget->item(i)};
+        item->setFlags(item->flags() & ~Qt::ItemIsUserCheckable);
+        item->setCheckState(Qt::Checked);
+    }
+}
+
+int FilterStrings::getLongestItemWitdth() const
+{
+    int longestNameWidth{0};
+    for (const QString& itemName : initialList_)
+        longestNameWidth =
+            static_cast<int>(::qMax(longestNameWidth, itemName.length()));
+    return longestNameWidth;
 }
 
 void FilterStrings::selectAllToggled(bool checked)

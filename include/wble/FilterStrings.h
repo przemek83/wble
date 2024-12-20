@@ -44,6 +44,10 @@ private:
 
     void updateSelectAllCheckbox();
 
+    void initItems();
+
+    int getLongestItemWitdth() const;
+
     const QStringList initialList_;
 
     QStringList lastEmittedList_;
