@@ -8,6 +8,7 @@
 #include "wble_global.h"
 
 class QListWidgetItem;
+class DoubleClickEater;
 
 namespace Ui
 {
@@ -62,6 +63,8 @@ private:
 
     /// Flag indicating that additional place for scroll should be added.
     bool addMarginForScrollBar_;
+
+    std::unique_ptr<DoubleClickEater> doubleClickEater_;
 
 private Q_SLOTS:
     /**

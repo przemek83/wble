@@ -14,7 +14,8 @@ FilterStrings::FilterStrings(const QString& name, QStringList initialList,
     : Filter(name, parent),
       initialList_(std::move(initialList)),
       ui_{std::make_unique<Ui::FilterStrings>()},
-      addMarginForScrollBar_(false)
+      addMarginForScrollBar_(false),
+      doubleClickEater_{std::make_unique<DoubleClickEater>()}
 {
     ui_->setupUi(this);
 
@@ -27,8 +28,7 @@ FilterStrings::FilterStrings(const QString& name, QStringList initialList,
         minNameWidthForScrollMargin_ <= longestNameWidth)
         addMarginForScrollBar_ = true;
 
-    ui_->listWidget->viewport()->installEventFilter(
-        new DoubleClickEater(ui_->listWidget));
+    ui_->listWidget->viewport()->installEventFilter(&*doubleClickEater_);
 
     auto setAlternativeState = [this](QListWidgetItem* item)
     {
