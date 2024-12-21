@@ -67,7 +67,9 @@ double DoubleSlider::getNormalizedValue(double value) const
     if ((value <= max_) && (value >= min_))
         return value;
 
-    return value > max_ ? max_ : min_;
+    if (value > max_)
+        return max_;
+    return min_;
 }
 
 int DoubleSlider::getMousePosition(const QMouseEvent* event) const
@@ -179,8 +181,13 @@ void DoubleSlider::mouseMoveEvent(QMouseEvent* event)
 int DoubleSlider::getHandlePosition(Handle handle) const
 {
     const double range{max_ - min_};
-    const double currentValue{
-        (handle == Handle::LEFT ? currentMin_ : currentMax_) - min_};
+    double currentValue{0};
+    if (handle == Handle::LEFT)
+        currentValue = currentMin_;
+    else
+        currentValue = currentMax_;
+    currentValue -= min_;
+
     return static_cast<int>(std::round((currentValue / range) * MAX_PERCENT));
 }
 
