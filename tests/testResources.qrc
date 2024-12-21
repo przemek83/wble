@@ -1,9 +1,9 @@
 <RCC>
     <qresource prefix="/">
-        <file>infinityInitial.png</file>
-        <file>infinityUpdated.png</file>
-        <file>counterInitial.png</file>
-        <file>counterUpdated.png</file>
-        <file>counterFinished.png</file>
+        <file>res/infinityInitial.png</file>
+        <file>res/infinityUpdated.png</file>
+        <file>res/counterInitial.png</file>
+        <file>res/counterUpdated.png</file>
+        <file>res/counterFinished.png</file>
     </qresource>
 </RCC>

@@ -27,7 +27,7 @@ void ProgressBarInfiniteTest::checkInitialPaint()
 {
     ProgressBarInfinite progressBar(QLatin1String("Initial"));
     auto actual{progressBar.grab().toImage()};
-    QImage expected(":/infinityInitial.png");
+    QImage expected(":/res/infinityInitial.png");
     expected = expected.convertToFormat(actual.format());
     QCOMPARE(actual, expected);
 }
@@ -40,7 +40,7 @@ void ProgressBarInfiniteTest::checkPaintAfterUpdate()
         QApplication::sendEvent(&progressBar, &event);
 
     auto actual{progressBar.grab().toImage()};
-    QImage expected(":/infinityUpdated.png");
+    QImage expected(":/res/infinityUpdated.png");
     expected = expected.convertToFormat(actual.format());
     QCOMPARE(actual, expected);
 }
