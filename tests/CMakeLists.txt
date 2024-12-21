@@ -30,3 +30,4 @@ target_link_libraries(${PROJECT_TESTS} PRIVATE wble Qt6::Core Qt6::Widgets Qt6::
 
 add_test(NAME ${PROJECT_TESTS} COMMAND ${PROJECT_TESTS})
 
+set_property(TEST ${PROJECT_TESTS} PROPERTY FAIL_REGULAR_EXPRESSION "FAIL!")
