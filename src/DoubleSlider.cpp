@@ -219,7 +219,7 @@ int DoubleSlider::getHandleMiddlePosX(int handlePos, int handleWidth, int span)
 void DoubleSlider::setHandleRect()
 {
     QStyleOptionSlider defaultStyle;
-    initStyleOption(&defaultStyle);
+    QSlider::initStyleOption(&defaultStyle);
     handleRect_ = style()->subControlRect(QStyle::CC_Slider, &defaultStyle,
                                           QStyle::SC_SliderHandle, this);
 }
