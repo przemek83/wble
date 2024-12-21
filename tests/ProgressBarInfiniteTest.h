@@ -11,4 +11,8 @@ private Q_SLOTS:
     static void testStopping();
 
     static void testReseting();
+
+    static void checkInitialPaint();
+
+    static void checkPaintAfterUpdate();
 };

@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>infinityInitial.png</file>
+        <file>infinityUpdated.png</file>
+    </qresource>
+</RCC>

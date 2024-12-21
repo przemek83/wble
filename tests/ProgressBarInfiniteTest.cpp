@@ -22,3 +22,25 @@ void ProgressBarInfiniteTest::testReseting()
     ProgressBarInfinite progressBar(QLatin1String(""));
     ProgressBarCommon::checkReseting(progressBar);
 }
+
+void ProgressBarInfiniteTest::checkInitialPaint()
+{
+    ProgressBarInfinite progressBar(QLatin1String("Initial"));
+    auto actual{progressBar.grab().toImage()};
+    QImage expected(":/infinityInitial.png");
+    expected = expected.convertToFormat(actual.format());
+    QCOMPARE(actual, expected);
+}
+
+void ProgressBarInfiniteTest::checkPaintAfterUpdate()
+{
+    ProgressBarInfinite progressBar(QLatin1String("Updated"));
+    QTimerEvent event{0};
+    for (int i{0}; i < 10; ++i)
+        QApplication::sendEvent(&progressBar, &event);
+
+    auto actual{progressBar.grab().toImage()};
+    QImage expected(":/infinityUpdated.png");
+    expected = expected.convertToFormat(actual.format());
+    QCOMPARE(actual, expected);
+}

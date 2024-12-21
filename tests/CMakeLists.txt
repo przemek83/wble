@@ -22,6 +22,8 @@ set(${PROJECT_TESTS}_SOURCES
     ProgressBarInfiniteTest.cpp
 )
 
+qt_add_resources(${PROJECT_TESTS}_SOURCES testResources.qrc)
+
 add_executable(${PROJECT_TESTS} ${${PROJECT_TESTS}_SOURCES})
 
 target_link_libraries(${PROJECT_TESTS} PRIVATE wble Qt6::Core Qt6::Widgets Qt6::Test)
