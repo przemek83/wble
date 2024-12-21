@@ -41,6 +41,8 @@ protected:
 
     void changeEvent(QEvent* event) override;
 
+    const int decimalPlaces_{2};
+
 private:
     void initDoubleSlider();
 

@@ -29,8 +29,6 @@ protected:
     void emitChangeSignal() override;
 
 private:
-    const int decimalPlaces_{2};
-
     QDoubleValidator fromValidator_;
     QDoubleValidator toValidator_;
 };

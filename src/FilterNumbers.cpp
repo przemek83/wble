@@ -88,7 +88,8 @@ void FilterNumbers::initColorForLineEdits()
 void FilterNumbers::sliderFromChanged(double newValue)
 {
     if (isDoubleMode())
-        ui_->fromValue->setText(QLocale::system().toString(newValue, 'f', 2));
+        ui_->fromValue->setText(
+            QLocale::system().toString(newValue, 'f', decimalPlaces_));
     else
         ui_->fromValue->setText(
             QLocale::system().toString(static_cast<int>(newValue)));
@@ -99,7 +100,8 @@ void FilterNumbers::sliderFromChanged(double newValue)
 void FilterNumbers::sliderToChanged(double newValue)
 {
     if (isDoubleMode())
-        ui_->toValue->setText(QLocale::system().toString(newValue, 'f', 2));
+        ui_->toValue->setText(
+            QLocale::system().toString(newValue, 'f', decimalPlaces_));
     else
         ui_->toValue->setText(
             QLocale::system().toString(static_cast<int>(newValue)));
