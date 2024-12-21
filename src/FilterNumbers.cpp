@@ -114,11 +114,13 @@ void FilterNumbers::fromEditingFinished()
         return;
 
     const QString newFromAsText{ui_->fromValue->text()};
-    const double fromToSet{isDoubleMode()
-                               ? QLocale::system().toDouble(newFromAsText)
-                               : QLocale::system().toInt(newFromAsText)};
+    double newFrom{0};
+    if (isDoubleMode())
+        newFrom = QLocale::system().toDouble(newFromAsText);
+    else
+        newFrom = QLocale::system().toInt(newFromAsText);
 
-    slider->setCurrentMin(fromToSet);
+    slider->setCurrentMin(newFrom);
     emitChangeSignal();
 }
 
@@ -129,11 +131,13 @@ void FilterNumbers::toEditingFinished()
         return;
 
     const QString newToAsText{ui_->toValue->text()};
-    const double toToSet{isDoubleMode()
-                             ? QLocale::system().toDouble(newToAsText)
-                             : QLocale::system().toInt(newToAsText)};
+    double newTo{0};
+    if (isDoubleMode())
+        newTo = QLocale::system().toDouble(newToAsText);
+    else
+        newTo = QLocale::system().toInt(newToAsText);
 
-    slider->setCurrentMax(toToSet);
+    slider->setCurrentMax(newTo);
     emitChangeSignal();
 }
 
