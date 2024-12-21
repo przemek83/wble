@@ -30,14 +30,14 @@ FilterStrings::FilterStrings(const QString& name, QStringList initialList,
 
     ui_->listWidget->viewport()->installEventFilter(&*doubleClickEater_);
 
-    auto setAlternativeState{
-        [this](QListWidgetItem* item)
-        {
-            item->setCheckState(item->checkState() == Qt::Checked
-                                    ? Qt::Unchecked
-                                    : Qt::Checked);
-            itemChecked(item);
-        }};
+    auto setAlternativeState{[this](QListWidgetItem* item)
+                             {
+                                 Qt::CheckState state{Qt::Checked};
+                                 if (item->checkState() == Qt::Checked)
+                                     state = Qt::Unchecked;
+                                 item->setCheckState(state);
+                                 itemChecked(item);
+                             }};
     connect(ui_->listWidget, &QListWidget::itemClicked, this,
             setAlternativeState);
     connect(ui_->listWidget, &QListWidget::itemActivated, this,
@@ -137,7 +137,10 @@ void FilterStrings::updateSelectAllCheckbox()
         }
     }
     ui_->selectAll->blockSignals(true);
-    ui_->selectAll->setCheckState(allChecked ? Qt::Checked : Qt::Unchecked);
+    if (allChecked)
+        ui_->selectAll->setCheckState(Qt::Checked);
+    else
+        ui_->selectAll->setCheckState(Qt::Unchecked);
     ui_->selectAll->blockSignals(false);
 }
 
