@@ -10,6 +10,8 @@ private Q_SLOTS:
 
     static void testFirstUpdatingProgress();
 
+    static void testSecondUpdatingProgress();
+
     static void testStopping();
 
     static void testReseting();

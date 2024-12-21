@@ -18,6 +18,14 @@ void ProgressBarCounterTest::testFirstUpdatingProgress()
     QCOMPARE(progressBar.isRunning(), true);
 }
 
+void ProgressBarCounterTest::testSecondUpdatingProgress()
+{
+    ProgressBarCounter progressBar(QLatin1String(""), max_);
+    progressBar.updateProgress(max_ / 4);
+    progressBar.updateProgress(max_ / 2);
+    QCOMPARE(progressBar.isRunning(), true);
+}
+
 void ProgressBarCounterTest::testStopping()
 {
     ProgressBarCounter progressBar(QLatin1String(""), max_);
