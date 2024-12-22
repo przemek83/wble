@@ -8,9 +8,21 @@
 #include "ProgressBarCounterTest.h"
 #include "ProgressBarInfiniteTest.h"
 
+namespace
+{
+void setLightPalette()
+{
+    QPalette palette;
+    palette.setColor(QPalette::Window, QColor(240, 240, 240));
+    QApplication::setPalette(palette);
+}
+}  // namespace
+
 int main(int argc, char* argv[])
 {
-    const QApplication a(argc, argv);
+    QApplication a(argc, argv);
+
+    setLightPalette();
 
     DoubleSliderTest doubleSliderTest;
     QTest::qExec(&doubleSliderTest);
