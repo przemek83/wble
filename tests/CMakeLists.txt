@@ -20,11 +20,15 @@ set(${PROJECT_TESTS}_SOURCES
     ProgressBarCommon.cpp
     ProgressBarInfiniteTest.h
     ProgressBarInfiniteTest.cpp
+    UtilitiesTest.h
+    UtilitiesTest.cpp
 )
 
 qt_add_resources(${PROJECT_TESTS}_SOURCES testResources.qrc)
 
 add_executable(${PROJECT_TESTS} ${${PROJECT_TESTS}_SOURCES})
+
+target_include_directories(${PROJECT_TESTS} PRIVATE ../src)
 
 target_link_libraries(${PROJECT_TESTS} PRIVATE wble Qt6::Core Qt6::Widgets Qt6::Test)
 

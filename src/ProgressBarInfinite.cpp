@@ -1,4 +1,5 @@
 #include <wble/ProgressBarInfinite.h>
+#include "Utilities.h"
 
 ProgressBarInfinite::ProgressBarInfinite(QString title, QWidget* parent)
     : ProgressBar{std::move(title), parent}
@@ -26,15 +27,12 @@ void ProgressBarInfinite::reset()
 
 void ProgressBarInfinite::paintProgressBar(QPainter& painter)
 {
-    constexpr int step{45};
-    int startAngle{static_cast<int>(std::lround(
-        progressCounter_ * HUNDREDTH_OF_FULL_CIRCLE * FULL_DEGREE))};
-    constexpr const int spanAngle{-step * FULL_DEGREE};
-    painter.drawArc(getArcRectangle(), startAngle, spanAngle);
-    startAngle = static_cast<int>(std::lround(
-        (HALF_CIRCLE_ANGLE + (progressCounter_ * HUNDREDTH_OF_FULL_CIRCLE)) *
-        FULL_DEGREE));
-    painter.drawArc(getArcRectangle(), startAngle, spanAngle);
+    const auto [firstAngle,
+                secondAngle]{utilities::getStartingAngles(progressCounter_)};
+    const int spanAngle{utilities::getSpanAngle()};
+
+    painter.drawArc(getArcRectangle(), firstAngle, spanAngle);
+    painter.drawArc(getArcRectangle(), secondAngle, spanAngle);
 }
 
 void ProgressBarInfinite::timerEvent([[maybe_unused]] QTimerEvent* event)
