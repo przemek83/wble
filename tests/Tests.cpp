@@ -1,3 +1,4 @@
+#include <qcolor.h>
 #include <QTest>
 
 #include "DoubleSliderTest.h"
@@ -14,7 +15,9 @@ namespace
 void setLightPalette()
 {
     QPalette palette;
-    palette.setColor(QPalette::Window, QColor(240, 240, 240));
+    QColor color(240, 240, 240);
+    palette.setColor(QPalette::Window, color);
+    palette.setColor(QPalette::Button, color);
     QApplication::setPalette(palette);
 }
 }  // namespace
