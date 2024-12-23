@@ -24,3 +24,9 @@ void UtilitiesTest::testAnglesFullProgress()
     QCOMPARE(firstAngle, 5760);
     QCOMPARE(secondAngle, 8640);
 }
+
+void UtilitiesTest::testGetSpanAngle()
+{
+    const int spanAngle{utilities::getSpanAngle()};
+    QCOMPARE(spanAngle, -720);
+}

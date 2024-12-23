@@ -11,4 +11,6 @@ private Q_SLOTS:
     static void testAnglesHalfProgress();
 
     static void testAnglesFullProgress();
+
+    static void testGetSpanAngle();
 };
