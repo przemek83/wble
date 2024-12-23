@@ -28,7 +28,7 @@ qt_add_resources(${PROJECT_TESTS}_SOURCES testResources.qrc)
 
 add_executable(${PROJECT_TESTS} ${${PROJECT_TESTS}_SOURCES})
 
-target_include_directories(${PROJECT_TESTS} PRIVATE ../src)
+target_include_directories(${PROJECT_TESTS} PRIVATE ${CMAKE_SOURCE_DIR}/src)
 
 target_link_libraries(${PROJECT_TESTS} PRIVATE wble Qt6::Core Qt6::Widgets Qt6::Test)
 
