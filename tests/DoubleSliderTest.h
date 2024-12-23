@@ -26,6 +26,8 @@ private Q_SLOTS:
 
     void testMovingBothHandlesTogether();
 
+    static void testPaintingDefaultState();
+
 private:
     void moveHandle(DoubleSlider& slider, QPoint from, QPoint to) const;
 

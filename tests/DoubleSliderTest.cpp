@@ -147,6 +147,15 @@ void DoubleSliderTest::testMovingBothHandlesTogether()
     QCOMPARE(spyMin[0], {MIN});
 }
 
+void DoubleSliderTest::testPaintingDefaultState()
+{
+    DoubleSlider slider(MIN, MAX);
+    auto actual{slider.grab().toImage()};
+    QImage expected(":/res/sliderDefault.png");
+    expected = expected.convertToFormat(actual.format());
+    QCOMPARE(actual, expected);
+}
+
 void DoubleSliderTest::moveHandle(DoubleSlider& slider, QPoint from,
                                   QPoint to) const
 {
