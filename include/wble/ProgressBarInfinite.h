@@ -33,5 +33,5 @@ private:
 
     static constexpr int TIMER_DEFAULT_INTERVAL{40};
 
-    unsigned int progressCounter_{0};
+    int progressCounter_{0};
 };
