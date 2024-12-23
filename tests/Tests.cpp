@@ -1,5 +1,5 @@
-#include <qcolor.h>
 #include <QTest>
+#include <QStyleFactory>
 
 #include "DoubleSliderTest.h"
 #include "FilterDatesTest.h"
@@ -26,6 +26,8 @@ int main(int argc, char* argv[])
 {
     QApplication a(argc, argv);
 
+    QStyle *style = QStyleFactory::create("Fusion");
+    QApplication::setStyle(style);
     setLightPalette();
 
     DoubleSliderTest doubleSliderTest;
