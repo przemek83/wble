@@ -6,7 +6,12 @@ namespace utilities
 {
 bool doublesAreEqual(double left, double right);
 
-std::pair<int, int> getStartingAngles(int progressCounter);
+std::pair<int, int> getStartingAnglesInfinite(int progressCounter);
 
-int getSpanAngle();
+int getStartingAngleCounter();
+
+int getSpanAngleInfinite();
+
+int getSpanAngleCounter(int progressCounter);
+
 }  // namespace utilities

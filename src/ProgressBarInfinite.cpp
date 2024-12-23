@@ -27,9 +27,9 @@ void ProgressBarInfinite::reset()
 
 void ProgressBarInfinite::paintProgressBar(QPainter& painter)
 {
-    const auto [firstAngle,
-                secondAngle]{utilities::getStartingAngles(progressCounter_)};
-    const int spanAngle{utilities::getSpanAngle()};
+    const auto [firstAngle, secondAngle]{
+        utilities::getStartingAnglesInfinite(progressCounter_)};
+    const int spanAngle{utilities::getSpanAngleInfinite()};
 
     painter.drawArc(getArcRectangle(), firstAngle, spanAngle);
     painter.drawArc(getArcRectangle(), secondAngle, spanAngle);

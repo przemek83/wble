@@ -21,7 +21,7 @@ bool doublesAreEqual(double left, double right)
             std::max({1.0, std::abs(left), std::abs(right)}));
 }
 
-std::pair<int, int> getStartingAngles(int progressCounter)
+std::pair<int, int> getStartingAnglesInfinite(int progressCounter)
 {
     int firstAngle{static_cast<int>(
         std::lround(progressCounter * HUNDREDTH_OF_FULL_CIRCLE * FULL_DEGREE))};
@@ -31,10 +31,23 @@ std::pair<int, int> getStartingAngles(int progressCounter)
     return {firstAngle, secondAngle};
 }
 
-int getSpanAngle()
+int getStartingAngleCounter()
+{
+    constexpr int startAngle{QUARTER_CIRCLE_ANGLE * FULL_DEGREE};
+    return startAngle;
+}
+
+int getSpanAngleInfinite()
 {
     constexpr int step{45};
     constexpr const int spanAngle{-step * FULL_DEGREE};
+    return spanAngle;
+}
+
+int getSpanAngleCounter(int progressCounter)
+{
+    const int spanAngle{static_cast<int>(std::lround(
+        -progressCounter * HUNDREDTH_OF_FULL_CIRCLE * FULL_DEGREE))};
     return spanAngle;
 }
 }  // namespace utilities

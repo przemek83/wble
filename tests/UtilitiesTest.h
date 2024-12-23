@@ -6,11 +6,17 @@ class UtilitiesTest : public QObject
 {
     Q_OBJECT
 private Q_SLOTS:
-    static void testAnglesZeroProgress();
+    static void testAnglesInfiniteZeroProgress();
 
-    static void testAnglesHalfProgress();
+    static void testAnglesInfiniteHalfProgress();
 
-    static void testAnglesFullProgress();
+    static void testAnglesInfiniteFullProgress();
 
-    static void testGetSpanAngle();
+    static void testGetSpanAngleInfinite();
+
+    static void testStartingAngleCounter();
+
+    static void testGetSpanAngleCounterZero();
+    static void testGetSpanAngleCounterHalf();
+    static void testGetSpanAngleCounterFull();
 };
