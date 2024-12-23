@@ -22,6 +22,8 @@ set(${PROJECT_TESTS}_SOURCES
     ProgressBarInfiniteTest.cpp
     UtilitiesTest.h
     UtilitiesTest.cpp
+    ${CMAKE_SOURCE_DIR}/src/Utilities.h
+    ${CMAKE_SOURCE_DIR}/src/Utilities.cpp
 )
 
 qt_add_resources(${PROJECT_TESTS}_SOURCES testResources.qrc)
