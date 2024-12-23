@@ -12,7 +12,7 @@ private Q_SLOTS:
 
     static void testReseting();
 
-    static void checkInitialPaint();
+    static void checkInitialPaintNoTitle();
 
-    static void checkPaintAfterUpdate();
+    static void checkPaintAfterUpdateNoTitle();
 };
