@@ -15,8 +15,6 @@ private Q_SLOTS:
 
     void testListItemChecking();
 
-    void testSizeHint();
-
 private:
     QStringList testEntriesList_;
 

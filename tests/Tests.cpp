@@ -48,8 +48,6 @@ int main(int argc, char* argv[])
 
     QStyle* style = QStyleFactory::create("Fusion");
     QApplication::setStyle(style);
-    QFont font("Arial", 12);
-    a.setFont(font);
     setLightPalette();
 
     DoubleSliderTest doubleSliderTest;
