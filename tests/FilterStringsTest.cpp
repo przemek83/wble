@@ -66,5 +66,5 @@ void FilterStringsTest::testListItemChecking()
 void FilterStringsTest::testSizeHint()
 {
     const FilterStrings filter(QLatin1String(""), testEntriesList_);
-    QCOMPARE(filter.sizeHint(), QSize(266, 231));
+    QCOMPARE(filter.sizeHint(), QSize(266, 230));
 }
