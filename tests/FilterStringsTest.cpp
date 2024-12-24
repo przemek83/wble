@@ -62,3 +62,9 @@ void FilterStringsTest::testListItemChecking()
     QCOMPARE(spy.count(), SIGNAL_RECEIVED);
     QCOMPARE(spy.takeFirst(), {QVariant(QStringList{})});
 }
+
+void FilterStringsTest::testSizeHint()
+{
+    const FilterStrings filter(QLatin1String(""), testEntriesList_);
+    QCOMPARE(filter.sizeHint(), QSize(266, 231));
+}
