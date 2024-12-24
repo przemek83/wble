@@ -6,5 +6,7 @@
         <file>res/counterUpdated.png</file>
         <file>res/counterFinished.png</file>
         <file>res/sliderDefault.png</file>
+        <file>res/sliderMovedHandles.png</file>
+        <file>res/sliderBothHandlesTogether.png</file>
     </qresource>
 </RCC>

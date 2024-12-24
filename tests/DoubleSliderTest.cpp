@@ -156,6 +156,30 @@ void DoubleSliderTest::testPaintingDefaultState()
     QCOMPARE(actual, expected);
 }
 
+void DoubleSliderTest::testPaintingMovedHandles()
+{
+    DoubleSlider slider(MIN, MAX);
+    const double step{(MAX - MIN) / 4.};
+    slider.setCurrentMax(MAX - step);
+    slider.setCurrentMin(MIN + step);
+    auto actual{slider.grab().toImage()};
+    QImage expected(":/res/sliderMovedHandles.png");
+    expected = expected.convertToFormat(actual.format());
+    QCOMPARE(actual, expected);
+}
+
+void DoubleSliderTest::testPaintingBothHandlesTogether()
+{
+    DoubleSlider slider(MIN, MAX);
+    const double step{(MAX - MIN) / 2.};
+    slider.setCurrentMax(MAX - step);
+    slider.setCurrentMin(slider.getCurrentMax());
+    auto actual{slider.grab().toImage()};
+    QImage expected(":/res/sliderBothHandlesTogether.png");
+    expected = expected.convertToFormat(actual.format());
+    QCOMPARE(actual, expected);
+}
+
 void DoubleSliderTest::moveHandle(DoubleSlider& slider, QPoint from,
                                   QPoint to) const
 {

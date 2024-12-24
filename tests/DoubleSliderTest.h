@@ -28,6 +28,10 @@ private Q_SLOTS:
 
     static void testPaintingDefaultState();
 
+    static void testPaintingMovedHandles();
+
+    static void testPaintingBothHandlesTogether();
+
 private:
     void moveHandle(DoubleSlider& slider, QPoint from, QPoint to) const;
 
