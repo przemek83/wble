@@ -46,8 +46,9 @@ void FilterStringsTest::testListItemChecking()
     const FilterStrings filter(QLatin1String(""), testEntriesList_);
     QSignalSpy spy(&filter, &FilterStrings::newStringFilter);
     const auto* listWidget{filter.findChild<QListWidget*>()};
-    const auto* item{
-        listWidget->item(testEntriesList_.indexOf(QStringLiteral("b")))};
+    const int itemPos{
+        static_cast<int>(testEntriesList_.indexOf(QStringLiteral("b")))};
+    const auto* item{listWidget->item(itemPos)};
     const QRect itemRect = listWidget->visualItemRect(item);
     QTest::mouseClick(listWidget->viewport(), Qt::LeftButton, Qt::NoModifier,
                       itemRect.center());
