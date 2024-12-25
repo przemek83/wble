@@ -24,7 +24,7 @@ FilterStrings::FilterStrings(const QString& name, QStringList initialList,
 
     initItems();
 
-    if (int longestNameWidth{getLongestItemWitdth()};
+    if (const int longestNameWidth{getLongestItemWitdth()};
         minNameWidthForScrollMargin_ <= longestNameWidth)
         addMarginForScrollBar_ = true;
 
