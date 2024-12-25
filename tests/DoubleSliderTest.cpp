@@ -180,8 +180,7 @@ void DoubleSliderTest::testPaintingBothHandlesTogether()
     QCOMPARE(actual, expected);
 }
 
-void DoubleSliderTest::moveHandle(DoubleSlider& slider, QPoint from,
-                                  QPoint to) const
+void DoubleSliderTest::moveHandle(DoubleSlider& slider, QPoint from, QPoint to)
 {
     QTest::mousePress(&slider, Qt::LeftButton, Qt::NoModifier, from);
     QMouseEvent initialEvent(QEvent::MouseMove, from, slider.mapToGlobal(from),

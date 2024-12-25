@@ -33,7 +33,7 @@ private Q_SLOTS:
     static void testPaintingBothHandlesTogether();
 
 private:
-    void moveHandle(DoubleSlider& slider, QPoint from, QPoint to) const;
+    static void moveHandle(DoubleSlider& slider, QPoint from, QPoint to);
 
     static constexpr int MIN{-100};
     static constexpr int MAX{100};
