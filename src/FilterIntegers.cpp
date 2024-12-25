@@ -24,9 +24,9 @@ bool FilterIntegers::isDoubleMode() const { return false; }
 
 void FilterIntegers::emitChangeSignal()
 {
-    const QLineEdit* fromLineEdit{getFromLineEdit()};
-    const QLineEdit* toLineEdit{getToLineEdit()};
+    const QString fromText{getFromLineEdit()->text()};
+    const QString toText{getToLineEdit()->text()};
 
-    Q_EMIT newNumericFilter(QLocale::system().toInt(fromLineEdit->text()),
-                            QLocale::system().toInt(toLineEdit->text()));
+    Q_EMIT newNumericFilter(QLocale::system().toInt(fromText),
+                            QLocale::system().toInt(toText));
 }

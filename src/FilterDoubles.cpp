@@ -1,3 +1,4 @@
+#include <qobject.h>
 #include <wble/FilterDoubles.h>
 
 #include <QLineEdit>
@@ -22,9 +23,9 @@ bool FilterDoubles::isDoubleMode() const { return true; }
 
 void FilterDoubles::emitChangeSignal()
 {
-    const QLineEdit* fromLineEdit{getFromLineEdit()};
-    const QLineEdit* toLineEdit{getToLineEdit()};
+    const QString fromText{getFromLineEdit()->text()};
+    const QString toText{getToLineEdit()->text()};
 
-    Q_EMIT newNumericFilter(QLocale::system().toDouble(fromLineEdit->text()),
-                            QLocale::system().toDouble(toLineEdit->text()));
+    Q_EMIT newNumericFilter(QLocale::system().toDouble(fromText),
+                            QLocale::system().toDouble(toText));
 }
