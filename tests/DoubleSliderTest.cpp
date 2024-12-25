@@ -34,8 +34,8 @@ void DoubleSliderTest::testEmittingCurrentMinChanged()
 {
     DoubleSlider slider(MIN, MAX);
 
-    QSignalSpy spyMin(&slider, &DoubleSlider::currentMinChanged);
-    QSignalSpy spyMax(&slider, &DoubleSlider::currentMaxChanged);
+    const QSignalSpy spyMin(&slider, &DoubleSlider::currentMinChanged);
+    const QSignalSpy spyMax(&slider, &DoubleSlider::currentMaxChanged);
 
     const double newMin{MIN / 2.};
     slider.setCurrentMin(newMin);
@@ -45,10 +45,10 @@ void DoubleSliderTest::testEmittingCurrentMinChanged()
 
 void DoubleSliderTest::testEmittingCurrentMaxChanged()
 {
-    DoubleSlider slider(MIN, MAX);
+    const DoubleSlider slider(MIN, MAX);
 
-    QSignalSpy spyMin(&slider, &DoubleSlider::currentMinChanged);
-    QSignalSpy spyMax(&slider, &DoubleSlider::currentMaxChanged);
+    const QSignalSpy spyMin(&slider, &DoubleSlider::currentMinChanged);
+    const QSignalSpy spyMax(&slider, &DoubleSlider::currentMaxChanged);
 
     QCOMPARE(spyMin.count(), NO_SIGNAL);
     QCOMPARE(spyMax.count(), NO_SIGNAL);
@@ -82,7 +82,7 @@ void DoubleSliderTest::testMovingLeftHandle()
     slider.resize(SLIDER_WIDTH, SLIDER_HEIGHT);
 
     QSignalSpy spyMin(&slider, &DoubleSlider::currentMinChanged);
-    QSignalSpy spyMax(&slider, &DoubleSlider::currentMaxChanged);
+    const QSignalSpy spyMax(&slider, &DoubleSlider::currentMaxChanged);
 
     const QPoint startPoint(0, 0);
     const QPoint endPoint(SLIDER_WIDTH / 2, 0);
@@ -103,7 +103,7 @@ void DoubleSliderTest::testMovingRightHandle()
     DoubleSlider slider(MIN, MAX);
     slider.resize(SLIDER_WIDTH, SLIDER_HEIGHT);
 
-    QSignalSpy spyMin(&slider, &DoubleSlider::currentMinChanged);
+    const QSignalSpy spyMin(&slider, &DoubleSlider::currentMinChanged);
     QSignalSpy spyMax(&slider, &DoubleSlider::currentMaxChanged);
 
     const QPoint startPoint(SLIDER_WIDTH, 0);
