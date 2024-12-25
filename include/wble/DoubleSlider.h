@@ -76,7 +76,7 @@ protected:
     void changeEvent(QEvent* event) override;
 
 private:
-    enum class Handle : unsigned short int
+    enum class Handle : char
     {
         NONE,
         LEFT,
