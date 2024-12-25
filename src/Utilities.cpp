@@ -23,9 +23,9 @@ bool doublesAreEqual(double left, double right)
 
 std::pair<int, int> getStartingAnglesInfinite(int progressCounter)
 {
-    int firstAngle{static_cast<int>(
+    const int firstAngle{static_cast<int>(
         std::lround(progressCounter * HUNDREDTH_OF_FULL_CIRCLE * FULL_DEGREE))};
-    int secondAngle{static_cast<int>(std::lround(
+    const int secondAngle{static_cast<int>(std::lround(
         (HALF_CIRCLE_ANGLE + (progressCounter * HUNDREDTH_OF_FULL_CIRCLE)) *
         FULL_DEGREE))};
     return {firstAngle, secondAngle};
