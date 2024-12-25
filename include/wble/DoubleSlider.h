@@ -103,6 +103,10 @@ private:
 
     double getNormalizedValue(double value) const;
 
+    QRect getInnerRectangle() const;
+
+    QRect getBarRectangle() const;
+
     const double min_;
     const double max_;
 
