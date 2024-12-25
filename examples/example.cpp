@@ -210,7 +210,7 @@ QVBoxLayout* createRightWidgetColumn()
 
 int main(int argc, char* argv[])
 {
-    QApplication a(argc, argv);
+    const QApplication a(argc, argv);
 
     QApplication::setStyle(QStyleFactory::create(QStringLiteral("Fusion")));
 
