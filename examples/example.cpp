@@ -15,12 +15,15 @@
 #include <wble/ProgressBarCounter.h>
 #include <wble/ProgressBarInfinite.h>
 
-static constexpr double MIN{3};
-static constexpr double MAX{56};
+namespace
+{
 
-static constexpr int MAX_PROGRESS_BAR_VALUE{100};
+constexpr double MIN{3};
+constexpr double MAX{56};
 
-static DoubleSlider* createDoubleSlider(QLabel* infoLabel)
+constexpr int MAX_PROGRESS_BAR_VALUE{100};
+
+DoubleSlider* createDoubleSlider(QLabel* infoLabel)
 {
     auto* slider = new DoubleSlider(MIN, MAX);
     QObject::connect(
@@ -38,7 +41,7 @@ static DoubleSlider* createDoubleSlider(QLabel* infoLabel)
     return slider;
 }
 
-static FilterNumbers* createFilterIntegers(QLabel* infoLabel)
+FilterNumbers* createFilterIntegers(QLabel* infoLabel)
 {
     auto* filterNumbers =
         new FilterIntegers(QStringLiteral("Integers Filter"), MIN, MAX);
@@ -54,7 +57,7 @@ static FilterNumbers* createFilterIntegers(QLabel* infoLabel)
     return filterNumbers;
 }
 
-static FilterNumbers* createFilterDoubles(QLabel* infoLabel)
+FilterNumbers* createFilterDoubles(QLabel* infoLabel)
 {
     auto* filterNumbers =
         new FilterDoubles(QStringLiteral("Doubles Filter"), MIN, MAX);
@@ -70,7 +73,7 @@ static FilterNumbers* createFilterDoubles(QLabel* infoLabel)
     return filterNumbers;
 }
 
-static FilterDates* createFilterDates(QLabel* infoLabel)
+FilterDates* createFilterDates(QLabel* infoLabel)
 {
     auto* filterDates =
         new FilterDates(QStringLiteral("Dates Filter"), QDate(2010, 9, 21),
@@ -87,7 +90,7 @@ static FilterDates* createFilterDates(QLabel* infoLabel)
     return filterDates;
 }
 
-static FilterStrings* createFilterStrings(QLabel* infoLabel)
+FilterStrings* createFilterStrings(QLabel* infoLabel)
 {
     auto* filterNames = new FilterStrings(
         QStringLiteral("Names Filter"),
@@ -102,7 +105,7 @@ static FilterStrings* createFilterStrings(QLabel* infoLabel)
     return filterNames;
 }
 
-static QVBoxLayout* createLeftWidgetColumn(QLabel* infoLabel)
+QVBoxLayout* createLeftWidgetColumn(QLabel* infoLabel)
 {
     auto* leftLayout = new QVBoxLayout();
     leftLayout->setSpacing(10);
@@ -120,8 +123,8 @@ static QVBoxLayout* createLeftWidgetColumn(QLabel* infoLabel)
     return leftLayout;
 }
 
-static QGroupBox* wrapProgressBar(const QString& name, ProgressBar* progressBar,
-                                  QPushButton* startStopButton)
+QGroupBox* wrapProgressBar(const QString& name, ProgressBar* progressBar,
+                           QPushButton* startStopButton)
 {
     auto* groupBox = new QGroupBox(name);
     auto* layout = new QVBoxLayout();
@@ -131,7 +134,7 @@ static QGroupBox* wrapProgressBar(const QString& name, ProgressBar* progressBar,
     return groupBox;
 }
 
-static QGroupBox* createProgressBarInfinite()
+QGroupBox* createProgressBarInfinite()
 {
     auto* progressBar = new ProgressBarInfinite(QStringLiteral("Title"));
     auto* startStopButton = new QPushButton(QStringLiteral("start"));
@@ -151,7 +154,7 @@ static QGroupBox* createProgressBarInfinite()
                            startStopButton);
 }
 
-static QGroupBox* createProgressBarCounter()
+QGroupBox* createProgressBarCounter()
 {
     auto* progressBar =
         new ProgressBarCounter(QStringLiteral("Title"), MAX_PROGRESS_BAR_VALUE);
@@ -193,7 +196,7 @@ static QGroupBox* createProgressBarCounter()
                            startStopButton);
 }
 
-static QVBoxLayout* createRightWidgetColumn()
+QVBoxLayout* createRightWidgetColumn()
 {
     auto* rightLayout = new QVBoxLayout();
     rightLayout->setSpacing(10);
@@ -202,6 +205,8 @@ static QVBoxLayout* createRightWidgetColumn()
     rightLayout->addStretch();
     return rightLayout;
 }
+
+}  // namespace
 
 int main(int argc, char* argv[])
 {
