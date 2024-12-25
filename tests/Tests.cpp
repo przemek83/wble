@@ -15,8 +15,8 @@ namespace
 void setLightPalette()
 {
     QPalette palette;
-    QColor color(240, 240, 240);
-    QColor altColor(225, 225, 225);
+    const QColor color(240, 240, 240);
+    const QColor altColor(225, 225, 225);
     palette.setColor(QPalette::Window, color);
     palette.setColor(QPalette::Button, color);
     palette.setColor(QPalette::Window, color);
@@ -44,7 +44,7 @@ void setLightPalette()
 
 int main(int argc, char* argv[])
 {
-    QApplication a(argc, argv);
+    const QApplication a(argc, argv);
 
     QStyle* style = QStyleFactory::create("Fusion");
     QApplication::setStyle(style);
