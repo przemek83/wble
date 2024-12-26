@@ -21,7 +21,7 @@ public:
 
 private:
     DoubleSlider* getDoubleSlider();
-    FilterNumbers* createFilterIntegers();
+    FilterNumbers* getFilterIntegers();
     FilterNumbers* createFilterDoubles();
     FilterDates* createFilterDates();
     FilterStrings* createFilterStrings();
@@ -57,4 +57,6 @@ private:
 private slots:
     void doubleSliderMinChanged(double min);
     void doubleSliderMaxChanged(double max);
+
+    void filterIntegersValuesChanged(int min, int max);
 };
