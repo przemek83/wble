@@ -208,11 +208,14 @@ void Examples::counterButtonClicked()
 void Examples::counterTimerEvent()
 {
     progressBarCounter_.updateProgress(progress_);
-    ++progress_;
-    if (progress_ > MAX_PROGRESS_BAR_VALUE)
+    if (progress_ >= MAX_PROGRESS_BAR_VALUE)
     {
         progress_ = 0;
         progressCounterTimer_.stop();
         startStopButtonCounter_.click();
+    }
+    else
+    {
+        ++progress_;
     }
 }
