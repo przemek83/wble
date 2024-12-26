@@ -24,7 +24,7 @@ private:
     FilterNumbers* getFilterIntegers();
     FilterNumbers* getFilterDoubles();
     FilterDates* getFilterDates();
-    FilterStrings* createFilterStrings();
+    FilterStrings* getFilterStrings();
     QVBoxLayout* createLeftWidgetColumn();
     QGroupBox* wrapProgressBar(const QString& name, ProgressBar* progressBar,
                                QPushButton* startStopButton);
@@ -63,4 +63,6 @@ private slots:
     void filterDoublesValuesChanged(double min, double max);
 
     void filterDatesValuesChanged(QDate from, QDate to, bool filterEmptyDates);
+
+    void filterStringsValuesChanged(QStringList bannedItems);
 };

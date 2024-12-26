@@ -67,12 +67,10 @@ FilterDates* Examples::getFilterDates()
     return &filterDates_;
 }
 
-FilterStrings* Examples::createFilterStrings()
+FilterStrings* Examples::getFilterStrings()
 {
-    QObject::connect(&filterStrings_, &FilterStrings::newStringFilter, &info_,
-                     [&info = info_](const QStringList& bannedItems) {
-                         info.setText("Names Filter: " + bannedItems.join(','));
-                     });
+    QObject::connect(&filterStrings_, &FilterStrings::newStringFilter, this,
+                     &Examples::filterStringsValuesChanged);
 
     filterStrings_.setCheckable(true);
     return &filterStrings_;
@@ -90,7 +88,7 @@ QVBoxLayout* Examples::createLeftWidgetColumn()
     leftLayout->addWidget(getFilterIntegers());
     leftLayout->addWidget(getFilterDoubles());
     leftLayout->addWidget(getFilterDates());
-    leftLayout->addWidget(createFilterStrings());
+    leftLayout->addWidget(getFilterStrings());
     leftLayout->addWidget(&info_);
     leftLayout->addStretch();
     return leftLayout;
@@ -214,4 +212,9 @@ void Examples::filterDatesValuesChanged(QDate from, QDate to,
         msg.append("no");
 
     info_.setText(msg);
+}
+
+void Examples::filterStringsValuesChanged(QStringList bannedItems)
+{
+    info_.setText("Names Filter: " + bannedItems.join(','));
 }
