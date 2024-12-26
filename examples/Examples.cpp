@@ -112,7 +112,7 @@ FilterStrings* Examples::createFilterStrings()
 QVBoxLayout* Examples::createLeftWidgetColumn()
 {
     auto* leftLayout = new QVBoxLayout();
-    leftLayout->setSpacing(10);
+    leftLayout->setSpacing(DEFAULT_SPACING);
     auto* groupBox = new QGroupBox(QStringLiteral("Double Slider"));
     auto* layout = new QVBoxLayout(groupBox);
     layout->addWidget(createDoubleSlider());
@@ -204,7 +204,7 @@ QGroupBox* Examples::createProgressBarCounter()
 QVBoxLayout* Examples::createRightWidgetColumn()
 {
     auto* rightLayout = new QVBoxLayout();
-    rightLayout->setSpacing(10);
+    rightLayout->setSpacing(DEFAULT_SPACING);
     rightLayout->addWidget(createProgressBarInfinite());
     rightLayout->addWidget(createProgressBarCounter());
     rightLayout->addStretch();

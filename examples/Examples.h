@@ -35,5 +35,7 @@ private:
 
     static constexpr int MAX_PROGRESS_BAR_VALUE{100};
 
+    static constexpr int DEFAULT_SPACING{10};
+
     QLabel info_;
 };
