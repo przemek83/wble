@@ -4,10 +4,11 @@
 #include <QWidget>
 
 #include <wble/DoubleSlider.h>
+#include <wble/FilterDates.h>
+#include <wble/FilterDoubles.h>
+#include <wble/FilterIntegers.h>
+#include <wble/FilterStrings.h>
 
-class FilterNumbers;
-class FilterDates;
-class FilterStrings;
 class QVBoxLayout;
 class QGroupBox;
 class ProgressBar;
@@ -41,6 +42,10 @@ private:
     QLabel info_;
 
     DoubleSlider doubleSlider_;
+    FilterIntegers filterIntegers_;
+    FilterDoubles filterDoubles_;
+    FilterDates filterDates_;
+    FilterStrings filterStrings_;
 
 private slots:
     void doubleSliderMinChanged(double min);

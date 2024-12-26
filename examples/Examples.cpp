@@ -9,14 +9,19 @@
 #include <QVBoxLayout>
 #include <QWindow>
 
-#include <wble/FilterDates.h>
-#include <wble/FilterDoubles.h>
-#include <wble/FilterIntegers.h>
-#include <wble/FilterStrings.h>
 #include <wble/ProgressBarCounter.h>
 #include <wble/ProgressBarInfinite.h>
 
-Examples::Examples() : info_(QStringLiteral("Status")), doubleSlider_{MIN, MAX}
+Examples::Examples()
+    : info_(QStringLiteral("Status")),
+      doubleSlider_{MIN, MAX},
+      filterIntegers_{QStringLiteral("Integers Filter"), MIN, MAX},
+      filterDoubles_{QStringLiteral("Doubles Filter"), MIN, MAX},
+      filterDates_{QStringLiteral("Dates Filter"), QDate(2010, 9, 21),
+                   QDate(2012, 2, 25), true},
+      filterStrings_{QStringLiteral("Names Filter"),
+                     QStringList{QStringLiteral("a"), QStringLiteral("b"),
+                                 QStringLiteral("c"), QStringLiteral("d")}}
 {
     setWindowTitle("Wble library examples");
     QHBoxLayout* widgetLayout{new QHBoxLayout(this)};
@@ -40,42 +45,36 @@ DoubleSlider* Examples::getDoubleSlider()
 
 FilterNumbers* Examples::createFilterIntegers()
 {
-    auto* filter{
-        new FilterIntegers(QStringLiteral("Integers Filter"), MIN, MAX)};
     QObject::connect(
-        filter, &FilterIntegers::newNumericFilter, &info_,
+        &filterIntegers_, &FilterIntegers::newNumericFilter, &info_,
         [&info = info_](int min, int max)
         {
             info.setText("Integers Filter: " + QString::number(min) + " | " +
                          QString::number(max));
         });
 
-    filter->setCheckable(true);
-    return filter;
+    filterIntegers_.setCheckable(true);
+    return &filterIntegers_;
 }
 
 FilterNumbers* Examples::createFilterDoubles()
 {
-    auto* filter{new FilterDoubles(QStringLiteral("Doubles Filter"), MIN, MAX)};
     QObject::connect(
-        filter, &FilterDoubles::newNumericFilter, &info_,
+        &filterDoubles_, &FilterDoubles::newNumericFilter, &info_,
         [&info = info_](double min, double max)
         {
             info.setText("Doubles Filter: " + QString::number(min) + " | " +
                          QString::number(max));
         });
 
-    filter->setCheckable(true);
-    return filter;
+    filterDoubles_.setCheckable(true);
+    return &filterDoubles_;
 }
 
 FilterDates* Examples::createFilterDates()
 {
-    auto* filterDates{new FilterDates(QStringLiteral("Dates Filter"),
-                                      QDate(2010, 9, 21), QDate(2012, 2, 25),
-                                      true)};
     QObject::connect(
-        filterDates, &FilterDates::newDateFilter, &info_,
+        &filterDates_, &FilterDates::newDateFilter, &info_,
         [&info = info_](QDate from, QDate to, bool filterEmptyDates)
         {
             info.setText("Dates Filter: " + from.toString() + " | " +
@@ -83,23 +82,19 @@ FilterDates* Examples::createFilterDates()
                          (filterEmptyDates ? "yes" : "no"));
         });
 
-    filterDates->setCheckable(true);
-    return filterDates;
+    filterDates_.setCheckable(true);
+    return &filterDates_;
 }
 
 FilterStrings* Examples::createFilterStrings()
 {
-    auto* filter{new FilterStrings(
-        QStringLiteral("Names Filter"),
-        QStringList{QStringLiteral("a"), QStringLiteral("b"),
-                    QStringLiteral("c"), QStringLiteral("d")})};
-    QObject::connect(filter, &FilterStrings::newStringFilter, &info_,
+    QObject::connect(&filterStrings_, &FilterStrings::newStringFilter, &info_,
                      [&info = info_](const QStringList& bannedItems) {
                          info.setText("Names Filter: " + bannedItems.join(','));
                      });
 
-    filter->setCheckable(true);
-    return filter;
+    filterStrings_.setCheckable(true);
+    return &filterStrings_;
 }
 
 QVBoxLayout* Examples::createLeftWidgetColumn()
