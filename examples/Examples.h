@@ -8,6 +8,8 @@
 #include <wble/FilterDoubles.h>
 #include <wble/FilterIntegers.h>
 #include <wble/FilterStrings.h>
+#include <wble/ProgressBarCounter.h>
+#include <wble/ProgressBarInfinite.h>
 
 class QVBoxLayout;
 class QGroupBox;
@@ -57,6 +59,8 @@ private:
     FilterDoubles filterDoubles_;
     FilterDates filterDates_;
     FilterStrings filterStrings_;
+    ProgressBarInfinite progressBarInfinite_;
+    ProgressBarCounter progressBarCounter_;
 
 private slots:
     void doubleSliderMinChanged(double min);
