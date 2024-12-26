@@ -20,11 +20,11 @@ private Q_SLOTS:
 
     static void testSettingInvalidCurrentMax();
 
-    void testMovingLeftHandle();
+    static void testMovingLeftHandle();
 
-    void testMovingRightHandle();
+    static void testMovingRightHandle();
 
-    void testMovingBothHandlesTogether();
+    static void testMovingBothHandlesTogether();
 
     static void testPaintingDefaultState();
 
