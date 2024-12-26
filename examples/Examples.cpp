@@ -17,116 +17,119 @@
 #include <wble/ProgressBarCounter.h>
 #include <wble/ProgressBarInfinite.h>
 
-namespace
+Examples::Examples() : info_(QStringLiteral("Status"))
 {
+    setWindowTitle("Wble library examples");
+    QHBoxLayout* widgetLayout = new QHBoxLayout(this);
+    QVBoxLayout* leftWidgetColumn = createLeftWidgetColumn();
+    widgetLayout->addLayout(leftWidgetColumn);
+    QVBoxLayout* rightWidgetColumn = createRightWidgetColumn();
+    widgetLayout->addLayout(rightWidgetColumn);
+    setLayout(widgetLayout);
+}
 
-constexpr double MIN{3};
-constexpr double MAX{56};
-
-constexpr int MAX_PROGRESS_BAR_VALUE{100};
-
-DoubleSlider* createDoubleSlider(QLabel* infoLabel)
+DoubleSlider* Examples::createDoubleSlider()
 {
     auto* slider = new DoubleSlider(MIN, MAX);
     QObject::connect(
-        slider, &DoubleSlider::currentMinChanged, infoLabel,
-        [=](double min) {
-            infoLabel->setText("Double Slider: min = " + QString::number(min));
-        });
+        slider, &DoubleSlider::currentMinChanged, &info_,
+        [&info = info_](double min)
+        { info.setText("Double Slider: min = " + QString::number(min)); });
 
     QObject::connect(
-        slider, &DoubleSlider::currentMaxChanged, infoLabel,
-        [=](double max) {
-            infoLabel->setText("Double Slider: max = " + QString::number(max));
-        });
+        slider, &DoubleSlider::currentMaxChanged, &info_,
+        [&info = info_](double max)
+        { info.setText("Double Slider: max = " + QString::number(max)); });
 
     return slider;
 }
 
-FilterNumbers* createFilterIntegers(QLabel* infoLabel)
+FilterNumbers* Examples::createFilterIntegers()
 {
     auto* filterNumbers =
         new FilterIntegers(QStringLiteral("Integers Filter"), MIN, MAX);
     QObject::connect(
-        filterNumbers, &FilterIntegers::newNumericFilter, infoLabel,
-        [=](int min, int max)
+        filterNumbers, &FilterIntegers::newNumericFilter, &info_,
+        [&info = info_](int min, int max)
         {
-            infoLabel->setText("Integers Filter: " + QString::number(min) +
-                               " | " + QString::number(max));
+            info.setText("Integers Filter: " + QString::number(min) + " | " +
+                         QString::number(max));
         });
 
     filterNumbers->setCheckable(true);
     return filterNumbers;
 }
 
-FilterNumbers* createFilterDoubles(QLabel* infoLabel)
+FilterNumbers* Examples::createFilterDoubles()
 {
     auto* filterNumbers =
         new FilterDoubles(QStringLiteral("Doubles Filter"), MIN, MAX);
     QObject::connect(
-        filterNumbers, &FilterDoubles::newNumericFilter, infoLabel,
-        [=](double min, double max)
+        filterNumbers, &FilterDoubles::newNumericFilter, &info_,
+        [&info = info_](double min, double max)
         {
-            infoLabel->setText("Doubles Filter: " + QString::number(min) +
-                               " | " + QString::number(max));
+            info.setText("Doubles Filter: " + QString::number(min) + " | " +
+                         QString::number(max));
         });
 
     filterNumbers->setCheckable(true);
     return filterNumbers;
 }
 
-FilterDates* createFilterDates(QLabel* infoLabel)
+FilterDates* Examples::createFilterDates()
 {
     auto* filterDates =
         new FilterDates(QStringLiteral("Dates Filter"), QDate(2010, 9, 21),
                         QDate(2012, 2, 25), true);
-    QObject::connect(filterDates, &FilterDates::newDateFilter, infoLabel,
-                     [=](QDate from, QDate to, bool filterEmptyDates)
-                     {
-                         infoLabel->setText("Dates Filter: " + from.toString() +
-                                            " | " + to.toString() + " | " +
-                                            (filterEmptyDates ? "yes" : "no"));
-                     });
+    QObject::connect(
+        filterDates, &FilterDates::newDateFilter, &info_,
+        [&info = info_](QDate from, QDate to, bool filterEmptyDates)
+        {
+            info.setText("Dates Filter: " + from.toString() + " | " +
+                         to.toString() + " | " +
+                         (filterEmptyDates ? "yes" : "no"));
+        });
 
     filterDates->setCheckable(true);
     return filterDates;
 }
 
-FilterStrings* createFilterStrings(QLabel* infoLabel)
+FilterStrings* Examples::createFilterStrings()
 {
     auto* filterNames = new FilterStrings(
         QStringLiteral("Names Filter"),
         QStringList{QStringLiteral("a"), QStringLiteral("b"),
                     QStringLiteral("c"), QStringLiteral("d")});
-    QObject::connect(
-        filterNames, &FilterStrings::newStringFilter, infoLabel,
-        [=](const QStringList& bannedItems)
-        { infoLabel->setText("Names Filter: " + bannedItems.join(',')); });
+    QObject::connect(filterNames, &FilterStrings::newStringFilter, &info_,
+                     [&info = info_](const QStringList& bannedItems) {
+                         info.setText("Names Filter: " + bannedItems.join(','));
+                     });
 
     filterNames->setCheckable(true);
     return filterNames;
 }
 
-QVBoxLayout* createLeftWidgetColumn(QLabel* infoLabel)
+QVBoxLayout* Examples::createLeftWidgetColumn()
 {
     auto* leftLayout = new QVBoxLayout();
     leftLayout->setSpacing(10);
     auto* groupBox = new QGroupBox(QStringLiteral("Double Slider"));
     auto* layout = new QVBoxLayout(groupBox);
-    layout->addWidget(createDoubleSlider(infoLabel));
+    layout->addWidget(createDoubleSlider());
     groupBox->setLayout(layout);
     leftLayout->addWidget(groupBox);
-    leftLayout->addWidget(createFilterIntegers(infoLabel));
-    leftLayout->addWidget(createFilterDoubles(infoLabel));
-    leftLayout->addWidget(createFilterDates(infoLabel));
-    leftLayout->addWidget(createFilterStrings(infoLabel));
-    leftLayout->addWidget(infoLabel);
+    leftLayout->addWidget(createFilterIntegers());
+    leftLayout->addWidget(createFilterDoubles());
+    leftLayout->addWidget(createFilterDates());
+    leftLayout->addWidget(createFilterStrings());
+    leftLayout->addWidget(&info_);
     leftLayout->addStretch();
     return leftLayout;
 }
 
-QGroupBox* wrapProgressBar(const QString& name, ProgressBar* progressBar,
-                           QPushButton* startStopButton)
+QGroupBox* Examples::wrapProgressBar(const QString& name,
+                                     ProgressBar* progressBar,
+                                     QPushButton* startStopButton)
 {
     auto* groupBox = new QGroupBox(name);
     auto* layout = new QVBoxLayout();
@@ -136,7 +139,7 @@ QGroupBox* wrapProgressBar(const QString& name, ProgressBar* progressBar,
     return groupBox;
 }
 
-QGroupBox* createProgressBarInfinite()
+QGroupBox* Examples::createProgressBarInfinite()
 {
     auto* progressBar = new ProgressBarInfinite(QStringLiteral("Title"));
     auto* startStopButton = new QPushButton(QStringLiteral("start"));
@@ -156,7 +159,7 @@ QGroupBox* createProgressBarInfinite()
                            startStopButton);
 }
 
-QGroupBox* createProgressBarCounter()
+QGroupBox* Examples::createProgressBarCounter()
 {
     auto* progressBar =
         new ProgressBarCounter(QStringLiteral("Title"), MAX_PROGRESS_BAR_VALUE);
@@ -198,7 +201,7 @@ QGroupBox* createProgressBarCounter()
                            startStopButton);
 }
 
-QVBoxLayout* createRightWidgetColumn()
+QVBoxLayout* Examples::createRightWidgetColumn()
 {
     auto* rightLayout = new QVBoxLayout();
     rightLayout->setSpacing(10);
@@ -206,19 +209,4 @@ QVBoxLayout* createRightWidgetColumn()
     rightLayout->addWidget(createProgressBarCounter());
     rightLayout->addStretch();
     return rightLayout;
-}
-
-}  // namespace
-
-Examples::Examples()
-{
-    setWindowTitle("Wble library examples");
-
-    auto* infoLabel = new QLabel(QStringLiteral("Status"));
-    QHBoxLayout* widgetLayout = new QHBoxLayout(this);
-    QVBoxLayout* leftWidgetColumn = createLeftWidgetColumn(infoLabel);
-    widgetLayout->addLayout(leftWidgetColumn);
-    QVBoxLayout* rightWidgetColumn = createRightWidgetColumn();
-    widgetLayout->addLayout(rightWidgetColumn);
-    setLayout(widgetLayout);
 }
