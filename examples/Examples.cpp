@@ -126,25 +126,9 @@ QGroupBox* Examples::createProgressBarCounter()
                 startStop.click();
             }
         });
-    QObject::connect(
-        &startStopButtonCounter_, &QPushButton::clicked, &progressBarCounter_,
-        [&timer = progressCounterTimer_, &startStop = startStopButtonCounter_,
-         &bar = progressBarCounter_]()
-        {
-            const bool running = bar.isRunning();
-            if (running)
-            {
-                bar.stop();
-                timer.stop();
-            }
-            else
-            {
-                bar.start();
-                timer.start();
-            }
-            startStop.setText(
-                (running ? QStringLiteral("start") : QStringLiteral("stop")));
-        });
+    QObject::connect(&startStopButtonCounter_, &QPushButton::clicked, this,
+                     &Examples::counterButtonClicked);
+
     return wrapProgressBar(QStringLiteral("Counter progress bar"),
                            &progressBarCounter_, &startStopButtonCounter_);
 }
@@ -212,5 +196,22 @@ void Examples::infiniteButtonClicked()
     {
         progressBarInfinite_.start();
         startStopButtonInfinite_.setText(QStringLiteral("stop"));
+    }
+}
+
+void Examples::counterButtonClicked()
+{
+    const bool running = progressBarCounter_.isRunning();
+    if (running)
+    {
+        progressBarCounter_.stop();
+        progressCounterTimer_.stop();
+        startStopButtonCounter_.setText(QStringLiteral("start"));
+    }
+    else
+    {
+        progressBarCounter_.start();
+        progressCounterTimer_.start();
+        startStopButtonCounter_.setText(QStringLiteral("stop"));
     }
 }

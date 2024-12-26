@@ -80,4 +80,6 @@ private slots:
     void filterStringsValuesChanged(QStringList bannedItems);
 
     void infiniteButtonClicked();
+
+    void counterButtonClicked();
 };
