@@ -9,7 +9,6 @@
 #include <QVBoxLayout>
 #include <QWindow>
 
-#include <wble/DoubleSlider.h>
 #include <wble/FilterDates.h>
 #include <wble/FilterDoubles.h>
 #include <wble/FilterIntegers.h>
@@ -17,7 +16,7 @@
 #include <wble/ProgressBarCounter.h>
 #include <wble/ProgressBarInfinite.h>
 
-Examples::Examples() : info_(QStringLiteral("Status"))
+Examples::Examples() : info_(QStringLiteral("Status")), doubleSlider_{MIN, MAX}
 {
     setWindowTitle("Wble library examples");
     QHBoxLayout* widgetLayout{new QHBoxLayout(this)};
@@ -28,16 +27,15 @@ Examples::Examples() : info_(QStringLiteral("Status"))
     setLayout(widgetLayout);
 }
 
-DoubleSlider* Examples::createDoubleSlider()
+DoubleSlider* Examples::getDoubleSlider()
 {
-    auto* slider{new DoubleSlider(MIN, MAX)};
-    QObject::connect(slider, &DoubleSlider::currentMinChanged, this,
+    QObject::connect(&doubleSlider_, &DoubleSlider::currentMinChanged, this,
                      &Examples::doubleSliderMinChanged);
 
-    QObject::connect(slider, &DoubleSlider::currentMaxChanged, this,
+    QObject::connect(&doubleSlider_, &DoubleSlider::currentMaxChanged, this,
                      &Examples::doubleSliderMaxChanged);
 
-    return slider;
+    return &doubleSlider_;
 }
 
 FilterNumbers* Examples::createFilterIntegers()
@@ -110,7 +108,7 @@ QVBoxLayout* Examples::createLeftWidgetColumn()
     leftLayout->setSpacing(DEFAULT_SPACING);
     auto* groupBox{new QGroupBox(QStringLiteral("Double Slider"))};
     auto* layout{new QVBoxLayout(groupBox)};
-    layout->addWidget(createDoubleSlider());
+    layout->addWidget(getDoubleSlider());
     groupBox->setLayout(layout);
     leftLayout->addWidget(groupBox);
     leftLayout->addWidget(createFilterIntegers());

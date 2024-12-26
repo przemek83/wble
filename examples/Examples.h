@@ -3,7 +3,8 @@
 #include <QLabel>
 #include <QWidget>
 
-class DoubleSlider;
+#include <wble/DoubleSlider.h>
+
 class FilterNumbers;
 class FilterDates;
 class FilterStrings;
@@ -18,7 +19,7 @@ public:
     Examples();
 
 private:
-    DoubleSlider* createDoubleSlider();
+    DoubleSlider* getDoubleSlider();
     FilterNumbers* createFilterIntegers();
     FilterNumbers* createFilterDoubles();
     FilterDates* createFilterDates();
@@ -38,6 +39,8 @@ private:
     static constexpr int DEFAULT_SPACING{10};
 
     QLabel info_;
+
+    DoubleSlider doubleSlider_;
 
 private slots:
     void doubleSliderMinChanged(double min);
