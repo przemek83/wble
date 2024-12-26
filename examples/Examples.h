@@ -1,6 +1,8 @@
 #pragma once
 
 #include <QLabel>
+#include <QPushButton>
+#include <QTimer>
 #include <QWidget>
 
 #include <wble/DoubleSlider.h>
@@ -61,6 +63,9 @@ private:
     FilterStrings filterStrings_;
     ProgressBarInfinite progressBarInfinite_;
     ProgressBarCounter progressBarCounter_;
+    QPushButton startStopButtonInfinite_;
+    QPushButton startStopButtonCounter_;
+    QTimer progressCounterTimer_;
 
 private slots:
     void doubleSliderMinChanged(double min);

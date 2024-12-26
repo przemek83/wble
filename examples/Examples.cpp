@@ -1,13 +1,6 @@
 #include "Examples.h"
 
-#include <QApplication>
-#include <QGroupBox>
-#include <QLabel>
-#include <QPushButton>
-#include <QStyleFactory>
-#include <QTimer>
 #include <QVBoxLayout>
-#include <QWindow>
 
 Examples::Examples()
     : info_(QStringLiteral("Status")),
@@ -17,7 +10,9 @@ Examples::Examples()
       filterDates_{QStringLiteral("Dates Filter"), startDate_, endDate_, true},
       filterStrings_{QStringLiteral("Names Filter"), exampleStringsList_},
       progressBarInfinite_{QStringLiteral("Title")},
-      progressBarCounter_{QStringLiteral("Title"), MAX_PROGRESS_BAR_VALUE}
+      progressBarCounter_{QStringLiteral("Title"), MAX_PROGRESS_BAR_VALUE},
+      startStopButtonInfinite_{QStringLiteral("start")},
+      startStopButtonCounter_{QStringLiteral("start")}
 {
     setWindowTitle("Wble library examples");
     QHBoxLayout* widgetLayout{new QHBoxLayout(this)};
@@ -107,62 +102,60 @@ QGroupBox* Examples::wrapProgressBar(const QString& name,
 
 QGroupBox* Examples::createProgressBarInfinite()
 {
-    auto* startStopButton{new QPushButton(QStringLiteral("start"))};
     QObject::connect(
-        startStopButton, &QPushButton::clicked, &progressBarInfinite_,
-        [&bar = progressBarInfinite_, startStop = startStopButton]()
+        &startStopButtonInfinite_, &QPushButton::clicked, &progressBarInfinite_,
+        [&bar = progressBarInfinite_, &startStop = startStopButtonInfinite_]()
         {
             const bool running{bar.isRunning()};
             if (running)
                 bar.stop();
             else
                 bar.start();
-            startStop->setText(
+            startStop.setText(
                 (running ? QStringLiteral("start") : QStringLiteral("stop")));
         });
     return wrapProgressBar(QStringLiteral("Infinite progress bar"),
-                           &progressBarInfinite_, startStopButton);
+                           &progressBarInfinite_, &startStopButtonInfinite_);
 }
 
 QGroupBox* Examples::createProgressBarCounter()
 {
-    auto* startStopButton{new QPushButton(QStringLiteral("start"))};
-    auto* progressTimer{new QTimer(&progressBarCounter_)};
-    progressTimer->setInterval(TIME_INTERVAL);
-    QObject::connect(progressTimer, &QTimer::timeout, &progressBarCounter_,
-                     [&progress = progress_, &bar = progressBarCounter_,
-                      startStop = startStopButton, timer = progressTimer]()
-                     {
-                         bar.updateProgress(progress);
-                         ++progress;
-                         if (progress > MAX_PROGRESS_BAR_VALUE)
-                         {
-                             timer->stop();
-                             progress = 0;
-                             startStop->click();
-                         }
-                     });
-    QObject::connect(startStopButton, &QPushButton::clicked,
-                     &progressBarCounter_,
-                     [timer = progressTimer, startStop = startStopButton,
-                      &bar = progressBarCounter_]()
-                     {
-                         const bool running = bar.isRunning();
-                         if (running)
-                         {
-                             bar.stop();
-                             timer->stop();
-                         }
-                         else
-                         {
-                             bar.start();
-                             timer->start();
-                         }
-                         startStop->setText((running ? QStringLiteral("start")
-                                                     : QStringLiteral("stop")));
-                     });
+    progressCounterTimer_.setInterval(TIME_INTERVAL);
+    QObject::connect(
+        &progressCounterTimer_, &QTimer::timeout, &progressBarCounter_,
+        [&progress = progress_, &bar = progressBarCounter_,
+         &startStop = startStopButtonCounter_, &timer = progressCounterTimer_]()
+        {
+            bar.updateProgress(progress);
+            ++progress;
+            if (progress > MAX_PROGRESS_BAR_VALUE)
+            {
+                timer.stop();
+                progress = 0;
+                startStop.click();
+            }
+        });
+    QObject::connect(
+        &startStopButtonCounter_, &QPushButton::clicked, &progressBarCounter_,
+        [&timer = progressCounterTimer_, &startStop = startStopButtonCounter_,
+         &bar = progressBarCounter_]()
+        {
+            const bool running = bar.isRunning();
+            if (running)
+            {
+                bar.stop();
+                timer.stop();
+            }
+            else
+            {
+                bar.start();
+                timer.start();
+            }
+            startStop.setText(
+                (running ? QStringLiteral("start") : QStringLiteral("stop")));
+        });
     return wrapProgressBar(QStringLiteral("Counter progress bar"),
-                           &progressBarCounter_, startStopButton);
+                           &progressBarCounter_, &startStopButtonCounter_);
 }
 
 QVBoxLayout* Examples::createRightWidgetColumn()
