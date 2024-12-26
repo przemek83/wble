@@ -22,7 +22,7 @@ public:
 private:
     DoubleSlider* getDoubleSlider();
     FilterNumbers* getFilterIntegers();
-    FilterNumbers* createFilterDoubles();
+    FilterNumbers* getFilterDoubles();
     FilterDates* createFilterDates();
     FilterStrings* createFilterStrings();
     QVBoxLayout* createLeftWidgetColumn();
@@ -59,4 +59,6 @@ private slots:
     void doubleSliderMaxChanged(double max);
 
     void filterIntegersValuesChanged(int min, int max);
+
+    void filterDoublesValuesChanged(double min, double max);
 };

@@ -49,15 +49,10 @@ FilterNumbers* Examples::getFilterIntegers()
     return &filterIntegers_;
 }
 
-FilterNumbers* Examples::createFilterDoubles()
+FilterNumbers* Examples::getFilterDoubles()
 {
-    QObject::connect(
-        &filterDoubles_, &FilterDoubles::newNumericFilter, &info_,
-        [&info = info_](double min, double max)
-        {
-            info.setText("Doubles Filter: " + QString::number(min) + " | " +
-                         QString::number(max));
-        });
+    QObject::connect(&filterDoubles_, &FilterDoubles::newNumericFilter, this,
+                     &Examples::filterDoublesValuesChanged);
 
     filterDoubles_.setCheckable(true);
     return &filterDoubles_;
@@ -99,7 +94,7 @@ QVBoxLayout* Examples::createLeftWidgetColumn()
     groupBox->setLayout(layout);
     leftLayout->addWidget(groupBox);
     leftLayout->addWidget(getFilterIntegers());
-    leftLayout->addWidget(createFilterDoubles());
+    leftLayout->addWidget(getFilterDoubles());
     leftLayout->addWidget(createFilterDates());
     leftLayout->addWidget(createFilterStrings());
     leftLayout->addWidget(&info_);
@@ -204,5 +199,11 @@ void Examples::doubleSliderMaxChanged(double max)
 void Examples::filterIntegersValuesChanged(int min, int max)
 {
     info_.setText("Integers Filter: " + QString::number(min) + " | " +
+                  QString::number(max));
+}
+
+void Examples::filterDoublesValuesChanged(double min, double max)
+{
+    info_.setText("Doubles Filter: " + QString::number(min) + " | " +
                   QString::number(max));
 }
