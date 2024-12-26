@@ -23,7 +23,7 @@ private:
     DoubleSlider* getDoubleSlider();
     FilterNumbers* getFilterIntegers();
     FilterNumbers* getFilterDoubles();
-    FilterDates* createFilterDates();
+    FilterDates* getFilterDates();
     FilterStrings* createFilterStrings();
     QVBoxLayout* createLeftWidgetColumn();
     QGroupBox* wrapProgressBar(const QString& name, ProgressBar* progressBar,
@@ -61,4 +61,6 @@ private slots:
     void filterIntegersValuesChanged(int min, int max);
 
     void filterDoublesValuesChanged(double min, double max);
+
+    void filterDatesValuesChanged(QDate from, QDate to, bool filterEmptyDates);
 };

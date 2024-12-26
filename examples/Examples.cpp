@@ -58,16 +58,10 @@ FilterNumbers* Examples::getFilterDoubles()
     return &filterDoubles_;
 }
 
-FilterDates* Examples::createFilterDates()
+FilterDates* Examples::getFilterDates()
 {
-    QObject::connect(
-        &filterDates_, &FilterDates::newDateFilter, &info_,
-        [&info = info_](QDate from, QDate to, bool filterEmptyDates)
-        {
-            info.setText("Dates Filter: " + from.toString() + " | " +
-                         to.toString() + " | " +
-                         (filterEmptyDates ? "yes" : "no"));
-        });
+    QObject::connect(&filterDates_, &FilterDates::newDateFilter, this,
+                     &Examples::filterDatesValuesChanged);
 
     filterDates_.setCheckable(true);
     return &filterDates_;
@@ -95,7 +89,7 @@ QVBoxLayout* Examples::createLeftWidgetColumn()
     leftLayout->addWidget(groupBox);
     leftLayout->addWidget(getFilterIntegers());
     leftLayout->addWidget(getFilterDoubles());
-    leftLayout->addWidget(createFilterDates());
+    leftLayout->addWidget(getFilterDates());
     leftLayout->addWidget(createFilterStrings());
     leftLayout->addWidget(&info_);
     leftLayout->addStretch();
@@ -206,4 +200,18 @@ void Examples::filterDoublesValuesChanged(double min, double max)
 {
     info_.setText("Doubles Filter: " + QString::number(min) + " | " +
                   QString::number(max));
+}
+
+void Examples::filterDatesValuesChanged(QDate from, QDate to,
+                                        bool filterEmptyDates)
+{
+    QString msg{"Dates Filter: " + from.toString() + " | " + to.toString() +
+                " | "};
+
+    if (filterEmptyDates)
+        msg.append("yes");
+    else
+        msg.append("no");
+
+    info_.setText(msg);
 }
