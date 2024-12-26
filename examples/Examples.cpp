@@ -131,39 +131,39 @@ QGroupBox* Examples::createProgressBarCounter()
     auto* progressBar{new ProgressBarCounter(QStringLiteral("Title"),
                                              MAX_PROGRESS_BAR_VALUE)};
     auto* startStopButton{new QPushButton(QStringLiteral("start"))};
-    auto* timer{new QTimer(progressBar)};
-    timer->setInterval(40);
-    QObject::connect(timer, &QTimer::timeout, progressBar,
-                     [=]()
+    auto* progressTimer{new QTimer(progressBar)};
+    progressTimer->setInterval(TIME_INTERVAL);
+    QObject::connect(progressTimer, &QTimer::timeout, progressBar,
+                     [&progress = progress_, bar = progressBar,
+                      startStop = startStopButton, timer = progressTimer]()
                      {
-                         static int progress{0};
-                         progressBar->updateProgress(progress);
-                         progress++;
+                         bar->updateProgress(progress);
+                         ++progress;
                          if (progress > MAX_PROGRESS_BAR_VALUE)
                          {
                              timer->stop();
                              progress = 0;
-                             startStopButton->click();
+                             startStop->click();
                          }
                      });
-    QObject::connect(
-        startStopButton, &QPushButton::clicked, progressBar,
-        [=]()
-        {
-            const bool running = progressBar->isRunning();
-            if (running)
-            {
-                progressBar->stop();
-                timer->stop();
-            }
-            else
-            {
-                progressBar->start();
-                timer->start();
-            }
-            startStopButton->setText(
-                (running ? QStringLiteral("start") : QStringLiteral("stop")));
-        });
+    QObject::connect(startStopButton, &QPushButton::clicked, progressBar,
+                     [timer = progressTimer, startStop = startStopButton,
+                      bar = progressBar]()
+                     {
+                         const bool running = bar->isRunning();
+                         if (running)
+                         {
+                             bar->stop();
+                             timer->stop();
+                         }
+                         else
+                         {
+                             bar->start();
+                             timer->start();
+                         }
+                         startStop->setText((running ? QStringLiteral("start")
+                                                     : QStringLiteral("stop")));
+                     });
     return wrapProgressBar(QStringLiteral("Counter progress bar"), progressBar,
                            startStopButton);
 }

@@ -39,7 +39,11 @@ private:
 
     static constexpr int DEFAULT_SPACING{10};
 
+    static constexpr int TIME_INTERVAL{40};
+
     QLabel info_;
+
+    int progress_{0};
 
     const QDate startDate_{2010, 9, 21};
     const QDate endDate_{2012, 2, 25};
