@@ -112,20 +112,9 @@ QGroupBox* Examples::createProgressBarInfinite()
 QGroupBox* Examples::createProgressBarCounter()
 {
     progressCounterTimer_.setInterval(TIME_INTERVAL);
-    QObject::connect(
-        &progressCounterTimer_, &QTimer::timeout, &progressBarCounter_,
-        [&progress = progress_, &bar = progressBarCounter_,
-         &startStop = startStopButtonCounter_, &timer = progressCounterTimer_]()
-        {
-            bar.updateProgress(progress);
-            ++progress;
-            if (progress > MAX_PROGRESS_BAR_VALUE)
-            {
-                timer.stop();
-                progress = 0;
-                startStop.click();
-            }
-        });
+    QObject::connect(&progressCounterTimer_, &QTimer::timeout, this,
+                     &Examples::counterTimerEvent);
+
     QObject::connect(&startStopButtonCounter_, &QPushButton::clicked, this,
                      &Examples::counterButtonClicked);
 
@@ -213,5 +202,17 @@ void Examples::counterButtonClicked()
         progressBarCounter_.start();
         progressCounterTimer_.start();
         startStopButtonCounter_.setText(QStringLiteral("stop"));
+    }
+}
+
+void Examples::counterTimerEvent()
+{
+    progressBarCounter_.updateProgress(progress_);
+    ++progress_;
+    if (progress_ > MAX_PROGRESS_BAR_VALUE)
+    {
+        progress_ = 0;
+        progressCounterTimer_.stop();
+        startStopButtonCounter_.click();
     }
 }

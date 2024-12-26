@@ -82,4 +82,6 @@ private slots:
     void infiniteButtonClicked();
 
     void counterButtonClicked();
+
+    void counterTimerEvent();
 };
