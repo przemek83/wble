@@ -38,4 +38,8 @@ private:
     static constexpr int DEFAULT_SPACING{10};
 
     QLabel info_;
+
+private slots:
+    void doubleSliderMinChanged(double min);
+    void doubleSliderMaxChanged(double max);
 };

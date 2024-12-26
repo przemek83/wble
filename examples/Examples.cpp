@@ -31,15 +31,11 @@ Examples::Examples() : info_(QStringLiteral("Status"))
 DoubleSlider* Examples::createDoubleSlider()
 {
     auto* slider{new DoubleSlider(MIN, MAX)};
-    QObject::connect(
-        slider, &DoubleSlider::currentMinChanged, &info_,
-        [&info = info_](double min)
-        { info.setText("Double Slider: min = " + QString::number(min)); });
+    QObject::connect(slider, &DoubleSlider::currentMinChanged, this,
+                     &Examples::doubleSliderMinChanged);
 
-    QObject::connect(
-        slider, &DoubleSlider::currentMaxChanged, &info_,
-        [&info = info_](double max)
-        { info.setText("Double Slider: max = " + QString::number(max)); });
+    QObject::connect(slider, &DoubleSlider::currentMaxChanged, this,
+                     &Examples::doubleSliderMaxChanged);
 
     return slider;
 }
@@ -208,4 +204,14 @@ QVBoxLayout* Examples::createRightWidgetColumn()
     rightLayout->addWidget(createProgressBarCounter());
     rightLayout->addStretch();
     return rightLayout;
+}
+
+void Examples::doubleSliderMinChanged(double min)
+{
+    info_.setText("Double Slider: min = " + QString::number(min));
+}
+
+void Examples::doubleSliderMaxChanged(double max)
+{
+    info_.setText("Double Slider: max = " + QString::number(max));
 }
