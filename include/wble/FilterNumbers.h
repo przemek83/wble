@@ -41,7 +41,7 @@ protected:
 
     void changeEvent(QEvent* event) override;
 
-    const int decimalPlaces_{2};
+    int getDecimalPlaces() const;
 
 private:
     void initDoubleSlider();
@@ -63,6 +63,8 @@ private:
     QColor altBackgroundColor_;
 
     DoubleSlider doubleSlider_;
+
+    const int decimalPlaces_{2};
 
 private Q_SLOTS:
     /**

@@ -6,17 +6,18 @@
 FilterDoubles::FilterDoubles(const QString& name, double from, double to,
                              QWidget* parent)
     : FilterNumbers{name, from, to, parent},
-      fromValidator_{from, to, decimalPlaces_},
-      toValidator_{from, to, decimalPlaces_}
+      fromValidator_{from, to, getDecimalPlaces()},
+      toValidator_{from, to, getDecimalPlaces()}
 {
     QLineEdit* fromLineEdit{getFromLineEdit()};
     fromLineEdit->setValidator(&fromValidator_);
     fromLineEdit->setText(
-        QLocale::system().toString(from, 'f', decimalPlaces_));
+        QLocale::system().toString(from, 'f', getDecimalPlaces()));
 
     QLineEdit* toLineEdit{getToLineEdit()};
     toLineEdit->setValidator(&toValidator_);
-    toLineEdit->setText(QLocale::system().toString(to, 'f', decimalPlaces_));
+    toLineEdit->setText(
+        QLocale::system().toString(to, 'f', getDecimalPlaces()));
 }
 
 bool FilterDoubles::isDoubleMode() const { return true; }

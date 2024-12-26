@@ -54,6 +54,11 @@ void FilterNumbers::changeEvent(QEvent* event)
         initColorForLineEdits();
 }
 
+int FilterNumbers::getDecimalPlaces() const
+{
+    return decimalPlaces_;
+}
+
 void FilterNumbers::initDoubleSlider()
 {
     connect(&doubleSlider_, &DoubleSlider::currentMinChanged, this,
