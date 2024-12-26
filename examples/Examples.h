@@ -41,6 +41,13 @@ private:
 
     QLabel info_;
 
+    const QDate startDate_{2010, 9, 21};
+    const QDate endDate_{2012, 2, 25};
+
+    const QStringList exampleStringsList_{
+        QStringLiteral("a"), QStringLiteral("b"), QStringLiteral("c"),
+        QStringLiteral("d")};
+
     DoubleSlider doubleSlider_;
     FilterIntegers filterIntegers_;
     FilterDoubles filterDoubles_;

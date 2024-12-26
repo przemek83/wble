@@ -17,11 +17,8 @@ Examples::Examples()
       doubleSlider_{MIN, MAX},
       filterIntegers_{QStringLiteral("Integers Filter"), MIN, MAX},
       filterDoubles_{QStringLiteral("Doubles Filter"), MIN, MAX},
-      filterDates_{QStringLiteral("Dates Filter"), QDate(2010, 9, 21),
-                   QDate(2012, 2, 25), true},
-      filterStrings_{QStringLiteral("Names Filter"),
-                     QStringList{QStringLiteral("a"), QStringLiteral("b"),
-                                 QStringLiteral("c"), QStringLiteral("d")}}
+      filterDates_{QStringLiteral("Dates Filter"), startDate_, endDate_, true},
+      filterStrings_{QStringLiteral("Names Filter"), exampleStringsList_}
 {
     setWindowTitle("Wble library examples");
     QHBoxLayout* widgetLayout{new QHBoxLayout(this)};
