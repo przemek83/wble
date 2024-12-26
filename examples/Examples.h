@@ -30,8 +30,9 @@ private:
     FilterDates* getFilterDates();
     FilterStrings* getFilterStrings();
     QVBoxLayout* createLeftWidgetColumn();
-    QGroupBox* wrapProgressBar(const QString& name, ProgressBar* progressBar,
-                               QPushButton* startStopButton);
+    static QGroupBox* wrapProgressBar(const QString& name,
+                                      ProgressBar* progressBar,
+                                      QPushButton* startStopButton);
     QGroupBox* createProgressBarInfinite();
     QGroupBox* createProgressBarCounter();
     QVBoxLayout* createRightWidgetColumn();
