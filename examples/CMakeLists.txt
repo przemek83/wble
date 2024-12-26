@@ -1,7 +1,9 @@
 SET(PROJECT_EXAMPLES ${PROJECT_NAME}-examples)
 
 set(${PROJECT_EXAMPLES}_SOURCES
-    example.cpp
+    main.cpp
+    Examples.h
+    Examples.cpp
 )
 
 add_executable(${PROJECT_EXAMPLES} ${${PROJECT_EXAMPLES}_SOURCES})

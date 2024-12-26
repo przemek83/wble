@@ -1,3 +1,5 @@
+#include "Examples.h"
+
 #include <QApplication>
 #include <QGroupBox>
 #include <QLabel>
@@ -208,21 +210,15 @@ QVBoxLayout* createRightWidgetColumn()
 
 }  // namespace
 
-int main(int argc, char* argv[])
+Examples::Examples()
 {
-    const QApplication a(argc, argv);
+    setWindowTitle("Wble library examples");
 
-    QApplication::setStyle(QStyleFactory::create(QStringLiteral("Fusion")));
-
-    QWidget widget;
     auto* infoLabel = new QLabel(QStringLiteral("Status"));
-    QHBoxLayout widgetLayout(&widget);
+    QHBoxLayout* widgetLayout = new QHBoxLayout(this);
     QVBoxLayout* leftWidgetColumn = createLeftWidgetColumn(infoLabel);
-    widgetLayout.addLayout(leftWidgetColumn);
+    widgetLayout->addLayout(leftWidgetColumn);
     QVBoxLayout* rightWidgetColumn = createRightWidgetColumn();
-    widgetLayout.addLayout(rightWidgetColumn);
-    widget.setLayout(&widgetLayout);
-    widget.show();
-
-    return QApplication::exec();
+    widgetLayout->addLayout(rightWidgetColumn);
+    setLayout(widgetLayout);
 }
