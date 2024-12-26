@@ -15,7 +15,7 @@ Examples::Examples()
       startStopButtonCounter_{QStringLiteral("start")}
 {
     setWindowTitle("Wble library examples");
-    QHBoxLayout* widgetLayout{new QHBoxLayout(this)};
+    QHBoxLayout* widgetLayout{new QHBoxLayout()};
     QVBoxLayout* leftWidgetColumn = createLeftWidgetColumn();
     widgetLayout->addLayout(leftWidgetColumn);
     QVBoxLayout* rightWidgetColumn = createRightWidgetColumn();
