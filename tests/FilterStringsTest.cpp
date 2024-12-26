@@ -9,13 +9,13 @@
 
 void FilterStringsTest::initTestCase()
 {
-    testEntriesList_ = QStringList{QLatin1String("a"), QLatin1String("b"),
-                                   QLatin1String("c"), QLatin1String("d")};
+    testEntriesList_ = QStringList{QString::fromLatin1("a"), QString::fromLatin1("b"),
+                                   QString::fromLatin1("c"), QString::fromLatin1("d")};
 }
 
 void FilterStringsTest::testToggling()
 {
-    FilterStrings filter(QLatin1String(""), testEntriesList_);
+    FilterStrings filter(QString::fromLatin1(""), testEntriesList_);
     auto* listWidget{filter.findChild<QListWidget*>()};
     auto* selectAll{filter.findChild<QCheckBox*>()};
     QCOMPARE(listWidget->isEnabled(), true);
@@ -28,7 +28,7 @@ void FilterStringsTest::testToggling()
 
 void FilterStringsTest::testSelectAllToggling()
 {
-    const FilterStrings filter(QLatin1String(""), testEntriesList_);
+    const FilterStrings filter(QString::fromLatin1(""), testEntriesList_);
     QSignalSpy spy(&filter, &FilterStrings::newStringFilter);
 
     auto* selectAll{filter.findChild<QCheckBox*>()};
@@ -43,7 +43,7 @@ void FilterStringsTest::testSelectAllToggling()
 
 void FilterStringsTest::testListItemChecking()
 {
-    const FilterStrings filter(QLatin1String(""), testEntriesList_);
+    const FilterStrings filter(QString::fromLatin1(""), testEntriesList_);
     QSignalSpy spy(&filter, &FilterStrings::newStringFilter);
     const auto* listWidget{filter.findChild<QListWidget*>()};
     const int itemPos{

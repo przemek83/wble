@@ -20,6 +20,7 @@ class QPushButton;
 
 class Examples : public QWidget
 {
+    Q_OBJECT
 public:
     Examples();
 

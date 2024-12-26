@@ -46,7 +46,7 @@ int main(int argc, char* argv[])
 {
     const QApplication a(argc, argv);
 
-    QStyle* style = QStyleFactory::create("Fusion");
+    QStyle* style = QStyleFactory::create(QStringLiteral("Fusion"));
     QApplication::setStyle(style);
     setLightPalette();
 

@@ -14,7 +14,7 @@ Examples::Examples()
       startStopButtonInfinite_{QStringLiteral("start")},
       startStopButtonCounter_{QStringLiteral("start")}
 {
-    setWindowTitle("Wble library examples");
+    setWindowTitle(QString::fromLatin1("Wble library examples"));
     QHBoxLayout* widgetLayout{new QHBoxLayout()};
     QVBoxLayout* leftWidgetColumn = createLeftWidgetColumn();
     widgetLayout->addLayout(leftWidgetColumn);
@@ -161,9 +161,9 @@ void Examples::filterDatesValuesChanged(QDate from, QDate to,
                 " | "};
 
     if (filterEmptyDates)
-        msg.append("yes");
+        msg.append(QString::fromLatin1("yes"));
     else
-        msg.append("no");
+        msg.append(QString::fromLatin1("no"));
 
     info_.setText(msg);
 }

@@ -7,40 +7,40 @@
 
 void ProgressBarInfiniteTest::testStarting()
 {
-    ProgressBarInfinite progressBar(QLatin1String(""));
+    ProgressBarInfinite progressBar(QString::fromLatin1(""));
     ProgressBarCommon::checkStarting(progressBar);
 }
 
 void ProgressBarInfiniteTest::testStopping()
 {
-    ProgressBarInfinite progressBar(QLatin1String(""));
+    ProgressBarInfinite progressBar(QString::fromLatin1(""));
     ProgressBarCommon::checkStopping(progressBar);
 }
 
 void ProgressBarInfiniteTest::testReseting()
 {
-    ProgressBarInfinite progressBar(QLatin1String(""));
+    ProgressBarInfinite progressBar(QString::fromLatin1(""));
     ProgressBarCommon::checkReseting(progressBar);
 }
 
 void ProgressBarInfiniteTest::checkInitialPaintNoTitle()
 {
-    ProgressBarInfinite progressBar(QLatin1String(""));
+    ProgressBarInfinite progressBar(QString::fromLatin1(""));
     auto actual{progressBar.grab().toImage()};
-    QImage expected(":/res/infinityInitial.png");
+    QImage expected(QString::fromLatin1(":/res/infinityInitial.png"));
     expected = expected.convertToFormat(actual.format());
     QCOMPARE(actual, expected);
 }
 
 void ProgressBarInfiniteTest::checkPaintAfterUpdateNoTitle()
 {
-    ProgressBarInfinite progressBar(QLatin1String(""));
+    ProgressBarInfinite progressBar(QString::fromLatin1(""));
     QTimerEvent event{0};
     for (int i{0}; i < 10; ++i)
         QApplication::sendEvent(&progressBar, &event);
 
     auto actual{progressBar.grab().toImage()};
-    QImage expected(":/res/infinityUpdated.png");
+    QImage expected(QString::fromLatin1(":/res/infinityUpdated.png"));
     expected = expected.convertToFormat(actual.format());
     QCOMPARE(actual, expected);
 }

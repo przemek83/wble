@@ -15,7 +15,7 @@ void FilterDatesTest::initTestCase()
 
 void FilterDatesTest::testFilterEmptyDatesToggle()
 {
-    const FilterDates filter(QLatin1String(""), fromDate_, toDate_, true);
+    const FilterDates filter(QString::fromLatin1(""), fromDate_, toDate_, true);
     QSignalSpy spy(&filter, &FilterDates::newDateFilter);
 
     auto* ignoreEmptyDates{filter.findChild<QCheckBox*>()};
@@ -31,7 +31,7 @@ void FilterDatesTest::testFilterEmptyDatesToggle()
 
 void FilterDatesTest::testToggling()
 {
-    FilterDates filter(QLatin1String(""), fromDate_, toDate_, true);
+    FilterDates filter(QString::fromLatin1(""), fromDate_, toDate_, true);
     auto lineEdits{filter.findChildren<QDateEdit*>()};
     auto checkBoxes{filter.findChildren<QCheckBox*>()};
     for (const auto* widget : lineEdits)
@@ -49,12 +49,12 @@ void FilterDatesTest::testToggling()
 
 void FilterDatesTest::testProperInitOfEmptyDatesCheckbox()
 {
-    const FilterDates filterWithEmptyDates(QLatin1String(""), fromDate_,
+    const FilterDates filterWithEmptyDates(QString::fromLatin1(""), fromDate_,
                                            toDate_, true);
     auto* ignoreEmptyDates{filterWithEmptyDates.findChild<QCheckBox*>()};
     QCOMPARE(ignoreEmptyDates->isEnabled(), true);
 
-    const FilterDates filterWithoutEmptyDates(QLatin1String(""), fromDate_,
+    const FilterDates filterWithoutEmptyDates(QString::fromLatin1(""), fromDate_,
                                               toDate_, false);
     ignoreEmptyDates = filterWithoutEmptyDates.findChild<QCheckBox*>();
     QCOMPARE(ignoreEmptyDates->isEnabled(), false);
@@ -62,7 +62,7 @@ void FilterDatesTest::testProperInitOfEmptyDatesCheckbox()
 
 void FilterDatesTest::testChangingDates()
 {
-    const FilterDates filter(QLatin1String(""), fromDate_, toDate_, true);
+    const FilterDates filter(QString::fromLatin1(""), fromDate_, toDate_, true);
     auto lineEdits{filter.findChildren<QDateEdit*>()};
     Q_ASSERT(lineEdits.count() == 2);
     QDateEdit* fromEdit{(lineEdits.first()->date() == fromDate_
