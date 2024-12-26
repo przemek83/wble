@@ -102,18 +102,9 @@ QGroupBox* Examples::wrapProgressBar(const QString& name,
 
 QGroupBox* Examples::createProgressBarInfinite()
 {
-    QObject::connect(
-        &startStopButtonInfinite_, &QPushButton::clicked, &progressBarInfinite_,
-        [&bar = progressBarInfinite_, &startStop = startStopButtonInfinite_]()
-        {
-            const bool running{bar.isRunning()};
-            if (running)
-                bar.stop();
-            else
-                bar.start();
-            startStop.setText(
-                (running ? QStringLiteral("start") : QStringLiteral("stop")));
-        });
+    QObject::connect(&startStopButtonInfinite_, &QPushButton::clicked, this,
+                     &Examples::infiniteButtonClicked);
+
     return wrapProgressBar(QStringLiteral("Infinite progress bar"),
                            &progressBarInfinite_, &startStopButtonInfinite_);
 }
@@ -207,4 +198,19 @@ void Examples::filterDatesValuesChanged(QDate from, QDate to,
 void Examples::filterStringsValuesChanged(QStringList bannedItems)
 {
     info_.setText("Names Filter: " + bannedItems.join(','));
+}
+
+void Examples::infiniteButtonClicked()
+{
+    const bool running{progressBarInfinite_.isRunning()};
+    if (running)
+    {
+        progressBarInfinite_.stop();
+        startStopButtonInfinite_.setText(QStringLiteral("start"));
+    }
+    else
+    {
+        progressBarInfinite_.start();
+        startStopButtonInfinite_.setText(QStringLiteral("stop"));
+    }
 }

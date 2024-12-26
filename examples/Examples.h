@@ -78,4 +78,6 @@ private slots:
     void filterDatesValuesChanged(QDate from, QDate to, bool filterEmptyDates);
 
     void filterStringsValuesChanged(QStringList bannedItems);
+
+    void infiniteButtonClicked();
 };
