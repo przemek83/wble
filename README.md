@@ -111,3 +111,12 @@ Test project <path>/wble/build/tests
 
 Total Test time (real) =   0.11 sec
 ```
+
+## Licensing
+Wble library is published under a LGPL license.
+
+The project uses the following software:
+| Name | License | Home | Description |
+| --- | --- | --- | --- |
+| Qt | LGPLv3 | https://www.qt.io/| cross-platform application development framework |
+
