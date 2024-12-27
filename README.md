@@ -79,3 +79,35 @@ Can be used for tasks with unknown end time. The progress bar displays moving ar
 #### Counter progress bar
 ![Alt text](CounterProgressBar.png?raw=true "String filter not checkable")  
 Can be used for tasks with known end time. The progress bar displays arc, which is moving from 0 towards 100 percent. In the middle, current percent is displayed.
+
+## Testing
+For testing purposes, the QtTest framework is used. Build the project first. Make sure that the `wble-tests` target is built. Modern IDEs supporting CMake also support running tests with monitoring of failures. But in case you would like to run it manually, go to the `build/tests` directory, where the⁣ binary `wble-tests` should be available. Launching it should produce the following output on Linux:
+Example run:
+```
+$ ./wble-tests
+********* Start testing of DoubleSliderTest *********
+Config: Using QtTest library 6.5.2, Qt 6.5.2 (x86_64-little_endian-lp64 shared (dynamic) release build; by GCC 10.3.1 20210422 (Red Hat 10.3.1-1)), ubuntu 24.04
+PASS   : DoubleSliderTest::initTestCase()
+PASS   : DoubleSliderTest::testSettingCurrentValues()
+PASS   : DoubleSliderTest::testEmittingCurrentMinChanged()
+
+(...)
+
+PASS   : UtilitiesTest::testGetSpanAngleCounterHalf()
+PASS   : UtilitiesTest::testGetSpanAngleCounterFull()
+PASS   : UtilitiesTest::cleanupTestCase()
+Totals: 10 passed, 0 failed, 0 skipped, 0 blacklisted, 0ms
+********* Finished testing of UtilitiesTest *********
+
+```
+As an alternative, CTest can be used to run tests from the `build/tests` directory:
+```
+$ ctest
+Test project <path>/wble/build/tests
+    Start 1: wble-tests
+1/1 Test #1: wble-tests .......................   Passed    0.11 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =   0.11 sec
+```
