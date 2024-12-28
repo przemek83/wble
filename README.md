@@ -18,7 +18,7 @@
 ![Alt text](examples.png?raw=true "Wble examples app screenshot")  
 
 ## About project
- Library of useful Qt widgets. Created as a result of division of code of Volbx project and moving parts of it to independent library. Library contains:  
+Library of useful Qt widgets. Created as a result of the division of code of Volbx project and moving parts of it to an independent library. Library contains:
  + double slider
  + numeric filters (integer and double one)
  + string filter
@@ -30,7 +30,7 @@
 This section describes briefly how to setup the environment and build the project.
 
 ### Prerequisites
-Qt in version 6.5 or greater, C++ compiler with C++17 support as a minimum and CMake 3.16+. 
+Qt in version 6.5 or greater, C++ compiler with C++17 support as a minimum, and CMake 3.16+. 
 
 ### Building
 Clone and use CMake directly or via any IDE supporting it. CMake should:
@@ -39,7 +39,7 @@ Clone and use CMake directly or via any IDE supporting it. CMake should:
 
 As a result of compilation, binary for simulations and binary for testing should be created.
 
-**TIP**: remember to set properly `CMAKE_PREFIX_PATH` env variable. It should have Qt installation path to let CMake `find_package` command work.  
+**TIP**: Remember to set properly the `CMAKE_PREFIX_PATH` env variable. It should have a Qt installation path to let CMake `find_package` command work.  
 
 ## Built with
 | Tool |  Windows | Ubuntu |
@@ -64,16 +64,16 @@ Each handle can be moved independently. Check also Integer and Double filters, w
 Each filter widget inherits from `QGroupBox`. It means all filters can be checkable or not. Use standard `setCheckable()` to alter behavior.
 #### Integer filter
 ![Alt text](IntegerFilter.png?raw=true "Integer filter not checkable")  
-Wrapped double slider into adjustable widget. Dedicated for integer values.
+Wrapped double slider into an adjustable widget. Dedicated for integer values.
 #### Double filter
 ![Alt text](DoubleFilter.png?raw=true "Double filter not checkable")  
-Wrapped double slider into adjustable widget. Dedicated for double values.
+Wrapped double slider into an adjustable widget. Dedicated for double values.
 #### Date filter
 ![Alt text](DateFilter.png?raw=true "Date filter not checkable")  
 Widget allowing to pick custom date range. An additional "Ignore data with empty dates" check box can be used to filter out data entries with empty dates.
 #### String filter
 ![Alt text](StringFilter.png?raw=true "String filter not checkable")  
-Widget allowing to pick multiple string values as filtered set. Additional checkbox "Select/Unselect all" for quick unchecking / checking all string values in filter.
+Widget allowing to pick multiple string values as filtered set. Additional checkbox "Select/Unselect all" for quick unchecking/checking all string values in filter.
 ### Progress bars
 Widgets capable of showing progress of longer tasks. Can be used as a blend in widget or modal one. 
 #### Infinity progress bar
@@ -81,10 +81,10 @@ Widgets capable of showing progress of longer tasks. Can be used as a blend in w
 Can be used for tasks with unknown end time. The progress bar displays moving arcs until it is stopped or destroyed.
 #### Counter progress bar
 ![Alt text](CounterProgressBar.png?raw=true "String filter not checkable")  
-Can be used for tasks with known end time. The progress bar displays arc, which is moving from 0 towards 100 percent. In the middle, current percent is displayed.
+Can be used for tasks with a known end time. The progress bar displays an arc, which is moving from 0 toward 100 percent. In the middle, the current percent is displayed.
 
 ## Testing
-For testing purposes, the QtTest framework is used. Build the project first. Make sure that the `wble-tests` target is built. Modern IDEs supporting CMake also support running tests with monitoring of failures. But in case you would like to run it manually, go to the `build/tests` directory, where the⁣ binary `wble-tests` should be available. Launching it should produce the following output on Linux:
+For testing purposes, the Qt Test framework is used. Build the project first. Make sure that the `wble-tests` target is built. Modern IDEs supporting CMake also support running tests with monitoring of failures. But in case you would like to run it manually, go to the `build/tests` directory, where the⁣ binary `wble-tests` should be available. Launching it should produce the following output on Linux:
 Example run:
 ```
 $ ./wble-tests
