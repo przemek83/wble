@@ -15,7 +15,7 @@
 - [Widgets](#widgets)
 
 ## Examples screenshot
-![Alt text](examples.png?raw=true "String filter not checkable")  
+![Alt text](examples.png?raw=true "Wble examples app screenshot")  
 
 ## About project
  Library of useful Qt widgets. Created as a result of division of code of Volbx project and moving parts of it to independent library. Library contains:  
