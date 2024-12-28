@@ -14,6 +14,9 @@
 - [Usage](#usage)
 - [Widgets](#widgets)
 
+## Examples screenshot
+![Alt text](examples.png?raw=true "String filter not checkable")  
+
 ## About project
  Library of useful Qt widgets. Created as a result of division of code of Volbx project and moving parts of it to independent library. Library contains:  
  + double slider
