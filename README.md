@@ -8,11 +8,27 @@
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=przemek83_wble&metric=coverage)](https://sonarcloud.io/summary/new_code?id=przemek83_wble)
 [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=przemek83_wble&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=przemek83_wble)
 
-## Table of content
+## Table of contents
+- [Table of content](#table-of-content)
+- [Examples screenshot](#examples-screenshot)
 - [About project](#about-project)
-- [Building](#building)
+- [Getting Started](#getting-started)
+   * [Prerequisites](#prerequisites)
+   * [Building](#building)
+- [Built with](#built-with)
 - [Usage](#usage)
 - [Widgets](#widgets)
+   * [Double slider](#double-slider)
+   * [Filters](#filters)
+      + [Integer filter](#integer-filter)
+      + [Double filter](#double-filter)
+      + [Date filter](#date-filter)
+      + [String filter](#string-filter)
+   * [Progress bars](#progress-bars)
+      + [Infinity progress bar](#infinity-progress-bar)
+      + [Counter progress bar](#counter-progress-bar)
+- [Testing](#testing)
+- [Licensing](#licensing)
 
 ## Examples screenshot
 ![Alt text](examples.png?raw=true "Wble examples app screenshot")  
