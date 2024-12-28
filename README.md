@@ -9,7 +9,6 @@
 [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=przemek83_wble&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=przemek83_wble)
 
 ## Table of contents
-- [Table of content](#table-of-content)
 - [Examples screenshot](#examples-screenshot)
 - [About project](#about-project)
 - [Getting Started](#getting-started)
