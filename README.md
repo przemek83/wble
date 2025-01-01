@@ -14,6 +14,7 @@
 - [Getting Started](#getting-started)
    * [Prerequisites](#prerequisites)
    * [Building](#building)
+   * [CMake integration](#cmake-integration)
 - [Built with](#built-with)
 - [Usage](#usage)
 - [Widgets](#widgets)
@@ -56,6 +57,26 @@ As a result of compilation, binary for simulations and binary for testing should
 
 **TIP**: Remember to set properly the `CMAKE_PREFIX_PATH` env variable. It should have a Qt installation path to let CMake `find_package` command work.  
 
+### CMake integration
+Use `FetchContent` CMake module in your project:
+```
+include(FetchContent)
+
+FetchContent_Declare(
+   wble
+   GIT_REPOSITORY https://github.com/przemek83/wble.git
+   GIT_TAG v1.2.0
+)
+
+FetchContent_MakeAvailable(wble)
+```
+From that moment, wble library can be used in the `target_link_libraries` command:
+```
+add_executable(${PROJECT_NAME} ${SOURCES})
+target_link_libraries(${PROJECT_NAME} shared wble)
+```
+Check my other project `Volbx` for real world CMake integration.
+
 ## Built with
 | Tool |  Windows | Ubuntu |
 | --- | --- | --- |
@@ -68,8 +89,7 @@ As a result of compilation, binary for simulations and binary for testing should
 | VS Code | 1.92.0 | 1.95.3 |
 
 ## Usage
-The easiest way is to check examples subproject, where you can find how to create and interact with each widget included in this library.  
-Alternatively, tests subproject can be checked. Usage also can be found in my other project called Volbx where widgets from this library are used.
+The easiest way is to check examples subproject, where you can find how to create and interact with each widget included in this library. Alternatively, tests subproject can be checked. Usage also can be found in my other project called `Volbx` where widgets from this library are used.
 
 ## Widgets
 ### Double slider
