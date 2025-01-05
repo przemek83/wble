@@ -59,7 +59,7 @@ As a result of compilation, binary for simulations and binary for testing should
 
 ### CMake integration
 Use `FetchContent` CMake module in your project:
-```
+```cmake
 include(FetchContent)
 
 FetchContent_Declare(
@@ -71,7 +71,7 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(wble)
 ```
 From that moment, wble library can be used in the `target_link_libraries` command:
-```
+```cmake
 add_executable(${PROJECT_NAME} ${SOURCES})
 target_link_libraries(${PROJECT_NAME} shared wble)
 ```
