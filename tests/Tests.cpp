@@ -50,29 +50,30 @@ int main(int argc, char* argv[])
     QApplication::setStyle(style);
     setLightPalette();
 
+    int status{EXIT_SUCCESS};
     DoubleSliderTest doubleSliderTest;
-    QTest::qExec(&doubleSliderTest);
+    status |= QTest::qExec(&doubleSliderTest);
 
     FilterDatesTest filterDatesTest;
-    QTest::qExec(&filterDatesTest);
+    status |= QTest::qExec(&filterDatesTest);
 
     FilterStringsTest filterStringsTest;
-    QTest::qExec(&filterStringsTest);
+    status |= QTest::qExec(&filterStringsTest);
 
     FilterIntegersTest filterIntegersTest;
-    QTest::qExec(&filterIntegersTest);
+    status |= QTest::qExec(&filterIntegersTest);
 
     FilterDoublesTest filterDoublesTest;
-    QTest::qExec(&filterDoublesTest);
+    status |= QTest::qExec(&filterDoublesTest);
 
     ProgressBarCounterTest progressBarCounterTest;
-    QTest::qExec(&progressBarCounterTest);
+    status |= QTest::qExec(&progressBarCounterTest);
 
     ProgressBarInfiniteTest progressBarInfiniteTest;
-    QTest::qExec(&progressBarInfiniteTest);
+    status |= QTest::qExec(&progressBarInfiniteTest);
 
     UtilitiesTest utilitiesTest;
-    QTest::qExec(&utilitiesTest);
+    status |= QTest::qExec(&utilitiesTest);
 
-    return 0;
+    return status;
 }
