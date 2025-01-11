@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.16)
 
 project(wble
         LANGUAGES CXX
-        VERSION 1.1.0
+        VERSION 1.2.0
         DESCRIPTION "Library of useful Qt widgets"
         HOMEPAGE_URL "https://github.com/przemek83/wble")
 
