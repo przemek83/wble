@@ -6,7 +6,6 @@
 
 /// @class Filter
 /// @brief Filters base class.
-
 class WBLE_EXPORT Filter : public QGroupBox
 {
     Q_OBJECT
