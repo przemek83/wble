@@ -18,7 +18,8 @@ public:
     /// Constructor of ProgressBar class.
     /// @param title Title to be shown.
     /// @param parent Parent widget.
-    explicit ProgressBar(QString title, QWidget* parent = nullptr);
+    ProgressBar(QString title, QWidget* parent);
+    explicit ProgressBar(QString title);
 
     virtual void start();
 

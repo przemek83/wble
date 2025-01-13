@@ -29,6 +29,12 @@ FilterDates::FilterDates(const QString& name, QDate fromDate, QDate toDate,
     ui_->ignoreEmptyDates->setEnabled(emptyDates_);
 }
 
+FilterDates::FilterDates(const QString& name, QDate fromDate, QDate toDate,
+                         bool emptyDates)
+    : FilterDates(name, fromDate, toDate, emptyDates, nullptr)
+{
+}
+
 FilterDates::~FilterDates() = default;
 
 void FilterDates::initFromDateCalendar()

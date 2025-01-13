@@ -11,7 +11,8 @@ public:
     /// Constructor of ProgressBarCounter class.
     /// @param title Title to be shown.
     /// @param parent Parent widget.
-    explicit ProgressBarInfinite(QString title, QWidget* parent = nullptr);
+    ProgressBarInfinite(QString title, QWidget* parent);
+    explicit ProgressBarInfinite(QString title);
 
     void start() override;
 

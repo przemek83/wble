@@ -6,6 +6,11 @@ ProgressBarInfinite::ProgressBarInfinite(QString title, QWidget* parent)
 {
 }
 
+ProgressBarInfinite::ProgressBarInfinite(QString title)
+    : ProgressBarInfinite(title, nullptr)
+{
+}
+
 void ProgressBarInfinite::start()
 {
     timerId_ = startTimer(TIMER_DEFAULT_INTERVAL);

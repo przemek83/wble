@@ -20,6 +20,11 @@ FilterIntegers::FilterIntegers(const QString& name, double from, double to,
     toLineEdit->setText(QLocale::system().toString(toInt));
 }
 
+FilterIntegers::FilterIntegers(const QString& name, double from, double to)
+    : FilterIntegers(name, from, to, nullptr)
+{
+}
+
 bool FilterIntegers::isDoubleMode() const { return false; }
 
 void FilterIntegers::emitChangeSignal()

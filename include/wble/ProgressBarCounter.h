@@ -12,7 +12,8 @@ public:
     /// @param title Title to be shown.
     /// @param maxValue Maximum value after hitting which 100% is achieved..
     /// @param parent Parent widget.
-    ProgressBarCounter(QString title, int maxValue, QWidget* parent = nullptr);
+    ProgressBarCounter(QString title, int maxValue, QWidget* parent);
+    ProgressBarCounter(QString title, int maxValue);
 
     void reset() override;
 

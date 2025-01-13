@@ -22,7 +22,8 @@ class WBLE_EXPORT FilterStrings : public Filter
     Q_OBJECT
 public:
     FilterStrings(const QString& name, QStringList initialList,
-                  QWidget* parent = nullptr);
+                  QWidget* parent);
+    FilterStrings(const QString& name, QStringList initialList);
 
     ~FilterStrings() override;
 

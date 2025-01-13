@@ -11,7 +11,8 @@ class WBLE_EXPORT FilterIntegers : public FilterNumbers
     Q_OBJECT
 public:
     FilterIntegers(const QString& name, double from, double to,
-                   QWidget* parent = nullptr);
+                   QWidget* parent);
+    FilterIntegers(const QString& name, double from, double to);
 
 Q_SIGNALS:
     /// Emitted when filter state was changed.

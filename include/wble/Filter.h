@@ -10,7 +10,8 @@ class WBLE_EXPORT Filter : public QGroupBox
 {
     Q_OBJECT
 public:
-    explicit Filter(const QString& title, QWidget* parent = nullptr);
+    Filter(const QString& title, QWidget* parent);
+    explicit Filter(const QString& title);
 
 public Q_SLOTS:
     void setChecked(bool checked);

@@ -20,7 +20,9 @@ class WBLE_EXPORT FilterDates : public Filter
     Q_OBJECT
 public:
     FilterDates(const QString& name, QDate fromDate, QDate toDate,
-                bool emptyDates, QWidget* parent = nullptr);
+                bool emptyDates, QWidget* parent);
+    FilterDates(const QString& name, QDate fromDate, QDate toDate,
+                bool emptyDates);
 
     ~FilterDates() override;
 

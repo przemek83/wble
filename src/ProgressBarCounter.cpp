@@ -7,6 +7,11 @@ ProgressBarCounter::ProgressBarCounter(QString title, int maxValue,
 {
 }
 
+ProgressBarCounter::ProgressBarCounter(QString title, int maxValue)
+    : ProgressBarCounter(title, maxValue, nullptr)
+{
+}
+
 void ProgressBarCounter::reset()
 {
     currentPercent_ = 0;

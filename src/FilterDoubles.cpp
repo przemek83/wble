@@ -20,6 +20,11 @@ FilterDoubles::FilterDoubles(const QString& name, double from, double to,
         QLocale::system().toString(to, 'f', getDecimalPlaces()));
 }
 
+FilterDoubles::FilterDoubles(const QString& name, double from, double to)
+    : FilterDoubles(name, from, to, nullptr)
+{
+}
+
 bool FilterDoubles::isDoubleMode() const { return true; }
 
 void FilterDoubles::emitChangeSignal()

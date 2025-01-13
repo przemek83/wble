@@ -49,6 +49,11 @@ FilterStrings::FilterStrings(const QString& name, QStringList initialList,
     }
 }
 
+FilterStrings::FilterStrings(const QString& name, QStringList initialList)
+    : FilterStrings(name, initialList, nullptr)
+{
+}
+
 FilterStrings::~FilterStrings() = default;
 
 void FilterStrings::itemChecked(const QListWidgetItem* item)

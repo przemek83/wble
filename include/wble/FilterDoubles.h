@@ -10,8 +10,8 @@ class WBLE_EXPORT FilterDoubles : public FilterNumbers
 {
     Q_OBJECT
 public:
-    FilterDoubles(const QString& name, double from, double to,
-                  QWidget* parent = nullptr);
+    FilterDoubles(const QString& name, double from, double to, QWidget* parent);
+    FilterDoubles(const QString& name, double from, double to);
 
 Q_SIGNALS:
     /// Emitted when filter state was changed.

@@ -2,7 +2,7 @@
 
 #include <QEvent>
 
-DoubleClickEater::DoubleClickEater(QObject* parent) : QObject(parent) {}
+DoubleClickEater::DoubleClickEater() : QObject(nullptr) {}
 
 bool DoubleClickEater::eventFilter(QObject* watched, QEvent* event)
 {

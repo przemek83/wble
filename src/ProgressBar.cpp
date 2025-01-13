@@ -20,6 +20,8 @@ ProgressBar::ProgressBar(QString title, QWidget* parent)
     initTitleRectangle();
 }
 
+ProgressBar::ProgressBar(QString title) : ProgressBar(title, nullptr) {}
+
 void ProgressBar::start() { running_ = true; }
 
 void ProgressBar::stop() { running_ = false; }
