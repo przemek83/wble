@@ -8,10 +8,7 @@
 #include <QTimer>
 
 ProgressBar::ProgressBar(QString title, QWidget* parent)
-    : QWidget{parent},
-      title_{std::move(title)},
-      color_{Qt::blue},
-      brush_{color_}
+    : QWidget{parent}, title_{std::move(title)}
 {
     setWindowTitle(title_);
 

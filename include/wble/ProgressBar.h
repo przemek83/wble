@@ -65,9 +65,9 @@ private:
 
     QPen pen_;
 
-    const QColor color_;
+    const QColor color_{Qt::blue};
 
-    const QBrush brush_;
+    const QBrush brush_{color_};
 
     static constexpr int LINE_WIDTH{10};
     static constexpr int TITLE_HEIGHT{LINE_WIDTH * 3};

@@ -14,7 +14,6 @@ FilterStrings::FilterStrings(const QString& name, QStringList initialList,
     : Filter{name, parent},
       initialList_{std::move(initialList)},
       ui_{std::make_unique<Ui::FilterStrings>()},
-      addMarginForScrollBar_{false},
       doubleClickEater_{std::make_unique<DoubleClickEater>()}
 {
     ui_->setupUi(this);

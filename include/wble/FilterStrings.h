@@ -58,7 +58,7 @@ private:
     static constexpr int maximumHeigh_{180};
 
     /// Flag indicating that additional place for scroll should be added.
-    bool addMarginForScrollBar_;
+    bool addMarginForScrollBar_{false};
 
     std::unique_ptr<DoubleClickEater> doubleClickEater_;
 
