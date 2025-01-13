@@ -15,10 +15,8 @@ namespace Ui
 class FilterStrings;
 }  // namespace Ui
 
-/**
- * @class FilterNames
- * @brief Names filter for strings.
- */
+/// @class FilterNames
+/// @brief Names filter for strings.
 class WBLE_EXPORT FilterStrings : public Filter
 {
     Q_OBJECT
@@ -31,10 +29,8 @@ public:
     QSize sizeHint() const override;
 
 Q_SIGNALS:
-    /**
-     * Emitted when filter state was changed.
-     * @param bannedList List of unchecked items.
-     */
+    /// Emitted when filter state was changed.
+    /// @param bannedList List of unchecked items.
     void newStringFilter(QStringList bannedList);
 
 protected:
@@ -67,15 +63,11 @@ private:
     std::unique_ptr<DoubleClickEater> doubleClickEater_;
 
 private Q_SLOTS:
-    /**
-     * Triggered when user click on item.
-     * @param item Item clicked.
-     */
+    /// Triggered when user click on item.
+    /// @param item Item clicked.
     void itemChecked(const QListWidgetItem* item);
 
-    /**
-     * Triggered when user click on select all checkbox.
-     * @param checked Checked state.
-     */
+    /// Triggered when user click on select all checkbox.
+    /// @param checked Checked state.
     void selectAllToggled(bool checked);
 };

@@ -13,10 +13,8 @@ namespace Ui
 class FilterDates;
 }  // namespace Ui
 
-/**
- * @class FilterDates
- * @brief Filter for date type.
- */
+/// @class FilterDates
+/// @brief Filter for date type.
 class WBLE_EXPORT FilterDates : public Filter
 {
     Q_OBJECT
@@ -27,13 +25,11 @@ public:
     ~FilterDates() override;
 
 Q_SIGNALS:
-    /**
-     * Emitted when filter state was changed.
-     * @param fromDate Current from date.
-     * @param toDate Current to date.
-     * @param filterEmptyDates Flag indicating that data with empty date should
-     * be ignored.
-     */
+    /// Emitted when filter state was changed.
+    /// @param fromDate Current from date.
+    /// @param toDate Current to date.
+    /// @param filterEmptyDates Flag indicating that data with empty date should
+    /// be ignored.
     void newDateFilter(QDate fromDate, QDate toDate, bool filterEmptyDates);
 
 protected:
@@ -60,15 +56,11 @@ private:
     const bool emptyDates_;
 
 private Q_SLOTS:
-    /**
-     * Triggered on change of date in from date edit.
-     * @param newDate New value.
-     */
+    /// Triggered on change of date in from date edit.
+    /// @param newDate New value.
     void fromDateChanged(QDate newDate);
 
-    /**
-     * Triggered on change of date in to date edit.
-     * @param newDate New value.
-     */
+    /// Triggered on change of date in to date edit.
+    /// @param newDate New value.
     void toDateChanged(QDate newDate);
 };

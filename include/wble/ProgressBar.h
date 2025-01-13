@@ -9,19 +9,15 @@
 
 #include "wble_global.h"
 
-/**
- * @class ProgressBar
- * @brief Round progress bar to visualize task progress.
- */
+/// @class ProgressBar
+/// @brief Round progress bar to visualize task progress.
 class WBLE_EXPORT ProgressBar : public QWidget
 {
     Q_OBJECT
 public:
-    /**
-     * Constructor of ProgressBar class.
-     * @param title Title to be shown.
-     * @param parent Parent widget.
-     */
+    /// Constructor of ProgressBar class.
+    /// @param title Title to be shown.
+    /// @param parent Parent widget.
     explicit ProgressBar(QString title, QWidget* parent = nullptr);
 
     virtual void start();
@@ -40,10 +36,8 @@ protected:
 
     void initPainter(QPainter* painter) const override;
 
-    /**
-     * Paint graphically progress bar arc.
-     * @param painter Painter which should be used.
-     */
+    /// Paint graphically progress bar arc.
+    /// @param painter Painter which should be used.
     virtual void paintProgressBar(QPainter& painter) = 0;
 
     QRect getArcRectangle() const;

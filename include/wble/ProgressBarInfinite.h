@@ -2,19 +2,15 @@
 
 #include "ProgressBar.h"
 
-/**
- * @class ProgressBarInfinite
- * @brief Round progress showing two arcs moving infinitely.
- */
+/// @class ProgressBarInfinite
+/// @brief Round progress showing two arcs moving infinitely.
 class WBLE_EXPORT ProgressBarInfinite : public ProgressBar
 {
     Q_OBJECT
 public:
-    /**
-     * Constructor of ProgressBarCounter class.
-     * @param title Title to be shown.
-     * @param parent Parent widget.
-     */
+    /// Constructor of ProgressBarCounter class.
+    /// @param title Title to be shown.
+    /// @param parent Parent widget.
     explicit ProgressBarInfinite(QString title, QWidget* parent = nullptr);
 
     void start() override;

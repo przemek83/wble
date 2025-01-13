@@ -15,10 +15,8 @@ class FilterNumbers;
 
 class QLineEdit;
 
-/**
- * @class FilterNumbers
- * @brief Base class for numeric filters.
- */
+/// @class FilterNumbers
+/// @brief Base class for numeric filters.
 class WBLE_EXPORT FilterNumbers : public Filter
 {
     Q_OBJECT
@@ -67,26 +65,18 @@ private:
     const int decimalPlaces_{2};
 
 private Q_SLOTS:
-    /**
-     * Triggered on change of left handle on slider.
-     * @param newValue new value.
-     */
+    /// Triggered on change of left handle on slider.
+    /// @param newValue new value.
     void sliderFromChanged(double newValue);
 
-    /**
-     * Triggered on change of right handle on slider.
-     * @param newValue new value.
-     */
+    /// Triggered on change of right handle on slider.
+    /// @param newValue new value.
     void sliderToChanged(double newValue);
 
-    /**
-     * Triggered on change of left LineEdit (from).
-     */
+    /// Triggered on change of left LineEdit (from).
     void fromEditingFinished();
 
-    /**
-     * Triggered on change of right LineEdit (to).
-     */
+    /// Triggered on change of right LineEdit (to).
     void toEditingFinished();
 
     void lineEditContentModified(const QString& currentContent) const;

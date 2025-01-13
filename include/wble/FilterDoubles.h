@@ -4,10 +4,8 @@
 
 #include "FilterNumbers.h"
 
-/**
- * @class FilterDoubles
- * @brief Numeric filter for double values.
- */
+/// @class FilterDoubles
+/// @brief Numeric filter for double values.
 class WBLE_EXPORT FilterDoubles : public FilterNumbers
 {
     Q_OBJECT
@@ -16,11 +14,9 @@ public:
                   QWidget* parent = nullptr);
 
 Q_SIGNALS:
-    /**
-     * Emitted when filter state was changed.
-     * @param from Current value of from number.
-     * @param to Current value of to number.
-     */
+    /// Emitted when filter state was changed.
+    /// @param from Current value of from number.
+    /// @param to Current value of to number.
     void newNumericFilter(double from, double to);
 
 protected:
