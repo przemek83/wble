@@ -89,23 +89,23 @@ int DoubleSlider::getMousePosition(const QMouseEvent* event) const
     return pos;
 }
 
-void DoubleSlider::mousePressEvent([[maybe_unused]] QMouseEvent* event)
+void DoubleSlider::mousePressEvent([[maybe_unused]] QMouseEvent* ev)
 {
     moving_ = Handle::NONE;
 }
 
-void DoubleSlider::mouseReleaseEvent(QMouseEvent* event)
+void DoubleSlider::mouseReleaseEvent(QMouseEvent* ev)
 {
     moving_ = Handle::NONE;
-    mouseMoveEvent(event);
+    mouseMoveEvent(ev);
     update();
 }
 
-void DoubleSlider::changeEvent(QEvent* event)
+void DoubleSlider::changeEvent(QEvent* e)
 {
-    QSlider::changeEvent(event);
+    QSlider::changeEvent(e);
 
-    if (event->type() == QEvent::StyleChange)
+    if (e->type() == QEvent::StyleChange)
         setHandleRect();
 }
 
@@ -128,22 +128,22 @@ bool DoubleSlider::mouseIsOnHandle(int mousePosX, int handlePos) const
            (mousePosX >= (handlePosX - (handleRect_.width() * shiftRatio)));
 }
 
-void DoubleSlider::mouseMoveEvent(QMouseEvent* event)
+void DoubleSlider::mouseMoveEvent(QMouseEvent* ev)
 {
-    if ((event->buttons() & Qt::LeftButton) == 0U)
+    if ((ev->buttons() & Qt::LeftButton) == 0U)
     {
         moving_ = Handle::NONE;
         return;
     }
 
-    const int newPosition{getMousePosition(event)};
+    const int newPosition{getMousePosition(ev)};
     const int minX{getHandlePosition(Handle::LEFT)};
     const int maxX{getHandlePosition(Handle::RIGHT)};
 
     const bool onMinHandle{
-        mouseIsOnHandle(static_cast<int>(event->position().x()), minX)};
+        mouseIsOnHandle(static_cast<int>(ev->position().x()), minX)};
     const bool onMaxHandle{
-        mouseIsOnHandle(static_cast<int>(event->position().x()), maxX)};
+        mouseIsOnHandle(static_cast<int>(ev->position().x()), maxX)};
 
     const double range{max_ - min_};
     const double newCurrent{
@@ -248,13 +248,13 @@ void DoubleSlider::drawHandles(QPainter& painter) const
     style()->drawComplexControl(QStyle::CC_Slider, &rightStyle, &painter, this);
 }
 
-void DoubleSlider::paintEvent(QPaintEvent* event)
+void DoubleSlider::paintEvent(QPaintEvent* ev)
 {
     if (utilities::doublesAreEqual(min_, max_))
         return;
 
     QPainter painter(this);
-    painter.setClipRegion(event->region());
+    painter.setClipRegion(ev->region());
 
     drawSliderBar(painter);
     drawSliderBarBetweenHandles(painter);

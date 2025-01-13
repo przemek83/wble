@@ -4,76 +4,56 @@
 
 #include "wble_global.h"
 
-/**
- * @class DoubleSlider
- * @brief Slider with two moving independently handles.
- */
+/// @class DoubleSlider
+/// @brief Slider with two moving independently handles.
 class WBLE_EXPORT DoubleSlider : public QSlider
 {
     Q_OBJECT
 public:
-    /**
-     * Constructor of DoubleSlider class.
-     * @param min Minimum value of slider.
-     * @param max Maximum value of slider.
-     * @param parent Parent widget.
-     */
+    /// Constructor of DoubleSlider class.
+    /// @param min Minimum value of slider.
+    /// @param max Maximum value of slider.
+    /// @param parent Parent widget.
     DoubleSlider(double min, double max, QWidget* parent = nullptr);
 
-    /**
-     * Get slider minimum value.
-     * @return Slider minimum value.
-     */
+    /// Get slider minimum value.
+    /// @return Slider minimum value.
     double getMin() const;
 
-    /**
-     * Get slider maximum value.
-     * @return Slider maximum value.
-     */
+    /// Get slider maximum value.
+    /// @return Slider maximum value.
     double getMax() const;
 
-    /**
-     * Get current value of left handle (minimum).
-     * @return Current minimum value.
-     */
+    /// Get current value of left handle (minimum).
+    /// @return Current minimum value.
     double getCurrentMin() const;
 
-    /**
-     * Get current value of right handle (maximum).
-     * @return Current maximum value.
-     */
+    /// Get current value of right handle (maximum).
+    /// @return Current maximum value.
     double getCurrentMax() const;
 
 public Q_SLOTS:
-    /**
-     * Set current minimum.
-     * @param currentMinToSet Minimum value to set.
-     */
+    /// Set current minimum.
+    /// @param currentMinToSet Minimum value to set.
     void setCurrentMin(double currentMinToSet);
 
-    /**
-     * Set current maximum.
-     * @param currentMaxToSet Maximum value to set.
-     */
+    /// Set current maximum.
+    /// @param currentMaxToSet Maximum value to set.
     void setCurrentMax(double currentMaxToSet);
 
 Q_SIGNALS:
-    /**
-     * Signal emitted when minimum value has changed (left slider moved).
-     */
+    /// Signal emitted when minimum value has changed (left slider moved).
     void currentMinChanged(double currentMin);
 
-    /**
-     * Signal emitted when maximum value has changed (right slider moved).
-     */
+    /// Signal emitted when maximum value has changed (right slider moved).
     void currentMaxChanged(double currentMax);
 
 protected:
-    void paintEvent(QPaintEvent* event) override;
-    void mousePressEvent(QMouseEvent* event) override;
-    void mouseReleaseEvent(QMouseEvent* event) override;
-    void mouseMoveEvent(QMouseEvent* event) override;
-    void changeEvent(QEvent* event) override;
+    void paintEvent(QPaintEvent* ev) override;
+    void mousePressEvent(QMouseEvent* ev) override;
+    void mouseReleaseEvent(QMouseEvent* ev) override;
+    void mouseMoveEvent(QMouseEvent* ev) override;
+    void changeEvent(QEvent* e) override;
 
 private:
     enum class Handle : char
