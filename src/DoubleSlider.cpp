@@ -30,6 +30,11 @@ DoubleSlider::DoubleSlider(double min, double max, QWidget* parent)
     setHandleRect();
 }
 
+DoubleSlider::DoubleSlider(double min, double max)
+    : DoubleSlider(min, max, nullptr)
+{
+}
+
 double DoubleSlider::getCurrentMin() const { return currentMin_; }
 
 double DoubleSlider::getCurrentMax() const { return currentMax_; }

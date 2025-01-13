@@ -21,8 +21,8 @@ class WBLE_EXPORT FilterNumbers : public Filter
 {
     Q_OBJECT
 public:
-    FilterNumbers(const QString& name, double from, double to,
-                  QWidget* parent = nullptr);
+    FilterNumbers(const QString& name, double from, double to, QWidget* parent);
+    FilterNumbers(const QString& name, double from, double to);
 
     ~FilterNumbers() override;
 

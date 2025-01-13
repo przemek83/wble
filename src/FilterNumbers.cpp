@@ -29,6 +29,11 @@ FilterNumbers::FilterNumbers(const QString& name, double from, double to,
         setDisabled(true);
 }
 
+FilterNumbers::FilterNumbers(const QString& name, double from, double to)
+    : FilterNumbers(name, from, to, nullptr)
+{
+}
+
 FilterNumbers::~FilterNumbers() = default;
 
 void FilterNumbers::checkedStateChanged(bool checked)
@@ -54,10 +59,7 @@ void FilterNumbers::changeEvent(QEvent* event)
         initColorForLineEdits();
 }
 
-int FilterNumbers::getDecimalPlaces() const
-{
-    return decimalPlaces_;
-}
+int FilterNumbers::getDecimalPlaces() const { return decimalPlaces_; }
 
 void FilterNumbers::initDoubleSlider()
 {

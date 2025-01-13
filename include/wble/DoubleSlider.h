@@ -14,7 +14,8 @@ public:
     /// @param min Minimum value of slider.
     /// @param max Maximum value of slider.
     /// @param parent Parent widget.
-    DoubleSlider(double min, double max, QWidget* parent = nullptr);
+    DoubleSlider(double min, double max, QWidget* parent);
+    DoubleSlider(double min, double max);
 
     /// Get slider minimum value.
     /// @return Slider minimum value.
