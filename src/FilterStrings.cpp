@@ -50,7 +50,7 @@ FilterStrings::FilterStrings(const QString& name, QStringList initialList,
 }
 
 FilterStrings::FilterStrings(const QString& name, QStringList initialList)
-    : FilterStrings(name, initialList, nullptr)
+    : FilterStrings(name, std::move(initialList), nullptr)
 {
 }
 
@@ -77,14 +77,16 @@ QSize FilterStrings::sizeHint() const
 {
     if (isChecked())
     {
-        int maxListHeight{std::min(
-            (ui_->listWidget->sizeHintForRow(0) * ui_->listWidget->count()) +
-                (2 * ui_->listWidget->frameWidth()),
-            maximumHeigh_)};
+        const int itemCount{ui_->listWidget->count()};
+        int maxListHeight{
+            std::min((ui_->listWidget->sizeHintForRow(0) * itemCount) +
+                         (2 * ui_->listWidget->frameWidth()),
+                     maximumHeigh_)};
 
         // Add space for scroll in case of 3 or less items and long
         //   names detected in constructor.
-        if (addMarginForScrollBar_ && (3 >= ui_->listWidget->count()))
+        const int maxItemsForScrollBarMargin{3};
+        if (addMarginForScrollBar_ && (itemCount <= maxItemsForScrollBarMargin))
         {
             // Scroll size retrieved here is not actual one, use row heigh
             // instead.
