@@ -46,7 +46,7 @@ Library of useful Qt widgets. Created as a result of the division of code of Vol
 This section describes briefly how to setup the environment and build the project.
 
 ### Prerequisites
-Qt in version 6.5 or greater, C++ compiler with C++17 support as a minimum, and CMake 3.16+. 
+Qt in version 6.8 or greater, C++ compiler with C++17 support as a minimum, and CMake 3.16+. 
 
 ### Building
 Clone and use CMake directly or via any IDE supporting it. CMake should:
@@ -80,11 +80,11 @@ Check my other project `Volbx` for real world CMake integration.
 ## Built with
 | |  Windows | Windows | Ubuntu |
 | --- | --- | --- | --- | 
-| OS version | 10 22H2 | 10 22H2 | 24.04 |
-| compiler | GCC 13.1.0 | MSVC 19.29 | GCC 13.2.0 |
-| CMake | 3.30.2 | 3.30.2 |3.28.3 |
+| OS version | 11 24H2 | 11 24H2 | 24.04 |
+| compiler | GCC 13.1.0 | MSVC 19.44 | GCC 13.3.0 |
+| CMake | 4.3.4 | 4.3.4 | 4.3.4 |
 | Git | 2.46.0 | 2.46.0 | 2.43.0 |
-| Qt | 6.5.2 | 6.5.2 | 6.5.2 |
+| Qt | 6.8.3 | 6.8.3 | 6.8.3 |
 
 ## Usage
 The easiest way is to check examples subproject, where you can find how to create and interact with each widget included in this library. Alternatively, tests subproject can be checked. Usage also can be found in my other project called `Volbx` where widgets from this library are used.
@@ -122,7 +122,7 @@ Example run:
 ```
 $ ./wble-tests
 ********* Start testing of DoubleSliderTest *********
-Config: Using QtTest library 6.5.2, Qt 6.5.2 (x86_64-little_endian-lp64 shared (dynamic) release build; by GCC 10.3.1 20210422 (Red Hat 10.3.1-1)), ubuntu 24.04
+Config: Using QtTest library 6.8.3, Qt 6.8.3 (x86_64-little_endian-lp64 shared (dynamic) release build; by GCC 10.3.1 20210422 (Red Hat 10.3.1-1)), ubuntu 24.04
 PASS   : DoubleSliderTest::initTestCase()
 PASS   : DoubleSliderTest::testSettingCurrentValues()
 PASS   : DoubleSliderTest::testEmittingCurrentMinChanged()
