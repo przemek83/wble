@@ -46,34 +46,34 @@ int main(int argc, char* argv[])
 {
     const QApplication a(argc, argv);
 
-    QStyle* style = QStyleFactory::create(QStringLiteral("Fusion"));
+    QStyle* style{QStyleFactory::create(QStringLiteral("Fusion"))};
     QApplication::setStyle(style);
     setLightPalette();
 
     int status{EXIT_SUCCESS};
     DoubleSliderTest doubleSliderTest;
-    status |= QTest::qExec(&doubleSliderTest);
+    status = std::max(status, QTest::qExec(&doubleSliderTest));
 
     FilterDatesTest filterDatesTest;
-    status |= QTest::qExec(&filterDatesTest);
+    status = std::max(status, QTest::qExec(&filterDatesTest));
 
     FilterStringsTest filterStringsTest;
-    status |= QTest::qExec(&filterStringsTest);
+    status = std::max(status, QTest::qExec(&filterStringsTest));
 
     FilterIntegersTest filterIntegersTest;
-    status |= QTest::qExec(&filterIntegersTest);
+    status = std::max(status, QTest::qExec(&filterIntegersTest));
 
     FilterDoublesTest filterDoublesTest;
-    status |= QTest::qExec(&filterDoublesTest);
+    status = std::max(status, QTest::qExec(&filterDoublesTest));
 
     ProgressBarCounterTest progressBarCounterTest;
-    status |= QTest::qExec(&progressBarCounterTest);
+    status = std::max(status, QTest::qExec(&progressBarCounterTest));
 
     ProgressBarInfiniteTest progressBarInfiniteTest;
-    status |= QTest::qExec(&progressBarInfiniteTest);
+    status = std::max(status, QTest::qExec(&progressBarInfiniteTest));
 
     UtilitiesTest utilitiesTest;
-    status |= QTest::qExec(&utilitiesTest);
+    status = std::max(status, QTest::qExec(&utilitiesTest));
 
     return status;
 }
